@@ -1,0 +1,8 @@
+name: oketo
+image: okteto/node:12
+command: bash
+namespace: develop
+sync:
+- .:/usr/src/app
+forward:
+- 4200:8443
