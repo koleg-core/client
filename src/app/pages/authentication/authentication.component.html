@@ -1,0 +1,54 @@
+<ion-content>
+  <ion-grid>
+
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <ion-img src="assets/drawable/koleg-3.svg"></ion-img>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <h1> {{ 'LOGIN_PAGE.AUTHENTICATE_TITLE' | translate }} </h1>
+          <ion-item>
+            <ion-label position="floating">{{ 'LOGIN_PAGE.USERNAME_PLACEHOLDER' | translate }}</ion-label>
+            <ion-input autofocus="true" type="text" inputmode="text" formControlName="username"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="isFormInvalid()" class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <ion-card color="danger">
+            <ion-card-content>
+              {{ 'LOGIN_PAGE.ERRORS.FIELDS_REQUIRED' | translate }}
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-text-end" size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <ion-button type="submit">{{ 'LOGIN_PAGE.AUTHENTICATE_BUTTON_LABEL' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center" size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+        <ion-button fill="clear">{{ 'LOGIN_PAGE.FORGOTTEN_PASSWORD_BUTTON_LABEL' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>
