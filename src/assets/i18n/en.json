@@ -1,0 +1,16 @@
+{
+  "COMMON": {
+    "OK": "Ok",
+    "CANCEL": "Cancel"
+  },
+  "LOGIN_PAGE": {
+    "AUTHENTICATE_TITLE": "Authenticate",
+    "USERNAME_PLACEHOLDER": "Username",
+    "PASSWORD_PLACEHOLDER": "Password",
+    "AUTHENTICATE_BUTTON_LABEL": "Authenticate",
+    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Forgot your password ?",
+    "ERRORS": {
+      "FIELDS_REQUIRED": "All fields are required."
+    }
+  }
+}

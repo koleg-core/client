@@ -2,5 +2,15 @@
   "COMMON": {
     "OK": "Ok",
     "CANCEL": "Annuler"
+  },
+  "LOGIN_PAGE": {
+    "AUTHENTICATE_TITLE": "S'authentifier",
+    "USERNAME_PLACEHOLDER": "Nom d'utilisateur",
+    "PASSWORD_PLACEHOLDER": "Mot de passe",
+    "AUTHENTICATE_BUTTON_LABEL": "S'authentifier",
+    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Mot de passe oublié ?",
+    "ERRORS": {
+      "FIELDS_REQUIRED": "Tous les champs sont requis."
+    }
   }
 }

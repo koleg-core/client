@@ -20,7 +20,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     HttpClientModule,
     TranslateModule.forRoot({
       defaultLanguage: 'fr',
