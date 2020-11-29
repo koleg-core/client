@@ -1,7 +1,7 @@
 variables:
-  STORAGE_DRIVER: vfs
   BUILDAH_FORMAT: docker
   REGISTRY_AUTH_FILE: auth.json
+  IMAGE_NAME: koleg-client
 
 stages:
   - 🐳login
@@ -12,26 +12,43 @@ stages:
 .docker_login:
   image: buildah/buildah:latest
   before_script:
-   - > 
+   - >
      echo "$SCW_REGISTRY_TOKEN"
      | buildah login -u "$SCW_REGISTRY_USER" --password-stdin $SCW_REGISTRY
 
-🔥release_prod:
+🔥build_prod:
   stage: 🏗build
   extends: .docker_login
   script: |
     buildah bud \
-      --build-arg "PROD=true" \
-      -t ${CI_PROJECT_PATH}:${CI_COMMIT} \
-      -t ${CI_PROJECT_PATH}:latest .
-    buildah push ${CI_PROJECT_PATH}:latest ${CI_PROJECT_PATH}:${CI_COMMIT}
+      --storage-driver "vfs" \
+      --build-arg='PROD=true' \
+      -t $IMAGE_NAME:${CI_COMMIT} \
+      -t $IMAGE_NAME:latest .
+
+🔥release_prod:
+  stage: 🔖release
+  extends: .docker_login
+  script: |
+    export STORAGE_DRIVER
+    buildah push \
+      $IMAGE_NAME:latest \
+      $image_name:${CI_COMMIT}
+
+🚑build_debug:
+  stage: 🏗build
+  extends: .docker_login
+  script: |
+    buildah bud \
+      --storage-driver "vfs" \
+      --build-arg='PROD=false' \
+      -t $IMAGE_NAME:debug-${CI_COMMIT} \
+      -t $IMAGE_NAME:debug .
 
 🚑release_debug:
-  stage: 🏗build
+  stage: 🔖release
   extends: .docker_login
   script: |
-    buildah bud \
-      --build-arg "PROD=true" \
-      -t ${CI_PROJECT_PATH}:debug-${CI_COMMIT} \
-      -t ${CI_PROJECT_PATH}:debug .
-    buildah push ${CI_PROJECT_PATH}:debug ${CI_PROJECT_PATH}:debug-${CI_COMMIT}
+    buildah push \
+      $IMAGE_NAME:debug \
+      $IMAGE_NAME:debug-${CI_COMMIT}

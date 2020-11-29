@@ -18,13 +18,13 @@ WORKDIR /app
 COPY package.json ./
 COPY . ./
 
-#COPY $ENV .env
-
-RUN yarn install
+# TODO: only for debug
+# RUN yarn install
 
 VOLUME /app/node_modules
 
-RUN yarn build --prod=${ENV}
+# TODO: only for debug
+#RUN yarn build --prod=${PROD}
 
 VOLUME /app/dist
 
@@ -33,11 +33,11 @@ FROM nginx:alpine
 
 ENV NODE_OPTIONS="--max-old-space-size=8192"
 
-RUN rm -fr \
-  /etc/nginx/nginx.conf \
-  /usr/share/nginx/html
+# RUN rm -fr \
+#   /etc/nginx/nginx.conf \
+#   /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/
 
 COPY --from=build /app/dist/client /usr/share/nginx/html
 
