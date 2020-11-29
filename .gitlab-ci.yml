@@ -1,0 +1,37 @@
+variables:
+  STORAGE_DRIVER: vfs
+  BUILDAH_FORMAT: docker
+  REGISTRY_AUTH_FILE: auth.json
+
+stages:
+  - 🐳login
+  - 🏗build
+  - 🔖release
+  - deploy
+
+.docker_login:
+  image: buildah/buildah:latest
+  before_script:
+   - > 
+     echo "$SCW_REGISTRY_TOKEN"
+     | buildah login -u "$SCW_REGISTRY_USER" --password-stdin $SCW_REGISTRY
+
+🔥release_prod:
+  stage: 🏗build
+  extends: .docker_login
+  script: |
+    buildah bud \
+      --build-arg "PROD=true" \
+      -t ${CI_PROJECT_PATH}:${CI_COMMIT} \
+      -t ${CI_PROJECT_PATH}:latest .
+    buildah push ${CI_PROJECT_PATH}:latest ${CI_PROJECT_PATH}:${CI_COMMIT}
+
+🚑release_debug:
+  stage: 🏗build
+  extends: .docker_login
+  script: |
+    buildah bud \
+      --build-arg "PROD=true" \
+      -t ${CI_PROJECT_PATH}:debug-${CI_COMMIT} \
+      -t ${CI_PROJECT_PATH}:debug .
+    buildah push ${CI_PROJECT_PATH}:debug ${CI_PROJECT_PATH}:debug-${CI_COMMIT}

@@ -1,0 +1,6 @@
+./dist
+./cordova
+./node_modules
+.tmp
+node_modules
+package-lock.json
