@@ -1,7 +1,14 @@
 {
   "COMMON": {
     "OK": "Ok",
-    "CANCEL": "Cancel"
+    "CANCEL": "Cancel",
+    "APP_VERSION": "V{{appVersion}}",
+    "FORMS": {
+      "ERRORS": {
+        "FIELDS_REQUIRED": "All fields are required.",
+        "BAD_FORMAT": "This field is not valid."
+      }
+    }
   },
   "LOGIN_PAGE": {
     "AUTHENTICATE_TITLE": "Authenticate",
@@ -12,5 +19,10 @@
     "ERRORS": {
       "FIELDS_REQUIRED": "All fields are required."
     }
+  },
+  "RESET_PASSWORD_PAGE": {
+    "RESET_PASSWORD_TITLE": "Reset your password",
+    "EMAIL_PLACEHOLDER": "Email",
+    "RESET_PASSWORD_BUTTON_LABEL": "Reset"
   }
 }

@@ -4,10 +4,27 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'authentication',
+    redirectTo: 'auth',
     pathMatch: 'full'
   },
-  { path: 'authentication', loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule) }
+  {
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        redirectTo: 'authentication',
+        pathMatch: 'full'
+      },
+      {
+        path: 'authentication',
+        loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule)
+      },
+      {
+        path: 'reset-password',
+        loadChildren: () => import('./pages/reset-password/reset-password.module').then(m => m.ResetPasswordModule)
+      }
+    ]
+  },
 ];
 
 
