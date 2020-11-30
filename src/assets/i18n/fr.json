@@ -1,16 +1,25 @@
 {
   "COMMON": {
     "OK": "Ok",
-    "CANCEL": "Annuler"
+    "CANCEL": "Annuler",
+    "APP_VERSION": "V{{appVersion}}",
+    "FORMS": {
+      "ERRORS": {
+        "FIELDS_REQUIRED": "Tous les champs sont requis.",
+        "BAD_FORMAT": "Ce champ n'est pas valide."
+      }
+    }
   },
   "LOGIN_PAGE": {
     "AUTHENTICATE_TITLE": "S'authentifier",
     "USERNAME_PLACEHOLDER": "Nom d'utilisateur",
     "PASSWORD_PLACEHOLDER": "Mot de passe",
     "AUTHENTICATE_BUTTON_LABEL": "S'authentifier",
-    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Mot de passe oublié ?",
-    "ERRORS": {
-      "FIELDS_REQUIRED": "Tous les champs sont requis."
-    }
+    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Mot de passe oublié ?"
+  },
+  "RESET_PASSWORD_PAGE": {
+    "RESET_PASSWORD_TITLE": "Réinitialiser son mot de passe",
+    "EMAIL_PLACEHOLDER": "Email",
+    "RESET_PASSWORD_BUTTON_LABEL": "Réinitialiser"
   }
 }
