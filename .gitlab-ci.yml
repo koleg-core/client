@@ -23,7 +23,7 @@ stages:
     buildah bud \
       --storage-driver "vfs" \
       --build-arg='PROD=true' \
-      -t $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT} \
+      -t $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHA} \
       -t $SCW_REGISTRY/$IMAGE_NAME:latest .
 
 🔥release_prod:
@@ -33,7 +33,7 @@ stages:
     export STORAGE_DRIVER
     buildah push \
       $SCW_REGISTRY/$IMAGE_NAME:latest \
-      $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT}
+      $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHA}
 
 🚑build_debug:
   stage: 🏗build
@@ -42,7 +42,7 @@ stages:
     buildah bud \
       --storage-driver "vfs" \
       --build-arg='PROD=false' \
-      -t $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT} \
+      -t $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT_SHA} \
       -t $SCW_REGISTRY/$IMAGE_NAME:debug .
 
 🚑release_debug:
@@ -51,4 +51,4 @@ stages:
   script: |
     buildah push \
       $SCW_REGISTRY/$IMAGE_NAME:debug \
-      $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT}
+      $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT_SHA}
