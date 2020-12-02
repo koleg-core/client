@@ -23,8 +23,8 @@ stages:
     buildah bud \
       --storage-driver "vfs" \
       --build-arg='PROD=true' \
-      -t $IMAGE_NAME:${CI_COMMIT} \
-      -t $IMAGE_NAME:latest .
+      -t $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT} \
+      -t $SCW_REGISTRY/$IMAGE_NAME:latest .
 
 🔥release_prod:
   stage: 🔖release
@@ -32,8 +32,8 @@ stages:
   script: |
     export STORAGE_DRIVER
     buildah push \
-      $IMAGE_NAME:latest \
-      $image_name:${CI_COMMIT}
+      $SCW_REGISTRY/$IMAGE_NAME:latest \
+      $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT}
 
 🚑build_debug:
   stage: 🏗build
@@ -42,13 +42,13 @@ stages:
     buildah bud \
       --storage-driver "vfs" \
       --build-arg='PROD=false' \
-      -t $IMAGE_NAME:debug-${CI_COMMIT} \
-      -t $IMAGE_NAME:debug .
+      -t $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT} \
+      -t $SCW_REGISTRY/$IMAGE_NAME:debug .
 
 🚑release_debug:
   stage: 🔖release
   extends: .docker_login
   script: |
     buildah push \
-      $IMAGE_NAME:debug \
-      $IMAGE_NAME:debug-${CI_COMMIT}
+      $SCW_REGISTRY/$IMAGE_NAME:debug \
+      $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT}
