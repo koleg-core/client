@@ -1,19 +1,17 @@
 variables:
-  BUILDAH_FORMAT: docker
   REGISTRY_AUTH_FILE: auth.json
   IMAGE_NAME: koleg-client
 
 stages:
   - 🐳login
   - 🏗build
-  - 🔖release
   - deploy
 
 .docker_login:
-  image: buildah/buildah:latest
+  image: jbenden/buildah
   before_script:
-   - >
-     echo "$SCW_REGISTRY_TOKEN"
+   - |
+    echo "$SCW_REGISTRY_TOKEN" \
      | buildah login -u "$SCW_REGISTRY_USER" --password-stdin $SCW_REGISTRY
 
 🔥build_prod:
@@ -22,18 +20,15 @@ stages:
   script: |
     buildah bud \
       --storage-driver "vfs" \
-      --build-arg='PROD=true' \
-      -t $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHA} \
-      -t $SCW_REGISTRY/$IMAGE_NAME:latest .
-
-🔥release_prod:
-  stage: 🔖release
-  extends: .docker_login
-  script: |
-    export STORAGE_DRIVER
+      --build-arg='PROD=false' \
+      -t $IMAGE_NAME .
+    echo "Push image to registry"
     buildah push \
-      $SCW_REGISTRY/$IMAGE_NAME:latest \
-      $SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHA}
+      $IMAGE_NAME \
+      docker://$SCW_REGISTRY/$IMAGE_NAME:latest
+    buildah push \
+      $IMAGE_NAME \
+      docker://SCW_REGISTRY/$IMAGE_NAME:${CI_COMMIT_SHA}
 
 🚑build_debug:
   stage: 🏗build
@@ -42,13 +37,11 @@ stages:
     buildah bud \
       --storage-driver "vfs" \
       --build-arg='PROD=false' \
-      -t $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT_SHA} \
-      -t $SCW_REGISTRY/$IMAGE_NAME:debug .
-
-🚑release_debug:
-  stage: 🔖release
-  extends: .docker_login
-  script: |
+      -t $IMAGE_NAME .
+    echo "Push image to registry"
     buildah push \
-      $SCW_REGISTRY/$IMAGE_NAME:debug \
-      $SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT_SHA}
+      $IMAGE_NAME \
+      docker://$SCW_REGISTRY/$IMAGE_NAME:debug
+    buildah push \
+      $IMAGE_NAME \
+      docker://$SCW_REGISTRY/$IMAGE_NAME:debug-${CI_COMMIT_SHA}
