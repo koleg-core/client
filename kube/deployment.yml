@@ -4,20 +4,20 @@
 apiVersion: apps/v1  # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
-  name: client
+  name: koleg-client
 spec:
   selector:
     matchLabels:
-      app: client
+      app: koleg-client
   # replicas: 1  # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: client
+        app: koleg-client
     spec:
       containers:
-        - name: client
-          image: rg.fr-par.scw.cloud/koleg/koleg1/client:latest
+        - name: koleg-client
+          image: rg.fr-par.scw.cloud/koleg/koleg-client:latest
           ports:
             - containerPort: 80
           # Don't activate if you are not in dev mode
