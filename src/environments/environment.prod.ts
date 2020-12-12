@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiBaseUrl: '' // TODO
+  apiBaseUrl: '', // TODO
+  mock: false
 };

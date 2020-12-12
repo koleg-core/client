@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: '' // TODO
+  apiBaseUrl: '', // TODO
+  mock: true
 };
 
 /*

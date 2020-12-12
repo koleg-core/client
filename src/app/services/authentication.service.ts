@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
-import { LoginRequest } from '../requests/auth/login.request';
-import { LogoutRequest } from '../requests/auth/logout.request';
+import { Inject, Injectable } from '@angular/core';
+import { AuthApiProtocol } from '../dal/auth/auth-api-protocol';
 
 
 @Injectable({
@@ -10,15 +9,18 @@ export class AuthenticationService {
 
   static readonly TOKEN: string;
 
-  constructor() { }
+  constructor(
+    @Inject('AuthApiProtocol') private authApiService: AuthApiProtocol
+  ) {
+   }
 
   public login(username: string, password: string): Promise<any> {
     // TODO: set token
-    return new LoginRequest(username, password).send();
+    return this.authApiService.login(username, password);
   }
 
   public logout(): Promise<any> {
-    return new LogoutRequest().send();
+    return this.authApiService.logout();
   }
 
 }
