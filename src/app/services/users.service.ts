@@ -1,41 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { UsersApiProtocol } from '../dal/users/users-api-protocol';
 import { User } from '../models/user';
-import { DeleteUserRequest } from '../requests/users/delete-user.request';
-import { GetUserVcardRequest } from '../requests/users/get-user-vcard.request';
-import { GetUserRequest } from '../requests/users/get-user.request';
-import { GetUsersRequest } from '../requests/users/get-users.request';
-import { PostUserRequest } from '../requests/users/post-user.request';
-import { PutUserRequest } from '../requests/users/put-user.request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  constructor() { }
+  constructor(
+    @Inject('UsersApiProtocol') private usersApiService: UsersApiProtocol
+  ) { }
 
   public getUsers(): Promise<User[]> {
-    return new GetUsersRequest().send();
+    return this.usersApiService.getUsers();
   }
 
   public getUser(userId: string): Promise<User> {
-    return new GetUserRequest(userId).send();
+    return this.usersApiService.getUser(userId);
   }
 
   public getUserVcard(userId: string): Promise<any> {
-    return new GetUserVcardRequest(userId).send();
+    return this.usersApiService.getUserVcard(userId);
   }
 
   public addUser(user: User): Promise<any> {
-    return new PostUserRequest(user).send();
+    return this.usersApiService.addUser(user);
   }
 
   public updateUser(user: User): Promise<User> {
-    return new PutUserRequest(user).send();
+    return this.usersApiService.updateUser(user);
   }
 
   public deleteUser(userId: string): Promise<any> {
-    return new DeleteUserRequest(userId).send();
+    return this.usersApiService.deleteUser(userId);
   }
 
 }

@@ -1,35 +1,33 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { GroupsApiProtocol } from '../dal/groups/groups-api-protocol';
 import { Group } from '../models/group';
-import { DeleteGroupRequest } from '../requests/groups/delete-group.request';
-import { GetGroupRequest } from '../requests/groups/get-group.request';
-import { GetGroupsRequest } from '../requests/groups/get-groups.request';
-import { PostGroupRequest } from '../requests/groups/post-group.request';
-import { PutGroupRequest } from '../requests/groups/put-group.request';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupsService {
 
-  constructor() { }
+  constructor(
+    @Inject('GroupsApiProtocol') private groupsApiService: GroupsApiProtocol
+  ) {}
 
   public getGroups(): Promise<Group[]> {
-    return new GetGroupsRequest().send();
+    return this.groupsApiService.getGroups();
   }
 
   public getGroup(groupId: string): Promise<Group> {
-    return new GetGroupRequest(groupId).send();
+    return this.groupsApiService.getGroup(groupId);
   }
 
   public addGroup(group: Group): Promise<any> {
-    return new PostGroupRequest(group).send();
+    return this.groupsApiService.addGroup(group);
   }
 
   public updateGroup(group: Group): Promise<Group> {
-    return new PutGroupRequest(group).send();
+    return this.groupsApiService.updateGroup(group);
   }
 
   public deleteGroup(groupId: string): Promise<any> {
-    return new DeleteGroupRequest(groupId).send();
+    return this.groupsApiService.deleteGroup(groupId);
   }
 }
