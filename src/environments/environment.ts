@@ -5,7 +5,12 @@
 export const environment = {
   production: false,
   apiBaseUrl: '', // TODO
-  mock: true
+  mock: true,
+  timeout: 2000,
+  langs: [
+    'fr',
+    'en'
+  ]
 };
 
 /*

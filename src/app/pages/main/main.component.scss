@@ -1,0 +1,7 @@
+ion-split-pane {
+  --side-max-width: 20%;
+
+  .activated-link {
+    color: var(--ion-color-primary);
+  }
+}

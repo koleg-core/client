@@ -3,11 +3,38 @@
     "OK": "Ok",
     "CANCEL": "Annuler",
     "APP_VERSION": "V{{appVersion}}",
+    "YES": "Oui",
+    "NO": "Non",
+    "LOADING_MESSAGE": "Patientez s'il vous plait ...",
+    "NO_MORE_DATA": "Pas de données supplémentaires",
+    "LOAD_MORE_DATA": "Chargement de plus de données ...",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "Tous les champs sont requis.",
         "BAD_FORMAT": "Ce champ n'est pas valide."
       }
+    }
+  },
+  "FILTERS": {
+    "TITLE": "Filtres",
+    "NONE": "Aucun filtre",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom",
+    "PHONE": "Numéro de téléphone"
+  },
+  "MAIN_PAGE": {
+    "TITLE": "Bonjour {{username}} !",
+    "EXPLORE": {
+      "TITLE": "Explorer"
+    },
+    "PARAMETERS": {
+      "TITLE": "Paramètres",
+      "DARK_MODE": "Mode sombre",
+      "LANGUAGE": "Langue",
+      "LANGUAGE_PLACEHOLDER": "Langue"
+    },
+    "CONTACT": {
+      "TITLE": "Contact"
     }
   },
   "LOGIN_PAGE": {
@@ -21,5 +48,25 @@
     "RESET_PASSWORD_TITLE": "Réinitialiser son mot de passe",
     "EMAIL_PLACEHOLDER": "Email",
     "RESET_PASSWORD_BUTTON_LABEL": "Réinitialiser"
+  },
+  "USERS_PAGE": {
+    "TITLE": "Utilisateurs",
+    "NO_USERS": "Aucun utilisateur trouvé"
+  },
+  "JOBS_PAGE": {
+    "TITLE": "Professions"
+  },
+  "GROUPS_PAGE": {
+    "TITLE": "Groupes"
+  },
+  "ABOUT_PAGE": {
+    "TITLE": "À propos"
+  },
+  "SEARCHBAR_COMPONENT": {
+    "SEARCHBAR_PLACEHOLDER": "Rechercher",
+    "SEARCH_BUTTON_LABEL": "Rechercher"
+  },
+  "HEADER_COMPONENT": {
+    "LOGOUT_ALERT_MESSAGE": "Êtes-vous sûr de vouloir vous déconnecter ?"
   }
 }
