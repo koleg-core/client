@@ -21,7 +21,7 @@ export class MainComponent implements OnInit {
     },
     {
       name: 'JOBS_PAGE.TITLE',
-      path: '/jobs'
+      path: '/main/jobs'
     },
     {
       name: 'USERS_PAGE.TITLE',

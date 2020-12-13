@@ -1,8 +1,14 @@
 import { Job } from 'src/app/models/job';
 
+export interface JobsParameters {
+  itemsNumber?: number;
+  page?: number;
+  name?: string;
+}
+
 export interface JobsApiProtocol {
 
-  getJobs(): Promise<Job[]>;
+  getJobs(parameters?: JobsParameters): Promise<Job[]>;
 
   getJob(jobId: string): Promise<Job>;
 

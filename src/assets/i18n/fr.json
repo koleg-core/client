@@ -20,7 +20,8 @@
     "NONE": "Aucun filtre",
     "FIRST_NAME": "Prénom",
     "LAST_NAME": "Nom",
-    "PHONE": "Numéro de téléphone"
+    "PHONE": "Numéro de téléphone",
+    "NAME": "Nom"
   },
   "MAIN_PAGE": {
     "TITLE": "Bonjour {{username}} !",
@@ -54,7 +55,8 @@
     "NO_USERS": "Aucun utilisateur trouvé"
   },
   "JOBS_PAGE": {
-    "TITLE": "Professions"
+    "TITLE": "Professions",
+    "NO_JOBS": "Aucun métier trouvé"
   },
   "GROUPS_PAGE": {
     "TITLE": "Groupes"

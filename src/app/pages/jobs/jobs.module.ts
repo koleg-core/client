@@ -4,39 +4,26 @@ import { Route, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MainComponent } from './main.component';
+import { JobsComponent } from './jobs.component';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 const routes: Route[] = [
   {
     path: '',
-    component: MainComponent,
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'users'
-      },
-      {
-        path: 'users',
-        loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
-      },
-      {
-        path: 'jobs',
-        loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule)
-      }
-    ]
+    component: JobsComponent
   }
 ];
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [JobsComponent],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    ComponentsModule,
     TranslateModule
   ]
 })
-export class MainModule { }
+export class JobsModule { }
