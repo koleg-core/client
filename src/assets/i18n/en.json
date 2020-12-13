@@ -3,11 +3,38 @@
     "OK": "Ok",
     "CANCEL": "Cancel",
     "APP_VERSION": "V{{appVersion}}",
+    "YES": "Yes",
+    "NO": "No",
+    "LOADING_MESSAGE": "Please wait...",
+    "NO_MORE_DATA": "No more data",
+    "LOAD_MORE_DATA": "Load more data...",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "All fields are required.",
         "BAD_FORMAT": "This field is not valid."
       }
+    }
+  },
+  "FILTERS": {
+    "TITLE": "Filters",
+    "NONE": "No filter",
+    "FIRST_NAME": "First name",
+    "LAST_NAME": "Last name",
+    "PHONE": "Phone number"
+  },
+  "MAIN_PAGE": {
+    "TITLE": "Hello {{username}}!",
+    "EXPLORE": {
+      "TITLE": "Explore"
+    },
+    "PARAMETERS": {
+      "TITLE": "Parameters",
+      "DARK_MODE": "Dark mode",
+      "LANGUAGE": "Lang",
+      "LANGUAGE_PLACEHOLDER": "Lang"
+    },
+    "CONTACT": {
+      "TITLE": "Contact"
     }
   },
   "LOGIN_PAGE": {
@@ -24,5 +51,25 @@
     "RESET_PASSWORD_TITLE": "Reset your password",
     "EMAIL_PLACEHOLDER": "Email",
     "RESET_PASSWORD_BUTTON_LABEL": "Reset"
+  },
+  "USERS_PAGE": {
+    "TITLE": "Users",
+    "NO_USERS": "No users found"
+  },
+  "JOBS_PAGE": {
+    "TITLE": "Jobs"
+  },
+  "GROUPS_PAGE": {
+    "TITLE": "Groups"
+  },
+  "ABOUT_PAGE": {
+    "TITLE": "About"
+  },
+  "SEARCHBAR_COMPONENT": {
+    "SEARCHBAR_PLACEHOLDER": "Search",
+    "SEARCH_BUTTON_LABEL": "Search"
+  },
+  "HEADER_COMPONENT": {
+    "LOGOUT_ALERT_MESSAGE": "Are you sure you want to logout?"
   }
 }

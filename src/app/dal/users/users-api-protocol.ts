@@ -7,7 +7,7 @@ export interface UsersParameters {
   page?: number;
   firstName?: string;
   lastName?: string;
-  phone?: Phone;
+  phone?: string;
   showDisabled?: boolean;
 }
 

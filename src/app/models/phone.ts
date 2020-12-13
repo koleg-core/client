@@ -7,4 +7,13 @@ export class Phone {
     readonly value: string,
     readonly phoneType: PhoneType
   ) { }
+
+  public static fromJSON(phoneJson: any): Phone {
+
+    return new Phone(
+      phoneJson.id,
+      phoneJson.value,
+      phoneJson.phoneType
+    );
+  }
 }

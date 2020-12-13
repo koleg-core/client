@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { LoadingController, NavController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -16,10 +17,13 @@ export class AuthenticationComponent implements OnInit {
 
   public authForm: FormGroup;
   public isSubmitted = false;
+  public isLoading = false;
 
   constructor(
     private authenticationService: AuthenticationService,
-    private navCtrl: NavController
+    private navController: NavController,
+    private loadingController: LoadingController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit(): void {
@@ -27,25 +31,33 @@ export class AuthenticationComponent implements OnInit {
   }
 
   onClickResetPasswordButton(): void {
-    this.navCtrl.navigateRoot(['auth', 'reset-password']);
+    this.navController.navigateRoot(['auth', 'reset-password']);
   }
 
-  onSubmit(): void {
+  async onSubmit() {
     this.isSubmitted = true;
 
     if (this.authForm.valid) {
       const username: string = this.authForm.get('username').value;
       const password: string = this.authForm.get('password').value;
 
+      const loading = await this.loadingController.create({
+        message: this.translate.instant('COMMON.LOADING_MESSAGE'),
+      });
+      await loading.present();
+
+      this.isLoading = true;
       this.authenticationService.login(username, password)
         .then(() => {
-          // TODO
+          this.navController.navigateRoot(['main']);
         })
         .catch((error) => {
           // TODO
         })
         .finally(() => {
           this.isSubmitted = false;
+          this.isLoading = false;
+          loading.dismiss();
         });
     }
   }

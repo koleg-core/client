@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { UsersApiProtocol } from '../dal/users/users-api-protocol';
+import { UsersApiProtocol, UsersParameters } from '../dal/users/users-api-protocol';
 import { User } from '../models/user';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class UsersService {
     @Inject('UsersApiProtocol') private usersApiService: UsersApiProtocol
   ) { }
 
-  public getUsers(): Promise<User[]> {
-    return this.usersApiService.getUsers();
+  public getUsers(parameters?: UsersParameters): Promise<User[]> {
+    return this.usersApiService.getUsers(parameters);
   }
 
   public getUser(userId: string): Promise<User> {
