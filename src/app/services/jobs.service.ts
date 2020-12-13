@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { JobsApiProtocol } from '../dal/jobs/jobs-api-protocol';
+import { JobsApiProtocol, JobsParameters } from '../dal/jobs/jobs-api-protocol';
 import { Job } from '../models/job';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class JobsService {
     @Inject('JobsApiProtocol') private jobsApiService: JobsApiProtocol
   ) { }
 
-  public getJobs(): Promise<Job[]> {
-    return this.jobsApiService.getJobs();
+  public getJobs(parameters?: JobsParameters): Promise<Job[]> {
+    return this.jobsApiService.getJobs(parameters);
   }
 
   public getJob(jobId: string): Promise<Job> {

@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onClickAddJobsFabButton()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"
+    (filterEmitter)="onChangeFilter($event)" (clearEmitter)="onClearSearchEvent()"></app-searchbar>
+
+  <ion-row>
+    <h1 class="ion-padding-start">{{ 'JOBS_PAGE.TITLE' | translate }}</h1>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && areJobsEmpty()" class="ion-justify-content-center">
+    <p>{{ 'JOBS_PAGE.NO_JOBS' | translate }}</p>
+  </ion-row>
+
+  <!-- Jobs list -->
+  <ion-row>
+    <ion-col size="12" size-sm="6" size-xl="4" *ngFor="let job of jobs">
+      <ion-card button>
+        <ion-card-header>
+          <ion-card-title>{{ job?.name }}</ion-card-title>
+        </ion-card-header>
+    </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && areAllDataLoaded" class="ion-justify-content-center">
+    <p>{{ 'COMMON.NO_MORE_DATA' | translate }}</p>
+  </ion-row>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="onLoadMoreJobs($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.LOAD_MORE_DATA' | translate">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
