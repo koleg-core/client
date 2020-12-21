@@ -21,7 +21,8 @@
     "FIRST_NAME": "Prénom",
     "LAST_NAME": "Nom",
     "PHONE": "Numéro de téléphone",
-    "NAME": "Nom"
+    "NAME": "Nom",
+    "DESCRIPTION": "Description"
   },
   "MAIN_PAGE": {
     "TITLE": "Bonjour {{username}} !",
@@ -59,7 +60,8 @@
     "NO_JOBS": "Aucun métier trouvé"
   },
   "GROUPS_PAGE": {
-    "TITLE": "Groupes"
+    "TITLE": "Groupes",
+    "NO_GROUPS": "Aucun group trouvé"
   },
   "ABOUT_PAGE": {
     "TITLE": "À propos"
