@@ -66,6 +66,10 @@
     "TITLE": "Groups",
     "NO_GROUPS": "No groups found"
   },
+  "GROUP_PAGE": {
+    "TITLE": "Group details",
+    "NO_GROUPS": "No group found"
+  },
   "ABOUT_PAGE": {
     "TITLE": "About"
   },

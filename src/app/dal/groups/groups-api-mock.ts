@@ -38,7 +38,16 @@ export class GroupsApiMock extends HttpApiClient implements GroupsApiProtocol {
     });
   }
   getGroup(groupId: string): Promise<Group> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const group = this._groups.find(g => groupId === g.id);
+        if (group) {
+          resolve(group);
+        } else {
+          reject('Group not found');
+        }
+      }, environment.timeout);
+    });
   }
   addGroup(group: Group): Promise<void> {
     throw new Error('Method not implemented.');

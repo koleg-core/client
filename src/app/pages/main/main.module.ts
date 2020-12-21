@@ -26,7 +26,18 @@ const routes: Route[] = [
       },
       {
         path: 'groups',
-        loadChildren: () => import('../groups/groups.module').then(m => m.GroupsModule)
+        loadChildren: () => import('../groups/groups.module').then(m => m.GroupsModule),
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadChildren: () => import('../groups/groups.module').then(m => m.GroupsModule),
+          },
+          {
+            path: ':id',
+            loadChildren: () => import('../groups/group/group.module').then(m => m.GroupModule)
+          }
+        ]
       }
     ]
   }
