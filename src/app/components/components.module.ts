@@ -5,18 +5,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HeaderComponent } from './header/header.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { UserCardComponent } from './user-card/user-card.component';
+import { GroupCardComponent } from './group-card/group-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   exports: [
     HeaderComponent,
     SearchbarComponent,
-    UserCardComponent
+    UserCardComponent,
+    GroupCardComponent
   ],
   declarations: [
     HeaderComponent,
     SearchbarComponent,
-    UserCardComponent
+    UserCardComponent,
+    GroupCardComponent
   ],
   imports: [
     CommonModule,
