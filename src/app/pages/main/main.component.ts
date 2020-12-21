@@ -16,16 +16,16 @@ export class MainComponent implements OnInit {
 
   public explorePages = [
     {
-      name: 'GROUPS_PAGE.TITLE',
-      path: '/groups'
-    },
-    {
       name: 'JOBS_PAGE.TITLE',
       path: '/main/jobs'
     },
     {
       name: 'USERS_PAGE.TITLE',
       path: '/main/users'
+    },
+    {
+      name: 'GROUPS_PAGE.TITLE',
+      path: '/main/groups'
     }
   ];
 

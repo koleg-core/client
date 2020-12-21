@@ -1,9 +1,17 @@
 import { Group } from 'src/app/models/group';
 import { Right } from 'src/app/models/right';
 
+export interface GroupsParameters {
+  itemsNumber?: number;
+  page?: number;
+  name?: string;
+  description?: string;
+  imageURL?: string;
+}
+
 export interface GroupsApiProtocol {
 
-  getGroups(): Promise<Group[]>;
+  getGroups(parameters?: GroupsParameters): Promise<Group[]>;
 
   getGroup(groupId: string): Promise<Group>;
 

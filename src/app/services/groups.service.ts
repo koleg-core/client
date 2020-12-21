@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { GroupsApiProtocol } from '../dal/groups/groups-api-protocol';
+import { GroupsApiProtocol, GroupsParameters } from '../dal/groups/groups-api-protocol';
 import { Group } from '../models/group';
 
 @Injectable({
@@ -11,8 +11,8 @@ export class GroupsService {
     @Inject('GroupsApiProtocol') private groupsApiService: GroupsApiProtocol
   ) {}
 
-  public getGroups(): Promise<Group[]> {
-    return this.groupsApiService.getGroups();
+  public getGroups(parameters?: GroupsParameters): Promise<Group[]> {
+    return this.groupsApiService.getGroups(parameters);
   }
 
   public getGroup(groupId: string): Promise<Group> {

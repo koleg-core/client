@@ -4,4 +4,5 @@ export enum SearchFilter {
   LAST_NAME = 'last_name',
   PHONE = 'phone',
   NAME = 'name',
+  DESCRIPTION = 'description',
 }
