@@ -59,6 +59,10 @@
     "TITLE": "Professions",
     "NO_JOBS": "Aucun métier trouvé"
   },
+  "JOB_PAGE": {
+    "TITLE": "Détails de la profession",
+    "NO_JOBS": "Aucune profession trouvée"
+  },
   "GROUPS_PAGE": {
     "TITLE": "Groupes",
     "NO_GROUPS": "Aucun group trouvé"
