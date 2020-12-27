@@ -23,7 +23,7 @@
   <!-- GROUPS list -->
   <ion-row>
     <ion-col size="12" size-sm="6" size-xl="4" *ngFor="let group of groups">
-      <app-group-card [routerLink]="group.id" [group]="group"></app-group-card>
+      <app-group-card (click)="onClickGroupCard(group?.id)" [group]="group"></app-group-card>
     </ion-col>
   </ion-row>
 

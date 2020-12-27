@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 import { SearchFilter } from 'src/app/enums/search-filter.enum';
 import { GroupsParameters } from 'src/app/dal/groups/groups-api-protocol';
 import { Group } from 'src/app/models/group';
@@ -27,7 +27,8 @@ export class GroupsComponent {
   private _search;
 
   constructor(
-    private groupsService: GroupsService
+    private groupsService: GroupsService,
+    private navController: NavController
   ) { }
 
   ionViewDidEnter() {
@@ -37,6 +38,10 @@ export class GroupsComponent {
     this.groupsService.getGroups()
       .then(groups => this.groups = groups)
       .finally(() => this.isLoading = false);
+  }
+
+  onClickGroupCard(id: string) {
+    this.navController.navigateForward(['main', 'groups', id]);
   }
 
   onClickSearchButton(search: string) {
