@@ -30,7 +30,7 @@ const routes: Route[] = [
           },
           {
             path: ':id',
-            loadChildren: () => import('../jobs/job/job.module').then(m => m.JobModule)
+            loadChildren: () => import('../job/job.module').then(m => m.JobModule)
           }
         ]
       },

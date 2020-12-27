@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { JobsService } from 'src/app/services/jobs.service';
-import { Job } from '../../../models/job' ;
+import { Job } from '../../models/job' ;
 
 @Component({
   selector: 'app-job',
