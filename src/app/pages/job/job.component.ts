@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { JobsService } from 'src/app/services/jobs.service';
 import { Job } from '../../models/job' ;
 
@@ -12,16 +12,17 @@ export class JobComponent {
 
   public job: Job = null;
   public isLoading = true;
-  public id = null;
+  private _id = null;
 
   constructor(
     private jobsService: JobsService,
-    private router: Router
+    private route: ActivatedRoute
   ) { }
   
-  ionViewDidEnter() {
-    this.id = parseInt(this.router.url.split('jobs/')[1]);
-    this.jobsService.getJob(this.id)
+  ionViewDidEnter() {   
+    this._id = parseInt(this.route.snapshot.params.id);
+
+    this.jobsService.getJob(this._id)
       .then(job => {
         this.job = job;
       })
