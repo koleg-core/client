@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 import { SearchFilter } from 'src/app/enums/search-filter.enum';
 import { JobsParameters } from 'src/app/dal/jobs/jobs-api-protocol';
 import { Job } from 'src/app/models/job';
@@ -25,7 +25,8 @@ export class JobsComponent {
   private _search;
 
   constructor(
-    private jobsService: JobsService
+    private jobsService: JobsService,
+    private navController: NavController
   ) { }
 
   ionViewDidEnter() {
@@ -35,6 +36,10 @@ export class JobsComponent {
     this.jobsService.getJobs()
       .then(jobs => this.jobs = jobs)
       .finally(() => this.isLoading = false);
+  }
+
+  onClickJobCard(id: string) {
+    this.navController.navigateForward(['main', 'jobs', id]);
   }
 
   onClickSearchButton(search: string) {
