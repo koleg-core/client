@@ -35,7 +35,7 @@ const routes: Route[] = [
           },
           {
             path: ':id',
-            loadChildren: () => import('../groups/group/group.module').then(m => m.GroupModule)
+            loadChildren: () => import('../group/group.module').then(m => m.GroupModule)
           }
         ]
       }

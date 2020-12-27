@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GroupsService } from 'src/app/services/groups.service';
-import { Group } from '../../../models/group' ;
+import { Group } from '../../models/group' ;
 
 @Component({
   selector: 'app-group',
@@ -12,16 +12,17 @@ export class GroupComponent {
 
   public group: Group = null;
   public isLoading = true;
-  public id = null;
+  private _id = null;
 
   constructor(
     private groupsService: GroupsService,
-    private router: Router
+    private route: ActivatedRoute
   ) { }
   
-  ionViewDidEnter() {
-    this.id = parseInt(this.router.url.split('groups/')[1]);
-    this.groupsService.getGroup(this.id)
+  ionViewDidEnter() {     
+    this._id = parseInt(this.route.snapshot.params.id);
+
+    this.groupsService.getGroup(this._id)
       .then(group => {
         this.group = group;
       })
