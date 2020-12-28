@@ -62,6 +62,10 @@
     "TITLE": "Jobs",
     "NO_JOBS": "No jobs found"
   },
+  "JOB_PAGE": {
+    "TITLE": "Job details",
+    "NO_JOBS": "No job found"
+  },
   "GROUPS_PAGE": {
     "TITLE": "Groups",
     "NO_GROUPS": "No groups found"
