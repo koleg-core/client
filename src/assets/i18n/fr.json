@@ -65,7 +65,11 @@
   },
   "GROUPS_PAGE": {
     "TITLE": "Groupes",
-    "NO_GROUPS": "Aucun group trouvé"
+    "NO_GROUPS": "Aucun groupe trouvé"
+  },
+  "GROUP_PAGE": {
+    "TITLE": "Détails du groupe",
+    "NO_GROUPS": "Aucun groupe trouvé"
   },
   "ABOUT_PAGE": {
     "TITLE": "À propos"

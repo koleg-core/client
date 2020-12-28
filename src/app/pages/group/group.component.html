@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<ion-content  class="ion-justify-content-center">
+
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-row *ngIf="!isLoading && isGroup()" class="ion-justify-content-center">
+    <h1>{{ 'GROUP_PAGE.TITLE' | translate }}</h1>
+  </ion-row>
+  <ion-row *ngIf="!isLoading && !isGroup()" class="ion-justify-content-center">
+    <h1>{{ 'GROUP_PAGE.NO_GROUPS' | translate }}</h1>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && isGroup()" class="ion-justify-content-center">
+    <ion-card class="groupCard">
+      <ion-card-header>
+        <ion-avatar class="avatar">
+          <img [src]="group?.imageURL">
+        </ion-avatar>
+        <ion-card-title>{{ group?.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ group?.description}}
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+
+</ion-content>
