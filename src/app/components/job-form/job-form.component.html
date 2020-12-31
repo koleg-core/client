@@ -1,0 +1,54 @@
+<ion-card button>
+  <form *ngIf="!isLoading || isSubmitted" [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+        <ion-item>
+          <ion-label position="floating">{{ 'JOB_EDIT_PAGE.NAME_PLACEHOLDER' | translate }}</ion-label>
+          <ion-input autofocus="true" type="text" inputmode="text" formControlName="name" required></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isFormInvalid()" class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-md="8" size-lg="8" size-xl="8" class="ion-text-center">
+        <ion-chip>
+          <ion-label color="danger"> {{ 'COMMON.FORMS.ERRORS.FIELDS_REQUIRED' | translate }} </ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isLoading && isSubmitted" class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-md="8" size-lg="8" size-xl="8" class="ion-text-center">
+        <ion-chip>
+          <ion-label color="medium"> {{ 'COMMON.LOADING_MESSAGE' | translate }}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="isSaved" class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-md="8" size-lg="8" size-xl="8" class="ion-text-center">
+        <ion-chip>
+          <ion-label color="success"> {{ 'JOB_EDIT_PAGE.SAVED' | translate }}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngIf="isSaved === false" class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-md="8" size-lg="8" size-xl="8" class="ion-text-center">
+        <ion-chip>
+          <ion-label color="danger"> {{ 'JOB_EDIT_PAGE.FAILED' | translate }}</ion-label>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-end" size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+        <ion-button type="submit">{{ 'JOB_EDIT_PAGE.SUBMIT_BUTTON_LABEL' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-card>

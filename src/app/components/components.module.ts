@@ -7,19 +7,22 @@ import { SearchbarComponent } from './searchbar/searchbar.component';
 import { UserCardComponent } from './user-card/user-card.component';
 import { GroupCardComponent } from './group-card/group-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JobFormComponent } from './job-form/job-form.component';
 
 @NgModule({
   exports: [
     HeaderComponent,
     SearchbarComponent,
     UserCardComponent,
-    GroupCardComponent
+    GroupCardComponent,
+    JobFormComponent,
   ],
   declarations: [
     HeaderComponent,
     SearchbarComponent,
     UserCardComponent,
-    GroupCardComponent
+    GroupCardComponent,
+    JobFormComponent,
   ],
   imports: [
     CommonModule,

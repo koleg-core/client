@@ -66,6 +66,14 @@
     "TITLE": "Job details",
     "NO_JOBS": "No job found"
   },
+  "JOB_EDIT_PAGE": {
+    "TITLE": "Job edition",
+    "NO_JOBS": "No job found",
+    "NAME_PLACEHOLDER": "Name",
+    "SUBMIT_BUTTON_LABEL": "Save",
+    "SAVED": "Saved !",
+    "FAILED": "Failed."
+  },
   "GROUPS_PAGE": {
     "TITLE": "Groups",
     "NO_GROUPS": "No groups found"

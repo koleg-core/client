@@ -63,6 +63,14 @@
     "TITLE": "Détails de la profession",
     "NO_JOBS": "Aucune profession trouvée"
   },
+  "JOB_EDIT_PAGE": {
+    "TITLE": "Edition de la profession",
+    "NO_JOBS": "No job found",
+    "NAME_PLACEHOLDER": "Nom",
+    "SUBMIT_BUTTON_LABEL": "Enregistrer",
+    "SAVED": "Sauvegardé !",
+    "FAILED": "Echec de l'enregistrement."
+  },
   "GROUPS_PAGE": {
     "TITLE": "Groupes",
     "NO_GROUPS": "Aucun groupe trouvé"

@@ -17,7 +17,7 @@
 				<ion-card-title>{{ job?.name }}</ion-card-title>
 			</ion-card-header>
 			<ion-card-content>
-					<ion-button shape="round" size="small" color="medium" fill="outline">Editer</ion-button>
+					<ion-button (click)="onClickEdit(job?.id)" shape="round" size="small" color="medium" fill="outline">Editer</ion-button>
 					<ion-button shape="round" size="small" color="danger" fill="outline">Supprimer</ion-button>
 			</ion-card-content>
 		</ion-card>

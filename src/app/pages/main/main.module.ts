@@ -21,7 +21,8 @@ const routes: Route[] = [
         loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
       },
       {
-        path: 'jobs',loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule),
+        path: 'jobs',
+        loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule),
         children: [
           {
             path: '',
@@ -30,7 +31,18 @@ const routes: Route[] = [
           },
           {
             path: ':id',
-            loadChildren: () => import('../job/job.module').then(m => m.JobModule)
+            loadChildren: () => import('../job/job.module').then(m => m.JobModule),
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                loadChildren: () => import('../job/job.module').then(m => m.JobModule)
+              },
+              {
+                path: 'edit',
+                loadChildren: () => import('../job-edit/job-edit.module').then(m => m.JobEditModule)
+              }
+            ]
           }
         ]
       },

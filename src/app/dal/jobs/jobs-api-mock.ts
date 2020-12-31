@@ -49,7 +49,20 @@ export class JobsApiMock extends HttpApiClient implements JobsApiProtocol {
     throw new Error('Method not implemented.');
   }
   updateJob(job: Job): Promise<Job> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!job) {
+          reject('Job cannot be null');
+        }
+        let jobToUpdate = this._jobs.find(u => job.id === u.id);
+        if (job) {
+          jobToUpdate = job;
+          resolve(jobToUpdate);
+        } else {
+          reject('Job not found');
+        }
+      }, environment.timeout);
+    });
   }
   deleteJob(jobId: string): Promise<void> {
     throw new Error('Method not implemented.');

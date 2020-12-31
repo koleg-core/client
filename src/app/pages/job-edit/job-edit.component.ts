@@ -1,15 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
 import { JobsService } from 'src/app/services/jobs.service';
 import { Job } from '../../models/job' ;
 
 @Component({
-  selector: 'app-job',
-  templateUrl: './job.component.html',
-  styleUrls: ['./job.component.scss']
+  selector: 'app-job-edit',
+  templateUrl: './job-edit.component.html',
+  styleUrls: ['./job-edit.component.scss']
 })
-export class JobComponent {
+export class JobEditComponent {
 
   public job: Job = null;
   public isLoading = true;
@@ -17,8 +16,7 @@ export class JobComponent {
 
   constructor(
     private jobsService: JobsService,
-    private route: ActivatedRoute,
-    private navController: NavController
+    private route: ActivatedRoute
   ) { }
   
   ionViewDidEnter() {   
@@ -31,10 +29,6 @@ export class JobComponent {
       .finally(() => this.isLoading = false);
   }
 
-  onClickEdit(id: string) {
-    this.navController.navigateForward(['main', 'jobs', id, 'edit']);
-  }
-  
   public isJob(): Job {
     return this.job;
   }
