@@ -17,14 +17,15 @@ export class User {
     readonly job?: Job,
     readonly expirationDate?: Date,
     readonly removalDate?: Date,
-    readonly phones?: Phone[]
+    readonly phones?: Phone[],
+    readonly creationDate?: Date
   ) { }
 
   public static fromJSON(userJson: any): User {
     const phones: Phone[] = [];
 
-    if (Array.isArray(userJson.phones) && userJson.phones.lenght > 0) {
-      userJson.forEach((phone: any) => {
+    if (Array.isArray(userJson.phones) && userJson.phones.length > 0) {
+      userJson.phones.forEach((phone: any) => {
         phones.push(Phone.fromJSON(phone));
       });
     }
@@ -42,7 +43,8 @@ export class User {
       userJson.job ? new Job(userJson.job.id, userJson.job.name, userJson.job.description, userJson.iconUrl) : null,
       userJson.expirationDate,
       userJson.removalDate,
-      phones
+      phones,
+      userJson.creationDate
     );
   }
 }

@@ -23,7 +23,7 @@
   <!-- Users list -->
   <ion-row>
     <ion-col size="12" size-sm="6" size-xl="4" *ngFor="let user of users">
-      <app-user-card [user]="user"></app-user-card>
+      <app-user-card [user]="user" (click)="onClickUserCard(user?.id)"></app-user-card>
     </ion-col>
   </ion-row>
 

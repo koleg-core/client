@@ -53,6 +53,10 @@ const routes: Route[] = [
             loadChildren: () => import('../group/group.module').then(m => m.GroupModule)
           }
         ]
+      },
+      {
+        path: 'users/:id',
+        loadChildren: () => import('../user/user.module').then(m => m.UserModule)
       }
     ]
   }

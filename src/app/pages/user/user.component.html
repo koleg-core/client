@@ -1,0 +1,88 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Retour
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-avatar class="avatar">
+            <ion-img [src]="user?.imageURL"></ion-img>
+          </ion-avatar>
+          <ion-card-subtitle class="ion-margin-top ion-text-center">{{ user?.job?.name}}</ion-card-subtitle>
+          <ion-card-title class="ion-text-center">{{ user?.firstName }} {{ user?.lastName | uppercase }}
+          </ion-card-title>
+          <ion-row class="ion-justify-content-around">
+            <ion-col size="auto">
+              @username
+            </ion-col>
+            <ion-col size="auto" class="ion-align-items-center">
+              <ion-icon name="gift-outline"></ion-icon>
+              {{ user?.birthdate | date: 'dd/MM/yyyy' }}
+            </ion-col>
+            <ion-col size="auto">
+              créé le {{ user?.creationDate | date: 'dd/MM/yyyy' }}
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="6">
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-button>
+            Clé SSH
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Coordonnées</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list-header>Email</ion-list-header>
+          <ion-list>
+            <ion-item>
+              {{ user?.email }}
+              <ion-buttons slot="end">
+                <ion-button>
+                  <ion-icon slot="icon-only" name="mail-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+          </ion-list>
+          <ion-list-header>Téléphone(s)</ion-list-header>
+          <ion-list>
+            <ion-item *ngFor="let phone of user?.phones">
+              {{ phone?.value }}
+              <ion-buttons slot="end">
+                <ion-button>
+                  <ion-icon slot="icon-only" name="call-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

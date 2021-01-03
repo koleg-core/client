@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, NavController } from '@ionic/angular';
 import { UsersParameters } from 'src/app/dal/users/users-api-protocol';
 import { SearchFilter } from 'src/app/enums/search-filter.enum';
 import { User } from 'src/app/models/user';
@@ -30,7 +30,8 @@ export class UsersComponent {
 
   constructor(
     private usersService: UsersService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private navController: NavController
   ) { }
 
   ionViewDidEnter() {
@@ -85,6 +86,10 @@ export class UsersComponent {
 
   onClickAddUserFabButton() {
     // TODO
+  }
+
+  onClickUserCard(id: string) {
+    this.navController.navigateForward(['main', 'users', id]);
   }
 
   onLoadMoreUsers(e: any) {
