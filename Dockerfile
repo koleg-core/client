@@ -19,12 +19,11 @@ COPY package.json ./
 COPY . ./
 
 # TODO: only for debug
-# RUN yarn install
+RUN npm install
 
 VOLUME /app/node_modules
 
-# TODO: only for debug
-#RUN yarn build --prod=${PROD}
+RUN npm run build --prod=${PROD}
 
 VOLUME /app/dist
 

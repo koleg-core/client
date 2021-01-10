@@ -31,3 +31,16 @@ up: ## 🐳 Local run with docker-compose
 down: ## ⬇️ Down services
 	@echo "+ $@"
 	@docker-compose down -t 10
+
+logs: ##📝 See docker logs
+	@echo "+ $@"
+	@docker-compose logs --tail=200 -f
+
+exec: ## 💬 Get shell into container
+	@echo "+ $@"
+	@docker-compose exec client sh
+
+start: # ♻️  locally run with angular cli
+	@echo "+ $@"
+	@npm i
+	@npm start
