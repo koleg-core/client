@@ -17,13 +17,6 @@ stages:
       $SCW_REGISTRY
       --password-stdin
 
-🛏️tests_coverage:
-  stage: 📜tests
-  image: node:14.2.0
-  script: |
-    yarn
-    yarn coverage
-
 🐳dockerfile_lint:
   stage: 📜tests
   image: hadolint/hadolint
