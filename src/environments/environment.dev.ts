@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://api.koleg.localhost/', // TODO
+  apiBaseUrl: 'https://api.dev.koleg.tk/', // TODO
   mock: true,
+  unsecure: true,
   timeout: 2000,
-  insecure: true,
   langs: [
     'fr',
     'en'
