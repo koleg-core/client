@@ -19,7 +19,7 @@ spec:
         - name: koleg-client
           image: rg.fr-par.scw.cloud/koleg/koleg-client:latest
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           # Don't activate if you are not in dev mode
           # https://medium.com/@mccode/the-misunderstood-docker-tag-latest-af3babfd6375
           imagePullPolicy: Always
