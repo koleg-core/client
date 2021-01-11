@@ -30,13 +30,12 @@ VOLUME /app/dist
 # Stage 2 - the production environment
 FROM nginx:alpine
 
-ENV NODE_OPTIONS="--max-old-space-size=8192"
-
-# RUN rm -fr \
+RUN rm -fr \
+    /etc/nginx/conf.d/default.conf
 #   /etc/nginx/nginx.conf \
 #   /usr/share/nginx/html
 
-COPY nginx.conf /etc/nginx/
+COPY nginx.conf /etc/nginx/conf.d/client.conf
 
 COPY --from=build /app/dist/client /usr/share/nginx/html
 
