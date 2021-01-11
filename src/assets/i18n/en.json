@@ -5,14 +5,32 @@
     "APP_VERSION": "V{{appVersion}}",
     "YES": "Yes",
     "NO": "No",
+    "CREATE": "Create",
+    "UPDATE": "Update",
+    "BACK": "Back",
     "LOADING_MESSAGE": "Please wait...",
     "NO_MORE_DATA": "No more data",
     "LOAD_MORE_DATA": "Load more data...",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "All fields are required.",
-        "BAD_FORMAT": "This field is not valid."
+        "FIELD_REQUIRED": "The field '{{ arg }}' is required.",
+        "BAD_FORMAT": "This field is not valid.",
+        "MAX_LENGTH": "Max length is {{ arg }} characters."
       }
+    },
+    "ERRORS": {
+      "AUTH": {
+        "INVALID_ARGS": "Invalid identifier and/or password."
+      },
+      "FALLBACK": "An unexpected error has occured."
+    }
+  },
+  "MODELS": {
+    "JOB": {
+      "NAME": "Label",
+      "DESCRIPTION": "Description",
+      "ICON_URL": "Icon"
     }
   },
   "FILTERS": {
@@ -64,7 +82,17 @@
   },
   "JOB_PAGE": {
     "TITLE": "Job details",
-    "NO_JOBS": "No job found"
+    "NO_JOBS": "No job found",
+    "DELETE_JOB": {
+      "SUCCESS": "Job {{jobName}} has been successfully deleted."
+    },
+    "USERS_NUMBER": "{{ number }} users are concerned by this job."
+  },
+  "JOB_EDIT_PAGE": {
+    "TITLE_ADD": "Add a job",
+    "TITLE_UPDATE": "Update a job",
+    "UPDATE_SUCCESS": "Job was successfully updated.",
+    "ADD_SUCCESS": "Job was successfully added."
   },
   "GROUPS_PAGE": {
     "TITLE": "Groups",

@@ -3,28 +3,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { ToastService } from 'src/app/services/toast-service.service';
+import { AbstractFormPage } from '../abstract-form-page/abstract-form-page';
 
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
   styleUrls: ['./authentication.component.scss']
 })
-export class AuthenticationComponent implements OnInit {
+export class AuthenticationComponent extends AbstractFormPage implements OnInit {
 
-  public get formControls(): any {
-    return this.authForm.controls;
-  }
-
-  public authForm: FormGroup;
-  public isSubmitted = false;
   public isLoading = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private navController: NavController,
     private loadingController: LoadingController,
-    private translate: TranslateService
-  ) { }
+    private translate: TranslateService,
+    private toastService: ToastService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this._initializeAuthForm();
@@ -37,9 +36,9 @@ export class AuthenticationComponent implements OnInit {
   async onSubmit() {
     this.isSubmitted = true;
 
-    if (this.authForm.valid) {
-      const username: string = this.authForm.get('username').value;
-      const password: string = this.authForm.get('password').value;
+    if (this.formGroup.valid) {
+      const username: string = this.formGroup.get('username').value;
+      const password: string = this.formGroup.get('password').value;
 
       const loading = await this.loadingController.create({
         message: this.translate.instant('COMMON.LOADING_MESSAGE'),
@@ -52,7 +51,8 @@ export class AuthenticationComponent implements OnInit {
           this.navController.navigateRoot(['main']);
         })
         .catch((error) => {
-          // TODO
+          console.log(error);
+          this.toastService.presentToastDanger();
         })
         .finally(() => {
           this.isSubmitted = false;
@@ -66,17 +66,20 @@ export class AuthenticationComponent implements OnInit {
     return '1.0.0'; // TODO
   }
 
-  public isFormInvalid(): boolean {
-    return this.isSubmitted
-      && (this.formControls.username.errors
-        || this.formControls.password.errors);
-  }
-
   private _initializeAuthForm(): void {
-    this.authForm = new FormGroup({
+    this.formGroup = new FormGroup({
       username: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
+
+    this.validationMessages = {
+      username: [
+        { type: 'required', message: 'COMMON.FORMS.ERRORS.FIELD_REQUIRED' }
+      ],
+      password: [
+        { type: 'required', message: 'COMMON.FORMS.ERRORS.FIELD_REQUIRED' }
+      ]
+    };
   }
 
 }

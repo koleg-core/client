@@ -16,8 +16,8 @@ export class JobsApiMock extends HttpApiClient implements JobsApiProtocol {
         const itemsNumber = parameters?.itemsNumber || 20;
 
         let filteredJobs = [];
-        if (parameters?.name) {
-          search = this._normalizedString(parameters.name);
+        if (parameters?.filter) {
+          search = this._normalizedString(parameters.filter);
           filteredJobs = this._jobs.filter(job => this._normalizedString(job.name).includes(search));
         } else {
           filteredJobs = this._jobs;
@@ -33,10 +33,10 @@ export class JobsApiMock extends HttpApiClient implements JobsApiProtocol {
       }, environment.timeout);
     });
   }
-  getJob(jobId: string): Promise<Job> {    
+  getJob(jobId: string): Promise<Job> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const job = this._jobs.find(j => jobId === j.id);
+        const job = this._jobs.find(j => jobId === j.name);
         if (job) {
           resolve(job);
         } else {
@@ -45,15 +45,44 @@ export class JobsApiMock extends HttpApiClient implements JobsApiProtocol {
       }, environment.timeout);
     });
   }
+
   addJob(job: Job): Promise<void> {
     throw new Error('Method not implemented.');
   }
-  updateJob(job: Job): Promise<Job> {
-    throw new Error('Method not implemented.');
+
+  updateJob(job: Job): Promise<any> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (!job) {
+          reject('Job cannot be null');
+        }
+        let jobToUpdate = this._jobs.find(u => job.id === u.id);
+        if (job) {
+          jobToUpdate = job;
+          resolve(jobToUpdate);
+        } else {
+          reject('Job not found');
+        }
+      }, environment.timeout);
+    });
   }
+
   deleteJob(jobId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const jobIndex = this._jobs.findIndex(job => job.id === jobId);
+      if (jobIndex >= 0) {
+        this._jobs.splice(jobIndex, 1);
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  }
+
+  getUsersNumberByJob(jobId: string): Promise<number> {
     throw new Error('Method not implemented.');
   }
+
   private _normalizedString(str: string): string {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }

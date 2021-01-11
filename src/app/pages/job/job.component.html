@@ -1,8 +1,17 @@
 <app-header></app-header>
 
-<ion-content  class="ion-justify-content-center">
+<ion-content class="ion-justify-content-center">
 
 	<ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button (click)="onClickBackButton()">
+				<ion-icon name="chevron-back-outline"></ion-icon>
+				{{ 'COMMON.BACK' | translate }}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
 
 	<ion-row *ngIf="!isLoading && isJob()" class="ion-justify-content-center">
 		<h1>{{ 'JOB_PAGE.TITLE' | translate }}</h1>
@@ -12,15 +21,31 @@
 	</ion-row>
 
 	<ion-row *ngIf="!isLoading && isJob()" class="ion-justify-content-center">
-		<ion-card class="jobCard">
-			<ion-card-header>
-				<ion-card-title>{{ job?.name }}</ion-card-title>
-			</ion-card-header>
-			<ion-card-content>
-					<ion-button shape="round" size="small" color="medium" fill="outline">Editer</ion-button>
-					<ion-button shape="round" size="small" color="danger" fill="outline">Supprimer</ion-button>
-			</ion-card-content>
-		</ion-card>
+		<ion-col size="12" size-md="7">
+			<ion-card>
+				<ion-card-header>
+					<ion-card-title>{{ job?.name }}</ion-card-title>
+				</ion-card-header>
+				<ion-card-content>
+					{{ job?.description }}
+					<ion-row class="ion-justify-content-end ion-padding-vertical">
+						<ion-button (click)="onClickEditJob()" size="small" [disabled]="isLoading" fill="clear">
+							<ion-icon slot="icon-only" name="create-outline"></ion-icon>
+						</ion-button>
+						<ion-button (click)="onClickDeleteJob()" size="small" [disabled]="isLoading" fill="clear">
+							<ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+						</ion-button>
+					</ion-row>
+				</ion-card-content>
+			</ion-card>
+
+			<ion-card color="warning">
+				<ion-card-content>
+					{{ 'JOB_PAGE.USERS_NUMBER' | translate: { number: number } }}
+				</ion-card-content>
+			</ion-card>
+
+		</ion-col>
 	</ion-row>
 
 </ion-content>

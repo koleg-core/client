@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthenticationService } from './services/authentication.service';
 import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
@@ -11,7 +13,8 @@ export class AppComponent {
 
   constructor(
     private translate: TranslateService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private navController: NavController
   ) {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('en');
@@ -30,6 +33,12 @@ export class AppComponent {
       document.body.classList.toggle('dark', isDarkModeEnabled);
     } else {
       this.localStorageService.setDarkModePref(false);
+    }
+
+    const token = this.localStorageService.getToken();
+    if (token) {
+      AuthenticationService.TOKEN = token;
+      this.navController.navigateRoot('main');
     }
   }
 }

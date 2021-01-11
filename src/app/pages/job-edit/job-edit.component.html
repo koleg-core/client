@@ -1,0 +1,74 @@
+<app-header></app-header>
+
+<ion-content class="ion-justify-content-center">
+
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        {{ 'COMMON.BACK' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-grid>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-sm="8" size-xl="7">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ (isUpdate ? 'JOB_EDIT_PAGE.TITLE_UPDATE' : 'JOB_EDIT_PAGE.TITLE') | translate }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+
+            <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+              <!-- name field -->
+              <ng-container *ngIf="'name'; let fieldName">
+                <ion-item [ngClass]="getValidationClasses(fieldName)">
+                  <ion-label position="floating">{{ 'MODELS.JOB.NAME' | translate }}</ion-label>
+                  <ion-input autofocus="true" type="text" inputmode="text" [formControlName]="fieldName" required>
+                  </ion-input>
+                </ion-item>
+
+                <ng-container *ngFor="let validation of validationMessages[fieldName]">
+                  <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    {{ validation.message | translate: {arg: ('MODELS.JOB.NAME' | translate | lowercase) } }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <!-- description field -->
+              <ng-container *ngIf="'description'; let fieldName">
+                <ion-item [ngClass]="getValidationClasses(fieldName)">
+                  <ion-label position="floating">{{ 'MODELS.JOB.DESCRIPTION' | translate }}</ion-label>
+                  <ion-textarea type="text" inputmode="text" [formControlName]="fieldName" autoGrow="true"
+                    [maxlength]="descriptionMaxLength">
+                  </ion-textarea>
+                </ion-item>
+
+                <ng-container *ngFor="let validation of validationMessages[fieldName]">
+                  <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+                    <ion-icon name="information-circle-outline"></ion-icon>
+                    {{ validation.message | translate: {arg: descriptionMaxLength }
+                    }}
+                  </div>
+                </ng-container>
+              </ng-container>
+
+              <ion-button class="ion-margin-vertical ion-float-right" type="submit" [disabled]="isLoading">
+                {{ (isUpdate ? 'COMMON.UPDATE' : 'COMMON.CREATE') | translate }}
+              </ion-button>
+            </form>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+</ion-content>

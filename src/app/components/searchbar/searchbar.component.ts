@@ -36,7 +36,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   onClearSearchEvent() {
-    if (this._selectedFilter !== SearchFilter.NO_FILTER) {
+    if (this._selectedFilter !== SearchFilter.NO_FILTER || this.filters.length === 0) {
       this.clearEmitter.emit();
     }
   }

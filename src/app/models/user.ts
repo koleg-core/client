@@ -39,7 +39,7 @@ export class User {
       userJson.email,
       userJson.imgUrl,
       new SshKey(userJson.sshKey, userJson.sshKey),
-      new Job(userJson.job.id, userJson.job.name),
+      userJson.job ? new Job(userJson.job.id, userJson.job.name, userJson.job.description, userJson.iconUrl) : null,
       userJson.expirationDate,
       userJson.removalDate,
       phones

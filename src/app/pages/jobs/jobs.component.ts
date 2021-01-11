@@ -4,6 +4,7 @@ import { SearchFilter } from 'src/app/enums/search-filter.enum';
 import { JobsParameters } from 'src/app/dal/jobs/jobs-api-protocol';
 import { Job } from 'src/app/models/job';
 import { JobsService } from 'src/app/services/jobs.service';
+import { ToastService } from 'src/app/services/toast-service.service';
 
 @Component({
   selector: 'app-jobs',
@@ -16,49 +17,50 @@ export class JobsComponent {
   public jobs: Job[] = [];
   public isLoading = false;
   public areAllDataLoaded = false;
-  public filters: SearchFilter[] = [
-    SearchFilter.NAME,
-  ];
+  public filters: SearchFilter[] = [];
 
   private _nextPage = 2;
-  private _filter = SearchFilter.NAME;
-  private _search;
+  private _search: string;
 
   constructor(
     private jobsService: JobsService,
-    private navController: NavController
+    private navController: NavController,
+    private toastService: ToastService
   ) { }
 
   ionViewDidEnter() {
     this.areAllDataLoaded = false;
     this._search = '';
+    this._nextPage = 2;
     this.isLoading = true;
     this.jobsService.getJobs()
       .then(jobs => this.jobs = jobs)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => this.isLoading = false);
   }
 
   onClickJobCard(id: string) {
-    this.navController.navigateForward(['main', 'jobs', id]);
+    this.navController.navigateForward(['main', 'jobs', 'details', id]);
   }
 
   onClickSearchButton(search: string) {
     this._search = search;
 
     const parameters: JobsParameters = {};
-    this._setParameterByFilter(parameters);
+    parameters.filter = this._search;
 
     this.isLoading = true;
     this.areAllDataLoaded = false;
     this.jobsService.getJobs(parameters)
       .then(jobs => this.jobs = jobs)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => this.isLoading = false);
-  }
-
-  onChangeFilter(filter: SearchFilter) {
-    this._filter = filter;
-    this._nextPage = 2;
-    this._search = '';
   }
 
   onClearSearchEvent() {
@@ -66,19 +68,23 @@ export class JobsComponent {
     this.areAllDataLoaded = false;
     this.jobsService.getJobs()
       .then(jobs => this.jobs = jobs)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => {
         this.isLoading = false;
       });
   }
 
   onClickAddJobsFabButton() {
-    // TODO
+    this.navController.navigateForward(['main', 'jobs', 'edit']);
   }
 
   onLoadMoreJobs(e: any) {
     const parameters: JobsParameters = {};
     parameters.page = this._nextPage;
-    this._setParameterByFilter(parameters);
+    parameters.filter = this._search;
 
     this.isLoading = true;
     this.jobsService.getJobs(parameters)
@@ -90,6 +96,10 @@ export class JobsComponent {
         }
         this._nextPage++;
       })
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => {
         this.isLoading = false;
         e.target.complete();
@@ -98,14 +108,6 @@ export class JobsComponent {
 
   public areJobsEmpty(): boolean {
     return !this.jobs.length;
-  }
-
-  private _setParameterByFilter(parameters: JobsParameters) {
-    switch (this._filter) {
-      case SearchFilter.NAME:
-        parameters.name = this._search;
-        break;
-    }
   }
 
 }

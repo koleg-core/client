@@ -4,10 +4,11 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://api.koleg.localhost/', // TODO
-  mock: true,
+  apiBaseUrl: 'http://api.koleg.localhost:8080',
+  mock: false,
   timeout: 2000,
   insecure: true,
+  toastDuration: 2000,
   langs: [
     'fr',
     'en'
