@@ -1,25 +1,26 @@
 export enum ApiEndpoints {
   // AUTHENTICATION
-  LOGIN = '/auth/login',
-  LOGOUT = '/auth/logout',
-  RESET_PASSWORD = '/auth/reset_password',
+  AUTH = 'auth',
+  LOGIN = 'login',
+  RESET_PASSWORD = 'reset_password',
 
   // GROUPS
-  GROUPS = '/groups',
+  GROUPS = 'groups',
 
   // JOBS
-  JOBS = '/jobs',
+  JOBS = 'jobs',
+  NUMBER = 'number',
 
   // RIGHTS
-  RIGHTS = '/rights',
+  RIGHTS = 'rights',
 
   // UPLOAD
-  UPLOAD_IMAGE = '/upload_image',
+  UPLOAD_IMAGE = 'upload_image',
 
   // USERS
-  USERS = '/users',
+  USERS = 'users',
 
   // VCARD
-  VCARD = '/vcard'
+  VCARD = 'vcard'
 
 }

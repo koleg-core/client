@@ -3,7 +3,7 @@ import { Job } from 'src/app/models/job';
 export interface JobsParameters {
   itemsNumber?: number;
   page?: number;
-  name?: string;
+  filter?: string;
 }
 
 export interface JobsApiProtocol {
@@ -14,7 +14,9 @@ export interface JobsApiProtocol {
 
   addJob(job: Job): Promise<void>;
 
-  updateJob(job: Job): Promise<Job>;
+  updateJob(job: Job): Promise<void>;
 
   deleteJob(jobId: string): Promise<void>;
+
+  getUsersNumberByJob(jobId: string): Promise<number>;
 }

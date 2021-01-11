@@ -19,15 +19,21 @@ export class JobsService {
     return this.jobsApiService.getJob(jobId);
   }
 
-  public addJob(job: Job): Promise<any> {
+  public addJob(id: string, name: string, description: string, iconUrl: string): Promise<any> {
+    const job: Job = new Job(id, name, description, iconUrl);
     return this.jobsApiService.addJob(job);
   }
 
-  public updateJob(job: Job): Promise<Job> {
+  public updateJob(id: string, name: string, description: string, iconUrl: string): Promise<any> {
+    const job: Job = new Job(id, name, description, iconUrl);
     return this.jobsApiService.updateJob(job);
   }
 
   public deleteJob(jobId: string): Promise<any> {
     return this.jobsApiService.deleteJob(jobId);
+  }
+
+  public getUsersNumberByJob(jobId: string): Promise<number> {
+    return this.jobsApiService.getUsersNumberByJob(jobId);
   }
 }

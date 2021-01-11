@@ -3,6 +3,7 @@ import { IonInfiniteScroll } from '@ionic/angular';
 import { UsersParameters } from 'src/app/dal/users/users-api-protocol';
 import { SearchFilter } from 'src/app/enums/search-filter.enum';
 import { User } from 'src/app/models/user';
+import { ToastService } from 'src/app/services/toast-service.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -25,10 +26,11 @@ export class UsersComponent {
 
   private _nextPage = 2;
   private _filter = SearchFilter.NO_FILTER;
-  private _search;
+  private _search: string;
 
   constructor(
-    private usersService: UsersService
+    private usersService: UsersService,
+    private toastService: ToastService
   ) { }
 
   ionViewDidEnter() {
@@ -37,6 +39,10 @@ export class UsersComponent {
     this.isLoading = true;
     this.usersService.getUsers()
       .then(users => this.users = users)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => this.isLoading = false);
   }
 
@@ -50,6 +56,10 @@ export class UsersComponent {
     this.areAllDataLoaded = false;
     this.usersService.getUsers(parameters)
       .then(users => this.users = users)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => this.isLoading = false);
   }
 
@@ -64,6 +74,10 @@ export class UsersComponent {
     this.areAllDataLoaded = false;
     this.usersService.getUsers()
       .then(users => this.users = users)
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
       .finally(() => {
         this.isLoading = false;
       });
@@ -87,6 +101,10 @@ export class UsersComponent {
           this.areAllDataLoaded = true;
         }
         this._nextPage++;
+      })
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
       })
       .finally(() => {
         this.isLoading = false;

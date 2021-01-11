@@ -5,7 +5,7 @@ import { AuthApiProtocol } from './auth-api-protocol';
 
 export class AuthApiMock extends HttpApiClient implements AuthApiProtocol {
 
-  login(username: string, password: string): Promise<User> {
+  login(username: string, password: string): Promise<any> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(new User()); // TODO

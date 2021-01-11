@@ -5,12 +5,11 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="onClickAddJobsFabButton()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="create-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"
-    (filterEmitter)="onChangeFilter($event)" (clearEmitter)="onClearSearchEvent()"></app-searchbar>
+  <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"></app-searchbar>
 
   <ion-row>
     <h1 class="ion-padding-start">{{ 'JOBS_PAGE.TITLE' | translate }}</h1>
@@ -27,7 +26,10 @@
         <ion-card-header>
           <ion-card-title>{{ job?.name }}</ion-card-title>
         </ion-card-header>
-    </ion-card>
+        <ion-card-content>
+          {{ job?.description }}
+        </ion-card-content>
+      </ion-card>
     </ion-col>
   </ion-row>
 

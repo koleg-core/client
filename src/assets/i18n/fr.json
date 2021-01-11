@@ -5,14 +5,32 @@
     "APP_VERSION": "V{{appVersion}}",
     "YES": "Oui",
     "NO": "Non",
+    "CREATE": "Créer",
+    "UPDATE": "Mettre à jour",
+    "BACK": "Retour",
     "LOADING_MESSAGE": "Patientez s'il vous plait ...",
     "NO_MORE_DATA": "Pas de données supplémentaires",
     "LOAD_MORE_DATA": "Chargement de plus de données ...",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "Tous les champs sont requis.",
-        "BAD_FORMAT": "Ce champ n'est pas valide."
+        "FIELD_REQUIRED": "Le champ '{{ arg }}' est requis.",
+        "BAD_FORMAT": "Ce champ n'est pas valide.",
+        "MAX_LENGTH": "La longueur maximale est de {{ arg }} caractère."
       }
+    },
+    "ERRORS": {
+      "AUTH": {
+        "INVALID_ARGS": "Identifiant et/ou mot de passe invalide(s)."
+      },
+      "FALLBACK": "Une erreur inconnue est survenue."
+    }
+  },
+  "MODELS": {
+    "JOB": {
+      "NAME": "Libellé",
+      "DESCRIPTION": "Déscription",
+      "ICON_URL": "Icône"
     }
   },
   "FILTERS": {
@@ -61,7 +79,17 @@
   },
   "JOB_PAGE": {
     "TITLE": "Détails de la profession",
-    "NO_JOBS": "Aucune profession trouvée"
+    "NO_JOBS": "Aucune profession trouvée",
+    "DELETE_JOB": {
+      "SUCCESS": "La profession {{jobName}} a été supprimée avec succès."
+    },
+    "USERS_NUMBER": "{{ number }} utilisateurs sont concernés pas cette profession."
+  },
+  "JOB_EDIT_PAGE": {
+    "TITLE": "Ajouter une profession",
+    "TITLE_UPDATE": "Mettre à jour une profession",
+    "UPDATE_SUCCESS": "La profession a été mise à jour avec succès.",
+    "ADD_SUCCESS": "La profession a été ajouté avec succès."
   },
   "GROUPS_PAGE": {
     "TITLE": "Groupes",

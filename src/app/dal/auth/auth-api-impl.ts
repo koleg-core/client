@@ -1,13 +1,18 @@
-import { User } from 'src/app/models/user';
+import { ApiEndpoints } from 'src/app/enums/api-endpoints.enum';
 import { HttpApiClient } from '../http-api-client';
 import { AuthApiProtocol } from './auth-api-protocol';
 
 export class AuthApiImpl extends HttpApiClient implements AuthApiProtocol {
-  login(username: string, password: string): Promise<User> {
-    throw new Error('Method not implemented.');
-  }
-  logout(): Promise<void> {
-    throw new Error('Method not implemented.');
+  login(identifier: string, password: string): Promise<any> {
+    return this.http.post(
+      this.urlBuilder([ApiEndpoints.AUTH, ApiEndpoints.LOGIN]),
+      JSON.stringify({
+        identifier,
+        password
+      }),
+      { headers: this.getHeaders() }
+    )
+      .toPromise();
   }
 
 }
