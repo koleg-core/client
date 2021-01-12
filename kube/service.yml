@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: koleg-client
   labels:
-    run: koleg-client
+    app: koleg-client
 spec:
   ports:
     - name: http
       port: 8080
       protocol: TCP
   selector:
-    run: koleg-client
+    app: koleg-client
