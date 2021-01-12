@@ -5,6 +5,7 @@ FROM node:${NODE_VERSION}-alpine3.11 as build
 
 ARG VERSION="0.0.0"
 ARG PROD="true"
+ARG ENV="master"
 
 # define build configs into:
 # .env .env.xx.xx
@@ -12,6 +13,7 @@ ARG PROD="true"
 
 ENV VERSION=${VERSION} \
     PROD=${PROD} \
+    ENV=${ENV} \
     NODE_OPTIONS="--max-old-space-size=8192"
 
 WORKDIR /app
@@ -23,7 +25,7 @@ RUN npm install
 
 VOLUME /app/node_modules
 
-RUN npm run build --prod=${PROD}
+RUN npm run build:${ENV} --prod=${PROD}
 
 VOLUME /app/dist
 

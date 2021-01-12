@@ -30,9 +30,10 @@ stages:
     docker pull \
       $SCW_REGISTRY/$IMAGE_NAME:latest || true
     docker build \
-      -t $SCW_REGISTRY/$IMAGE_NAME:latest \
-      -t $SCW_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA \
-      --cache-from $SCW_REGISTRY/$IMAGE_NAME:latest \
+      --build-arg="ENV=${CI_COMMIT_BRANCH}" \
+      -t "$SCW_REGISTRY/$IMAGE_NAME:latest" \
+      -t "${SCW_REGISTRY}/${IMAGE_NAME}:${CI_COMMIT_SHA}" \
+      --cache-from "${SCW_REGISTRY}/${IMAGE_NAME}:latest" \
       .
     echo "Push image to registry"
     docker push \
