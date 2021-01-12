@@ -3,11 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiBaseUrl: 'https://api.dev.koleg.tk/', // TODO
-  mock: true,
-  unsecure: true,
+  production: true,
+  apiBaseUrl: 'https://api.dev.koleg.tk',
+  mock: false,
+  insecure: true,
   timeout: 2000,
+  toastDuration: 2000,
   langs: [
     'fr',
     'en'
