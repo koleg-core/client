@@ -9,7 +9,8 @@
     </ion-fab-button>
   </ion-fab>
 
-  <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"></app-searchbar>
+  <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"
+    (clearEmitter)="onClearSearchEvent()"></app-searchbar>
 
   <ion-row>
     <h1 class="ion-padding-start">{{ 'JOBS_PAGE.TITLE' | translate }}</h1>

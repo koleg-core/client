@@ -1,0 +1,130 @@
+<app-header></app-header>
+
+<ion-content>
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        {{ 'COMMON.BACK' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-row *ngIf="user?.isExpired()" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card color="warning">
+        <ion-card-content>
+          {{ 'USER_PAGE.USER_EXPIRED' | translate: { date: (user?.expirationDate | date: 'dd/MM/yyyy') } }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-avatar class="avatar">
+            <ion-img [src]="user?.profilePictureUrl"></ion-img>
+          </ion-avatar>
+          <ion-card-subtitle class="ion-margin-top ion-text-center">{{ job?.name }}</ion-card-subtitle>
+          <ion-card-title class="ion-text-center">
+            {{ user?.firstName | titlecase }} {{ user?.lastName | uppercase }}
+          </ion-card-title>
+          <ion-row class="ion-justify-content-around">
+            <ion-col size="auto">
+              @{{ user?.username }}
+            </ion-col>
+            <ion-col size="auto" class="ion-align-items-center">
+              <ion-icon name="gift-outline"></ion-icon>
+              {{ user?.birthdate | date: 'dd/MM/yyyy' }}
+            </ion-col>
+            <ion-col size="auto">
+              {{ 'COMMON.CREATED_DATE' | translate }} {{ user?.creationDate | date: 'dd/MM/yyyy' }}
+            </ion-col>
+          </ion-row>
+          <ion-buttons *ngIf="!user?.isExpired()" id="floating-edit-button">
+            <ion-button (click)="onClickEditUserButton()">
+              <ion-icon name="create-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="6" class="ion-justify-content-center">
+      <ion-row class="ion-justify-content-around">
+        <ion-button fill="outline" (click)="onClickDownloadSshPublicKey()" [disabled]="user?.isExpired() || !user?.sshKey?.publicKey">
+          <ion-icon name="cloud-download" class="ion-padding-end"></ion-icon>
+          {{ 'MODELS.SSH_KEY.PUBLIC' | translate }}
+        </ion-button>
+        <ion-button fill="outline" (click)="onClickDownloadVcard()" [disabled]="user?.isExpired()">
+          <ion-icon name="cloud-download" class="ion-padding-end"></ion-icon>
+          {{ 'MODELS.USER.VCARD' | translate }}
+        </ion-button>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.USER.EMAIL' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-item>
+            {{ user?.email }}
+            <ion-buttons slot="end">
+              <ion-button (click)="onClickMailToButton()">
+                <ion-icon slot="icon-only" size="small" name="mail-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.USER.PHONE_NUMBERS' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list id="phones-list">
+            <ion-item *ngFor="let phone of user?.phoneNumbers">
+              {{ phone?.value }}
+              <ion-buttons slot="end">
+                <ion-button (click)="onClickCallToButton(phone?.value)">
+                  <ion-icon slot="icon-only" size="small" name="call-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="job" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card (click)="onClickJobCard(job?.id)" button>
+        <ion-card-header>
+          <ion-card-title>{{ job?.name }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{ job?.description }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MainComponent } from './main.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Route[] = [
   {
@@ -19,10 +18,26 @@ const routes: Route[] = [
       },
       {
         path: 'users',
-        loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
+        loadChildren: () => import('../users/users.module').then(m => m.UsersModule),
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
+          },
+          {
+            path: 'details/:id',
+            loadChildren: () => import('../user/user.module').then(m => m.UserModule),
+          },
+          {
+            path: 'edit',
+            loadChildren: () => import('../user-edit/user-edit.module').then(m => m.UserEditModule)
+          }
+        ]
       },
       {
-        path: 'jobs', loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule),
+        path: 'jobs',
+        loadChildren: () => import('../jobs/jobs.module').then(m => m.JobsModule),
         children: [
           {
             path: '',

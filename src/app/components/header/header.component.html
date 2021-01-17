@@ -4,10 +4,10 @@
       <ion-menu-button menu="main-menu"></ion-menu-button>
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-img class="drawable" src="assets/drawable/koleg-3.svg"></ion-img>
+    <ion-img class="drawable" [src]="isDarkMode ? 'assets/drawable/koleg-var-white.svg' : 'assets/drawable/koleg.svg'"></ion-img>
     <ion-buttons slot="end">
       <ion-button (click)="onClickLogoutButton()">
-        <ion-icon color="dark" slot="icon-only" name="power"></ion-icon>
+        <ion-icon slot="icon-only" name="power"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

@@ -5,7 +5,7 @@
 
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
-          <ion-img src="assets/drawable/koleg-3.svg"></ion-img>
+          <ion-img [src]="isDarkMode ? 'assets/drawable/koleg-var-white.svg' : 'assets/drawable/koleg.svg'"></ion-img>
         </ion-col>
       </ion-row>
 
@@ -15,13 +15,13 @@
 
           <!-- username field -->
           <ng-container *ngIf="'username'; let fieldName">
-            <ion-item [ngClass]="getValidationClasses(fieldName)">
+            <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
               <ion-label position="floating">{{ 'LOGIN_PAGE.USERNAME_PLACEHOLDER' | translate }}</ion-label>
               <ion-input autofocus="true" type="text" inputmode="text" formControlName="username" required></ion-input>
             </ion-item>
 
             <ng-container *ngFor="let validation of validationMessages[fieldName]">
-              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
                 <ion-icon name="information-circle-outline"></ion-icon>
                 {{ validation.message | translate: {arg: ('LOGIN_PAGE.USERNAME_PLACEHOLDER' | translate | lowercase) } }}
               </div>
@@ -30,13 +30,13 @@
 
           <!-- password field -->
           <ng-container *ngIf="'password'; let fieldName">
-            <ion-item [ngClass]="getValidationClasses(fieldName)">
+            <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
               <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}</ion-label>
               <ion-input type="password" formControlName="password" required></ion-input>
             </ion-item>
 
             <ng-container *ngFor="let validation of validationMessages[fieldName]">
-              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
                 <ion-icon name="information-circle-outline"></ion-icon>
                 {{ validation.message | translate: {arg: ('LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate | lowercase) } }}
               </div>

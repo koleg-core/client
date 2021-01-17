@@ -1,0 +1,378 @@
+<app-header></app-header>
+
+<ion-content class="ion-justify-content-center">
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]="isLoading" (click)="onSubmit()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        {{ 'COMMON.BACK' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <h1 class="ion-text-center">{{ (isUpdate ? 'USER_EDIT_PAGE.TITLE_UPDATE' : 'USER_EDIT_PAGE.TITLE') | translate }}</h1>
+
+  <ion-grid>
+
+    <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header class="ion-text-center">
+              <div class="picture-container">
+                <ion-avatar class="avatar" (click)="onClickUploadProfileAvatar()">
+                  <ion-img *ngIf="profilePicture" [src]="profilePicture"></ion-img>
+                </ion-avatar>
+                <ion-icon *ngIf="!profilePicture" class="no-picture-icon" name="camera">
+                </ion-icon>
+              </div>
+
+              <ion-button *ngIf="formGroup.get(userFormKey.PROFILE_PICTURE).touched" class="ion-margin-top"
+                (click)="onClickResetProfileButton()" color="danger" size="small">
+                {{ 'COMMON.RESET' | translate }}
+              </ion-button>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.PROFILE_PICTURE]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.PROFILE_PICTURE), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.SSH_KEY.PUBLIC' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'USER_EDIT_PAGE.PERSONAL_DATA' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- firstName field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.FIRST_NAME))">
+                <ion-label position="floating">{{ 'MODELS.USER.FIRST_NAME' | translate }}</ion-label>
+                <ion-input autofocus="true" type="text" inputmode="text" [formControlName]="userFormKey.FIRST_NAME"
+                  required>
+                </ion-input>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.FIRST_NAME]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.FIRST_NAME), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.FIRST_NAME' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+              <!-- lastName field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.LAST_NAME))">
+                <ion-label position="floating">{{ 'MODELS.USER.LAST_NAME' | translate }}</ion-label>
+                <ion-input type="text" inputmode="text" [formControlName]="userFormKey.LAST_NAME" required>
+                </ion-input>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.LAST_NAME]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.LAST_NAME), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.LAST_NAME' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+              <!-- birthdate field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.BIRTHDATE))">
+                <ion-label position="floating">{{ 'MODELS.USER.BIRTHDATE' | translate }}</ion-label>
+                <ion-datetime mode="md" displayFormat="DD/MM/YYYY" display-timezone="utc"
+                  [formControlName]="userFormKey.BIRTHDATE" [doneText]="'COMMON.OK' | translate"
+                  [cancelText]="'COMMON.CANCEL' | translate" [max]="nowDate" required></ion-datetime>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.BIRTHDATE]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.BIRTHDATE), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.BIRTHDATE' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center contact-form">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'USER_EDIT_PAGE.CONTACT_INFORMATION' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- email field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.EMAIL))">
+                <ion-label position="floating">{{ 'MODELS.USER.EMAIL' | translate }}</ion-label>
+                <ion-input type="email" inputmode="email" [formControlName]="userFormKey.EMAIL" required>
+                </ion-input>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.EMAIL]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.EMAIL), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.EMAIL' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+              <!-- phoneNumbers field -->
+              <div [formArrayName]="userFormKey.PHONE_NUMBERS" class="ion-padding-top">
+
+                <ng-container *ngFor="let _ of phoneNumbersForm.controls; index as i">
+                  <ng-container [formGroupName]="i">
+                    <ion-item
+                      [ngClass]="getValidationClasses(phoneNumbersForm.controls[i].get(userFormKey.PHONE_NUMBER))">
+
+                      <ion-select slot="start" placeholder="Select One" [formControlName]="userFormKey.PHONE_TYPE">
+                        <ion-select-option *ngFor="let type of phoneTypes" [value]="type">
+                          {{ 'PHONE_TYPE.' + type | translate }}
+                        </ion-select-option>
+                      </ion-select>
+
+                      <ion-buttons slot="end">
+                        <ion-button *ngIf="phoneNumbersForm.controls[i].get(userFormKey.PHONE_NUMBER).value"
+                          (click)="onClickRemovePhoneInputButton(i)">
+                          <ion-icon size="small" name="close"></ion-icon>
+                        </ion-button>
+                      </ion-buttons>
+
+                      <ion-input type="tel" inputmode="tel"
+                        [placeholder]="'USER_EDIT_PAGE.FORM.PHONE_NUMBER_PLACEHOLDER' | translate"
+                        [formControlName]="userFormKey.PHONE_NUMBER"></ion-input>
+
+                    </ion-item>
+
+                    <ng-container *ngFor="let validation of validationMessages[userFormKey.PHONE_NUMBER]">
+                      <div class="validation-errors"
+                        *ngIf="shouldDisplayErrorMessage(phoneNumbersForm.controls[i].get(userFormKey.PHONE_NUMBER), validation.type)">
+                        <ion-icon name="information-circle-outline"></ion-icon>
+                        {{ validation.message | translate: {arg: ('MODELS.USER.PHONE_NUMBERS' | translate | lowercase)
+                        }
+                        }}
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+              </div>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center job-form">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.USER.JOB' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- jobId field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.JOB_ID))">
+                <ion-select [formControlName]="userFormKey.JOB_ID"
+                  [placeholder]="'USER_EDIT_PAGE.FORM.JOB_PLACEHOLDER' | translate">
+                  <ion-select-option *ngFor="let job of jobs" [value]="job.id">
+                    {{ job.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.JOB_ID]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.JOB_ID), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.JOB' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.USER.SSH_KEYS' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- sshPrivateKey field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PRIVATE))">
+                <ion-label position="floating">{{ 'MODELS.SSH_KEY.PRIVATE' | translate }}</ion-label>
+                <ion-textarea [formControlName]="userFormKey.SSH_PRIVATE" autoGrow="true"
+                  [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PRIVATE_KEY_PLACEHOLDER' | translate">
+                </ion-textarea>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.SSH_PRIVATE]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.SSH_PRIVATE), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.SSH_KEY.PRIVATE' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+              <!-- sshPublicKey field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PUBLIC))">
+                <ion-label position="floating">{{ 'MODELS.SSH_KEY.PUBLIC' | translate }}</ion-label>
+                <ion-textarea [formControlName]="userFormKey.SSH_PUBLIC" autoGrow="true"
+                  [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PUBLIC_KEY_PLACEHOLDER' | translate">
+                </ion-textarea>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.SSH_PUBLIC]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.SSH_PUBLIC), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.SSH_KEY.PUBLIC' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.USER.PASSWORD' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- password field -->
+              <ion-item class="ion-align-items-end"
+                [ngClass]="getValidationClasses(formGroup.get(userFormKey.PASSWORD))">
+                <ion-label position="floating">{{ 'USER_EDIT_PAGE.NEW_PASSWORD' | translate }}</ion-label>
+                <ion-input [type]="isPasswordVisible ? 'text' : 'password'" [formControlName]="userFormKey.PASSWORD">
+                </ion-input>
+                <ion-buttons slot="end">
+                  <ion-button (click)="onClickTogglePasswordVisibilityButton()">
+                    <ion-icon slot="icon-only" size="small" [name]="isPasswordVisible ? 'eye-off' : 'eye'"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.PASSWORD]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.PASSWORD), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.EXPIRATION_DATE' | translate | lowercase) }
+                  }}
+                </div>
+              </ng-container>
+
+              <!-- confirmPassword field -->
+              <ion-item class="ion-align-items-end"
+                [ngClass]="getValidationClasses(formGroup.get(userFormKey.CONFIRM_PASSWORD))">
+                <ion-label position="floating">{{ 'USER_EDIT_PAGE.NEW_PASSWORD_CONFIRM' | translate }}</ion-label>
+                <ion-input [type]="isConfirmPasswordVisible ? 'text' : 'password'"
+                  [formControlName]="userFormKey.CONFIRM_PASSWORD">
+                </ion-input>
+                <ion-buttons slot="end">
+                  <ion-button (click)="onClickToggleConfirmPasswordVisibilityButton()">
+                    <ion-icon slot="icon-only" size="small" [name]="isConfirmPasswordVisible ? 'eye-off' : 'eye'">
+                    </ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.CONFIRM_PASSWORD]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.CONFIRM_PASSWORD), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.PASSWORD' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'USER_EDIT_PAGE.ADMINISTRATION' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- expirationDate field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.EXPIRATION_DATE))">
+                <ion-label position="floating">{{ 'MODELS.USER.EXPIRATION_DATE' | translate }}</ion-label>
+
+                <ion-button *ngIf="formGroup.get(userFormKey.EXPIRATION_DATE).value" class="reset-exp-date-button"
+                  (click)="onClickResetExpirationDateButton($event)" slot="end" size="small" color="danger">
+                  {{ 'COMMON.RESET' | translate }}
+                </ion-button>
+
+                <ion-datetime mode="md" pickerFormat="DD/MM/YYYY HH" displayFormat="DD/MM/YYYY HH:mm"
+                  display-timezone="utc" [formControlName]="userFormKey.EXPIRATION_DATE"
+                  [doneText]="'COMMON.OK' | translate" [cancelText]="'COMMON.CANCEL' | translate"
+                  [min]="expirationMaxDate"></ion-datetime>
+
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.EXPIRATION_DATE]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.EXPIRATION_DATE), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.EXPIRATION_DATE' | translate | lowercase) }
+                  }}
+                </div>
+              </ng-container>
+
+              <!-- isDisabled field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.IS_DISABLED))">
+                <ion-label>{{ 'MODELS.USER.IS_DISABLED' | translate }}</ion-label>
+                <ion-toggle color="danger" mode="md" slot="end" [formControlName]="userFormKey.IS_DISABLED">
+                </ion-toggle>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.IS_DISABLED]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(userFormKey.IS_DISABLED), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.USER.IS_DISABLED' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+</ion-content>

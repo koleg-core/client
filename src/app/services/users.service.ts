@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { UsersApiProtocol, UsersParameters } from '../dal/users/users-api-protocol';
-import { User } from '../models/user';
+import { User, UserProps } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +23,26 @@ export class UsersService {
     return this.usersApiService.getUserVcard(userId);
   }
 
-  public addUser(user: User): Promise<any> {
+  public addUser(userProps: UserProps): Promise<any> {
+    const user = User.create(userProps);
     return this.usersApiService.addUser(user);
   }
 
-  public updateUser(user: User): Promise<User> {
+  public updateUser(userProps: UserProps): Promise<User> {
+    const user = User.create(userProps);
     return this.usersApiService.updateUser(user);
   }
 
   public deleteUser(userId: string): Promise<any> {
     return this.usersApiService.deleteUser(userId);
+  }
+
+  public updatePassword(userId: string, password: string): Promise<any> {
+    return this.usersApiService.updatePassword(userId, password);
+  }
+
+  public uploadProfile(userId: string, fileData: string): Promise<void> {
+    return this.usersApiService.uploadProfilePicture(userId, fileData);
   }
 
 }

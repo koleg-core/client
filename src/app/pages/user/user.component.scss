@@ -1,0 +1,17 @@
+.avatar {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+#phones-list {
+  overflow-y: auto;
+  max-height: 155px;
+}
+
+#floating-edit-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 8px;
+}

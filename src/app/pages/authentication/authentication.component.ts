@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ToastService } from 'src/app/services/toast-service.service';
 import { AbstractFormPage } from '../abstract-form-page/abstract-form-page';
 
@@ -14,19 +15,22 @@ import { AbstractFormPage } from '../abstract-form-page/abstract-form-page';
 export class AuthenticationComponent extends AbstractFormPage implements OnInit {
 
   public isLoading = false;
+  public isDarkMode = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private navController: NavController,
     private loadingController: LoadingController,
     private translate: TranslateService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private localStorageService: LocalStorageService
   ) {
     super();
   }
 
   ngOnInit(): void {
     this._initializeAuthForm();
+    this.isDarkMode = this.localStorageService.isDarkMode.value;
   }
 
   onClickResetPasswordButton(): void {

@@ -7,28 +7,16 @@ import { UsersApiProtocol, UsersParameters } from './users-api-protocol';
 
 export class UsersApiMock extends HttpApiClient implements UsersApiProtocol {
 
-  private _users: User[] = jsonUsers.map(user => User.fromJSON(user));
+  private _users: User[] = jsonUsers.map(user => User.create(User.fromJSON(user)));
 
   getUsers(parameters?: UsersParameters): Promise<User[]> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        let search = '';
         const page = parameters?.page || 1;
         const itemsNumber = parameters?.itemsNumber || 20;
+        const filter = parameters.filter; // TODO filter on users with fuzy search
 
-        let filteredUsers = [];
-        if (parameters?.firstName) {
-          search = this._normalizedString(parameters.firstName);
-          filteredUsers = this._users.filter(user => this._normalizedString(user.firstName).includes(search));
-        } else if (parameters?.lastName) {
-          search = this._normalizedString(parameters.lastName);
-          filteredUsers = this._users.filter(user => this._normalizedString(user.lastName).includes(search));
-        } else if (parameters?.phone) {
-          search = parameters.phone;
-          filteredUsers = this._users.filter(user => user.phones.some(phone => phone.value.includes(search)));
-        } else {
-          filteredUsers = this._users;
-        }
+        let filteredUsers = [...this._users];
 
         if (page * itemsNumber <= filteredUsers.length) {
           filteredUsers = filteredUsers.slice((page - 1) * itemsNumber, page * itemsNumber);
@@ -54,14 +42,14 @@ export class UsersApiMock extends HttpApiClient implements UsersApiProtocol {
     });
   }
 
-  addUser(user: User): Promise<void> {
+  addUser(user: User): Promise<string> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!user) {
           reject('User cannot be null');
         }
         this._users.push(user);
-        resolve();
+        resolve(user.id);
       }, environment.timeout);
     });
   }
@@ -105,7 +93,15 @@ export class UsersApiMock extends HttpApiClient implements UsersApiProtocol {
     throw new Error('Method not implemented.');
   }
 
-  getUserVcard(userId: string): Promise<string> {
+  getUserVcard(userId: string): Promise<Blob> {
+    throw new Error('Method not implemented.');
+  }
+
+  updatePassword(userId: string, password: string): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+
+  uploadProfilePicture(userId: string, payload: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 

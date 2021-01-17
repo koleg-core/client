@@ -19,21 +19,23 @@
       <ion-col size="12" size-sm="8" size-xl="7">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>{{ (isUpdate ? 'JOB_EDIT_PAGE.TITLE_UPDATE' : 'JOB_EDIT_PAGE.TITLE') | translate }}</ion-card-title>
+            <ion-card-title>{{ (isUpdate ? 'JOB_EDIT_PAGE.TITLE_UPDATE' : 'JOB_EDIT_PAGE.TITLE') | translate }}
+            </ion-card-title>
           </ion-card-header>
           <ion-card-content>
 
             <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
               <!-- name field -->
               <ng-container *ngIf="'name'; let fieldName">
-                <ion-item [ngClass]="getValidationClasses(fieldName)">
+                <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
                   <ion-label position="floating">{{ 'MODELS.JOB.NAME' | translate }}</ion-label>
                   <ion-input autofocus="true" type="text" inputmode="text" [formControlName]="fieldName" required>
                   </ion-input>
                 </ion-item>
 
                 <ng-container *ngFor="let validation of validationMessages[fieldName]">
-                  <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+                  <div class="validation-errors"
+                    *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
                     <ion-icon name="information-circle-outline"></ion-icon>
                     {{ validation.message | translate: {arg: ('MODELS.JOB.NAME' | translate | lowercase) } }}
                   </div>
@@ -42,15 +44,17 @@
 
               <!-- description field -->
               <ng-container *ngIf="'description'; let fieldName">
-                <ion-item [ngClass]="getValidationClasses(fieldName)">
+                <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
                   <ion-label position="floating">{{ 'MODELS.JOB.DESCRIPTION' | translate }}</ion-label>
-                  <ion-textarea type="text" inputmode="text" [formControlName]="fieldName" autoGrow="true"
-                    [maxlength]="descriptionMaxLength">
+                  <ion-textarea type="text" inputmode="text"
+                    [placeholder]="'JOB_EDIT_PAGE.FORM.DESCRIPTION_PLACEHOLDER' | translate"
+                    [formControlName]="fieldName" autoGrow="true" [maxlength]="descriptionMaxLength">
                   </ion-textarea>
                 </ion-item>
 
                 <ng-container *ngFor="let validation of validationMessages[fieldName]">
-                  <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(fieldName, validation.type)">
+                  <div class="validation-errors"
+                    *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
                     <ion-icon name="information-circle-outline"></ion-icon>
                     {{ validation.message | translate: {arg: descriptionMaxLength }
                     }}

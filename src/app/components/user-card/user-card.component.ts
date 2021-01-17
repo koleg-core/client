@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Job } from 'src/app/models/job';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -9,6 +10,7 @@ import { User } from 'src/app/models/user';
 export class UserCardComponent implements OnInit {
 
   @Input() user: User;
+  @Input() job: Job;
 
   constructor() { }
 

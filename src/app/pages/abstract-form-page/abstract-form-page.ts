@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 export class AbstractFormPage {
 
@@ -8,34 +8,34 @@ export class AbstractFormPage {
 
   constructor() { }
 
-  public shouldDisplayErrorMessage(fieldName: string, validationType: string): boolean {
-    return (this.isSubmitted && this.formGroup.get(fieldName).hasError(validationType))
-      || (this.formGroup.get(fieldName).hasError(validationType)
-        && (this.formGroup.get(fieldName).dirty || this.formGroup.get(fieldName).touched));
+  public shouldDisplayErrorMessage(formControl: FormControl, validationType: string): boolean {
+    return (this.isSubmitted && formControl.hasError(validationType))
+      || (formControl.hasError(validationType)
+        && (formControl.dirty || formControl.touched));
   }
 
   // Warning : these classes are only applicable on ion-item component at the moment
-  public getValidationClasses(formField: string) {
+  public getValidationClasses(formControl: FormControl) {
     return {
-      'invalid-form-field': (this.isSubmitted && this._isFormFieldHasErrors(formField)) || this._isFormFieldInvalid(formField),
-      'valid-form-field': this._isFormFieldValid(formField)
+      'invalid-form-field': (this.isSubmitted && this._isFormControlHasErrors(formControl)) || this._isFormControlInvalid(formControl),
+      'valid-form-field': this._isFormControlValid(formControl)
     };
   }
 
-  private _isFormFieldTouchedOrDirty(formField: string): boolean {
-    return this.formGroup.get(formField).dirty || this.formGroup.get(formField).touched;
+  private _isFormControlTouchedOrDirty(formControl: FormControl): boolean {
+    return formControl.dirty || formControl.touched;
   }
 
-  private _isFormFieldValid(formField: string): boolean {
-    return !this._isFormFieldHasErrors(formField) && this._isFormFieldTouchedOrDirty(formField);
+  private _isFormControlValid(formControl: FormControl): boolean {
+    return !this._isFormControlHasErrors(formControl) && this._isFormControlTouchedOrDirty(formControl);
   }
 
-  private _isFormFieldInvalid(formField: string): boolean {
-    return this._isFormFieldHasErrors(formField) && this._isFormFieldTouchedOrDirty(formField);
+  private _isFormControlInvalid(formControl: FormControl): boolean {
+    return this._isFormControlHasErrors(formControl) && this._isFormControlTouchedOrDirty(formControl);
   }
 
-  private _isFormFieldHasErrors(formField: string): boolean {
-    return this.formGroup.get(formField).errors ? true : false;
+  private _isFormControlHasErrors(formControl: FormControl): boolean {
+    return formControl.errors ? true : false;
   }
 
 }

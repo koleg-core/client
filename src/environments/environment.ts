@@ -9,6 +9,8 @@ export const environment = {
   timeout: 2000,
   insecure: true,
   toastDuration: 2000,
+  defaultPageSize: 20,
+  defaultPageNumber: 1,
   langs: [
     'fr',
     'en'

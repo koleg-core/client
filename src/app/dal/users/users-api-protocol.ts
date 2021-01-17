@@ -5,9 +5,7 @@ import { User } from 'src/app/models/user';
 export interface UsersParameters {
   itemsNumber?: number;
   page?: number;
-  firstName?: string;
-  lastName?: string;
-  phone?: string;
+  filter?: string;
   showDisabled?: boolean;
 }
 
@@ -17,7 +15,7 @@ export interface UsersApiProtocol {
 
   getUser(userId: string): Promise<User>;
 
-  addUser(user: User): Promise<void>;
+  addUser(user: User): Promise<string>;
 
   updateUser(user: User): Promise<User>;
 
@@ -27,6 +25,10 @@ export interface UsersApiProtocol {
 
   updateUserRights(userId: string, rights: Right[]): Promise<Right[]>;
 
-  getUserVcard(userId: string): Promise<string>;
+  getUserVcard(userId: string): Promise<Blob>;
+
+  updatePassword(userId: string, password: string): Promise<any>;
+
+  uploadProfilePicture(userId: string, payload: string): Promise<void>;
 
 }

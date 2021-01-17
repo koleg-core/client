@@ -2,7 +2,6 @@ export enum ApiEndpoints {
   // AUTHENTICATION
   AUTH = 'auth',
   LOGIN = 'login',
-  RESET_PASSWORD = 'reset_password',
 
   // GROUPS
   GROUPS = 'groups',
@@ -19,6 +18,7 @@ export enum ApiEndpoints {
 
   // USERS
   USERS = 'users',
+  UPDATE_PASSWORD = 'update-password',
 
   // VCARD
   VCARD = 'vcard'
