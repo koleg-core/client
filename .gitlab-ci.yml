@@ -42,7 +42,7 @@ stages:
       $SCW_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
   artifacts:
     paths:
-      - dist
+      - /app/dist
     expire_in: 3 week
 
 🔥build_prod:
