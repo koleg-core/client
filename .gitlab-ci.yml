@@ -26,6 +26,9 @@ stages:
 🛠️build_dev:
   stage: 🏗build
   extends: .docker_login
+  except:
+    - master
+    - develop
   script: |
     docker pull \
       $SCW_REGISTRY/$IMAGE_NAME:latest || true
