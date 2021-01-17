@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,6 +17,21 @@ export class HttpApiClient {
   protected getHeaders(): HttpHeaders {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json'
+    });
+
+    if (AuthenticationService.TOKEN) {
+      headers = headers.append(
+        'Authorization',
+        `Bearer ${AuthenticationService.TOKEN}`
+      );
+    }
+
+    return headers;
+  }
+
+  protected getFileUploadHeaders(): HttpHeaders {
+    let headers = new HttpHeaders({
+      enctype: 'multipart/form-data'
     });
 
     if (AuthenticationService.TOKEN) {

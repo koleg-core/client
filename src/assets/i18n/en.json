@@ -6,17 +6,23 @@
     "YES": "Yes",
     "NO": "No",
     "CREATE": "Create",
+    "CREATED_DATE": "Created",
     "UPDATE": "Update",
     "BACK": "Back",
+    "RESET": "Reset",
+    "EXPIRED": "Expired",
+    "DISABLED": "Disabled",
     "LOADING_MESSAGE": "Please wait...",
     "NO_MORE_DATA": "No more data",
     "LOAD_MORE_DATA": "Load more data...",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "All fields are required.",
-        "FIELD_REQUIRED": "The field '{{ arg }}' is required.",
+        "FIELD_REQUIRED": "This field is required.",
         "BAD_FORMAT": "This field is not valid.",
-        "MAX_LENGTH": "Max length is {{ arg }} characters."
+        "MAX_LENGTH": "Max length is {{ arg }} characters.",
+        "BAD_PASSWORD_CONFIRM": "The password confirmation does not match with the password.",
+        "FILE_TOO_LARGE": "The selected file size must be inferior to 4MB."
       }
     },
     "ERRORS": {
@@ -26,11 +32,38 @@
       "FALLBACK": "An unexpected error has occured."
     }
   },
+  "PHONE_TYPE": {
+    "PHONE_HOME": "Home",
+    "PHONE_WORK": "Work",
+    "PHONE_CELL_HOME": "Cell phone",
+    "PHONE_CELL_WORK": "Worl cell phone"
+  },
   "MODELS": {
     "JOB": {
       "NAME": "Label",
       "DESCRIPTION": "Description",
       "ICON_URL": "Icon"
+    },
+    "USER": {
+      "FIRST_NAME": "First name",
+      "LAST_NAME": "Last name",
+      "USERNAME": "Username",
+      "EMAIL": "Email",
+      "password": "Password",
+      "SSH_KEYS": "SSH Key",
+      "JOB": "Job",
+      "PHONE_NUMBERS": "Phone numbers",
+      "EXPIRATION_DATE": "Expiration date",
+      "BIRTHDATE": "Birthdate",
+      "CREATION_DATE": "Creation date",
+      "IS_DISABLED": "Disable",
+      "UPDATE_DATE": "Update date",
+      "VCARD": "vCard",
+      "PASSWORD": "Password"
+    },
+    "SSH_KEY": {
+      "PUBLIC": "Public key",
+      "PRIVATE": "Private key"
     }
   },
   "FILTERS": {
@@ -43,7 +76,12 @@
     "DESCRIPTION": "Description"
   },
   "MAIN_PAGE": {
-    "TITLE": "Hello {{username}}!",
+    "TITLE": "Hello {{firstName}}!",
+    "MY_INFORMATION": {
+      "TITLE": "My information",
+      "PROFILE": "My profile",
+      "GROUPS": "My groups"
+    },
     "EXPLORE": {
       "TITLE": "Explore"
     },
@@ -62,10 +100,7 @@
     "USERNAME_PLACEHOLDER": "Username",
     "PASSWORD_PLACEHOLDER": "Password",
     "AUTHENTICATE_BUTTON_LABEL": "Authenticate",
-    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Forgot your password ?",
-    "ERRORS": {
-      "FIELDS_REQUIRED": "All fields are required."
-    }
+    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Forgot your password ?"
   },
   "RESET_PASSWORD_PAGE": {
     "RESET_PASSWORD_TITLE": "Reset your password",
@@ -75,6 +110,28 @@
   "USERS_PAGE": {
     "TITLE": "Users",
     "NO_USERS": "No users found"
+  },
+  "USER_PAGE": {
+    "USER_EXPIRED": "This user expired on {{ date }}",
+    "VCARD_NOT_EXIST": "This user does not have vCard.",
+    "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard."
+  },
+  "USER_EDIT_PAGE": {
+    "TITLE": "Add a user",
+    "TITLE_UPDATE": "Update a user",
+    "UPDATE_SUCCESS": "User was successfully updated.",
+    "ADD_SUCCESS": "User was successfully added.",
+    "FORM": {
+      "SSH_PUBLIC_KEY_PLACEHOLDER": "Paste public key here...",
+      "SSH_PRIVATE_KEY_PLACEHOLDER": "Paste private key here...",
+      "PHONE_NUMBER_PLACEHOLDER": "eg: +33 1 02 03 04 05",
+      "JOB_PLACEHOLDER": "Choose a job..."
+    },
+    "PERSONAL_DATA": "Personal data",
+    "CONTACT_INFORMATION": "Contact information",
+    "ADMINISTRATION": "Administration",
+    "NEW_PASSWORD": "New password",
+    "NEW_PASSWORD_CONFIRM": "New password confirmation"
   },
   "JOBS_PAGE": {
     "TITLE": "Jobs",
@@ -92,7 +149,10 @@
     "TITLE_ADD": "Add a job",
     "TITLE_UPDATE": "Update a job",
     "UPDATE_SUCCESS": "Job was successfully updated.",
-    "ADD_SUCCESS": "Job was successfully added."
+    "ADD_SUCCESS": "Job was successfully added.",
+    "FORM": {
+      "DESCRIPTION_PLACEHOLDER": "Insert description here..."
+    }
   },
   "GROUPS_PAGE": {
     "TITLE": "Groups",

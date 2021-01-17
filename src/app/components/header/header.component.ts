@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +11,19 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class HeaderComponent {
 
+  public isDarkMode = false;
+
   constructor(
     private authenticationService: AuthenticationService,
     private alertController: AlertController,
     private translate: TranslateService,
-    private navController: NavController
-  ) { }
+    private navController: NavController,
+    private localStorageService: LocalStorageService
+  ) {
+    this.localStorageService.isDarkMode.subscribe(isDarkMode => {
+      this.isDarkMode = isDarkMode;
+    });
+  }
 
   onClickLogoutButton() {
     this._presentAlertConfirm();

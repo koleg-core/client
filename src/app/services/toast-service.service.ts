@@ -14,7 +14,7 @@ export class ToastService {
   ) { }
 
   async presentToast(message: string, params?: { [key: string]: string }): Promise<any> {
-    return this._presentToast(message, params, 'medium');
+    return this._presentToast(message, params, 'primary');
   }
 
   async presentToastDanger(message: string = 'COMMON.ERRORS.FALLBACK', params?: { [key: string]: string }): Promise<any> {
@@ -22,6 +22,10 @@ export class ToastService {
   }
 
   private async _presentToast(message: string, params?: { [key: string]: string }, color?: string): Promise<any> {
+    if (await this.toastController.getTop()) {
+      this.toastController.dismiss();
+    }
+
     const toast = await this.toastController.create({
       message: this.translate.instant(message, params),
       color,

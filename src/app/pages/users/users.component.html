@@ -5,12 +5,12 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="onClickAddUserFabButton()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="create-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"
-    (filterEmitter)="onChangeFilter($event)" (clearEmitter)="onClearSearchEvent()"></app-searchbar>
+    (clearEmitter)="onClearSearchEvent()"></app-searchbar>
 
   <ion-row>
     <h1 class="ion-padding-start">{{ 'USERS_PAGE.TITLE' | translate }}</h1>
@@ -23,7 +23,7 @@
   <!-- Users list -->
   <ion-row>
     <ion-col size="12" size-sm="6" size-xl="4" *ngFor="let user of users">
-      <app-user-card [user]="user" (click)="onClickUserCard(user?.id)"></app-user-card>
+      <app-user-card [user]="user" [job]="getJob(user.jobId)" (click)="onClickUserCard(user?.id)"></app-user-card>
     </ion-col>
   </ion-row>
 
@@ -31,7 +31,7 @@
     <p>{{ 'COMMON.NO_MORE_DATA' | translate }}</p>
   </ion-row>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="onLoadMoreUsers($event)">
+  <ion-infinite-scroll threshold="50%" (ionInfinite)="onLoadMoreUsers($event)">
     <ion-infinite-scroll-content loadingSpinner="bubbles" [loadingText]="'COMMON.LOAD_MORE_DATA' | translate">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>

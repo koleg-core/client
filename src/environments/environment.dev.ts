@@ -7,8 +7,10 @@ export const environment = {
   apiBaseUrl: 'https://api.dev.koleg.tk',
   mock: false,
   insecure: true,
-  timeout: 2000,
   toastDuration: 2000,
+  defaultPageSize: 20,
+  defaultPageNumber: 1,
+  timeout: 2000,
   langs: [
     'fr',
     'en'
