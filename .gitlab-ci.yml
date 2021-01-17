@@ -23,9 +23,30 @@ stages:
   script: |
     hadolint -c .hadolint.yaml Dockerfile
 
+🛠️build_dev:
+  stage: 🏗build
+  extends: .docker_login
+  script: |
+    docker pull \
+      $SCW_REGISTRY/$IMAGE_NAME:latest || true
+    docker build \
+      --build-arg="ENV=develop" \
+      -t "$SCW_REGISTRY/$IMAGE_NAME:latest" \
+      -t "${SCW_REGISTRY}/${IMAGE_NAME}:${CI_COMMIT_SHA}" \
+      --cache-from "${SCW_REGISTRY}/${IMAGE_NAME}:latest" \
+      .
+    echo "Push image to registry"
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:latest
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+
 🔥build_prod:
   stage: 🏗build
   extends: .docker_login
+  only:
+    - master
+    - develop
   script: |
     docker pull \
       $SCW_REGISTRY/$IMAGE_NAME:latest || true
