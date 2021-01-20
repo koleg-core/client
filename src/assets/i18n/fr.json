@@ -122,7 +122,8 @@
     "NO_USERS": "Aucun utilisateur trouvé"
   },
   "USER_PAGE": {
-    "USER_EXPIRED": "Cet utilisateur a expiré le {{ date }}",
+    "USER_EXPIRED": "Cet utilisateur a expiré le {{ date }}.",
+    "USER_DISABLED": "Cet utilisateur est désactivé.",
     "VCARD_NOT_EXIST": "Cet utilisateur n'a pas de vCard.",
     "VCARD_UNKNOWN_ERROR": "Une erreur est survenue lors de la récupération de la vCard.",
     "NO_PHONE_NUMBERS": "Cet utilisateur n'a pas de numéros de téléphones."
@@ -156,7 +157,7 @@
     "DELETE_JOB": {
       "SUCCESS": "La profession {{jobName}} a été supprimée avec succès."
     },
-    "USERS_NUMBER": "{{ number }} utilisateur(s) sont concerné(s) pas cette profession."
+    "USERS_NUMBER": "{{ number }} utilisateur(s) sont concerné(s) par cette profession."
   },
   "JOB_EDIT_PAGE": {
     "TITLE": "Ajouter une profession",
@@ -177,7 +178,7 @@
     "DELETE_GROUP": {
       "SUCCESS": "Le groupe {{groupName}} a été supprimé avec succès."
     },
-    "USERS_NUMBER": "{{ number }} utilisateur(s) appartenant à ce groupe."
+    "USERS_NUMBER": "{{ number }} utilisateur(s) dans ce groupe."
   },
   "GROUP_EDIT_PAGE": {
     "TITLE": "Ajouter un groupe",
