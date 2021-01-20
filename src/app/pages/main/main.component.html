@@ -1,0 +1,77 @@
+<ion-split-pane contentId="main">
+  <!--  the side menu  -->
+  <ion-menu side="start" menu-id="main-menu" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary" class="ion-text-center">
+        <ion-title class="ion-no-padding"> {{ 'MAIN_PAGE.TITLE' | translate: {firstName: firstName} | titlecase }}
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+
+      <ion-list-header>
+        <ion-label>{{ 'MAIN_PAGE.MY_INFORMATION.TITLE' | translate }}</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of myInformation">
+          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link"
+            [routerLinkActiveOptions]="{exact:
+            true}" [routerDirection]="page.direction ? page.direction : 'root'">
+            {{ page.name | translate }}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <ion-list-header>
+        <ion-label>{{ 'MAIN_PAGE.EXPLORE.TITLE' | translate }}</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of explorePages">
+          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link"
+            [routerLinkActiveOptions]="{exact:
+            true}" routerDirection="root">
+            {{ page.name | translate }}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+
+      <ion-list-header>
+        <ion-label>{{ 'MAIN_PAGE.PARAMETERS.TITLE' | translate }}</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-item>
+          {{ 'MAIN_PAGE.PARAMETERS.DARK_MODE' | translate }}
+          <ion-buttons slot="end">
+            <ion-icon name="moon"></ion-icon>
+            <ion-toggle color="secondary" (ionChange)="onChangeDarkModeToggle()" [(ngModel)]="isDarkModeEnabled"
+              mode="md"></ion-toggle>
+          </ion-buttons>
+        </ion-item>
+        <ion-item>
+          {{ 'MAIN_PAGE.PARAMETERS.LANGUAGE' | translate }}
+          <ion-select (ionChange)="onChangeLanguage()" slot="end" class="ion-no-padding ion-padding-horizontal"
+            [placeholder]="'MAIN_PAGE.PARAMETERS.LANGUAGE_PLACEHOLDER' | translate" [(ngModel)]="selectedLang"
+            [okText]="'COMMON.OK' | translate" [cancelText]="'COMMON.CANCEL' | translate">
+            <ion-select-option *ngFor="let lang of langs" [value]="lang">
+              {{ lang | uppercase }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+
+      <!-- <ion-list-header>
+        <ion-label>{{ 'MAIN_PAGE.CONTACT.TITLE' | translate }}</ion-label>
+      </ion-list-header>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false" *ngFor="let page of contactPages">
+          <ion-item [routerLink]="page.path" routerLinkActive="activated-link" routerDirection="root">
+            {{ page.name | translate }}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list> -->
+    </ion-content>
+  </ion-menu>
+
+  <!-- the main content -->
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-split-pane>

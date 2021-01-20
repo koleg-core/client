@@ -1,0 +1,14 @@
+<ion-row class="ion-align-items-center ion-justify-content-center">
+  <ion-col class="ion-text-center" size="12" size-sm="8" size-xl="6">
+    <div class="searchbar-container">
+      <ion-searchbar (ionClear)="onClearSearchEvent()" (keyup.enter)="onKeyUp($event)" [(ngModel)]="search" [placeholder]="'SEARCHBAR_COMPONENT.SEARCHBAR_PLACEHOLDER' | translate">
+      </ion-searchbar>
+      <ion-button *ngIf="hasFilter()" (click)="presentAlertCheckbox()" color="secondary" fill="clear" size="small">
+        <ion-icon slot="icon-only" name="filter"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-col>
+  <ion-col class="ion-text-center" size="12" size-sm="auto">
+    <ion-button (click)="onClickSearchButton()">{{ 'SEARCHBAR_COMPONENT.SEARCH_BUTTON_LABEL' | translate }}</ion-button>
+  </ion-col>
+</ion-row>

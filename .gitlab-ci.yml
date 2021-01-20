@@ -1,0 +1,92 @@
+stages:
+  - 📜tests
+  - 🐳login
+  - 🏗build
+  - 🔒security
+  - 🚀deploy
+
+.docker_login:
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - >
+      echo "$SCW_REGISTRY_TOKEN"
+      | docker login
+      --username $SCW_REGISTRY_USER
+      $SCW_REGISTRY
+      --password-stdin
+
+🐳dockerfile_lint:
+  stage: 📜tests
+  image: hadolint/hadolint
+  script: |
+    hadolint -c .hadolint.yaml Dockerfile
+
+🛠️build_dev:
+  stage: 🏗build
+  extends: .docker_login
+  except:
+    - master
+    - develop
+  script: |
+    docker pull \
+      $SCW_REGISTRY/$IMAGE_NAME:latest || true
+    docker build \
+      --build-arg="ENV=develop" \
+      -t "$SCW_REGISTRY/$IMAGE_NAME:latest" \
+      -t "${SCW_REGISTRY}/${IMAGE_NAME}:${CI_COMMIT_SHA}" \
+      --cache-from "${SCW_REGISTRY}/${IMAGE_NAME}:latest" \
+      .
+    echo "Push image to registry"
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:latest
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+
+🔥build_prod:
+  stage: 🏗build
+  extends: .docker_login
+  only:
+    - master
+    - develop
+  script: |
+    docker pull \
+      $SCW_REGISTRY/$IMAGE_NAME:latest || true
+    docker build \
+      --build-arg="ENV=${CI_COMMIT_BRANCH}" \
+      -t "$SCW_REGISTRY/$IMAGE_NAME:latest" \
+      -t "${SCW_REGISTRY}/${IMAGE_NAME}:${CI_COMMIT_SHA}" \
+      --cache-from "${SCW_REGISTRY}/${IMAGE_NAME}:latest" \
+      .
+    echo "Push image to registry"
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:latest
+    docker push \
+      $SCW_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+
+☸️production_deploy:
+  stage: 🚀deploy
+  image: google/cloud-sdk
+  only:
+    - master
+    - develop
+  script: |
+    echo "Deploy on branch: ${CI_COMMIT_BRANCH}"
+    kubectl \
+      set image deployment/$IMAGE_NAME \
+      ${IMAGE_NAME}=${SCW_REGISTRY}/${IMAGE_NAME}:${CI_COMMIT_SHA} \
+      --namespace "${CI_COMMIT_BRANCH}" \
+      --kubeconfig "$SCW_KUBECONFIG" \
+      --record
+    kubectl \
+      rollout status deployment/$IMAGE_NAME \
+      --timeout=5m \
+      --namespace "${CI_COMMIT_BRANCH}" \
+      --kubeconfig $SCW_KUBECONFIG \
+    || ( kubectl \
+        --namespace "${CI_COMMIT_BRANCH}" \
+        --kubeconfig $SCW_KUBECONFIG \
+        rollout undo deployment/$IMAGE_NAME \
+        && echo "❌ deployment failed, return to previous deployment" \
+        && exit 1 )

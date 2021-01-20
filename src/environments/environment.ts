@@ -3,7 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiBaseUrl: 'http://api.koleg.localhost:8080',
+  mock: false,
+  timeout: 2000,
+  insecure: true,
+  toastDuration: 3000,
+  defaultPageSize: 20,
+  defaultPageNumber: 1,
+  langs: [
+    'fr',
+    'en'
+  ]
 };
 
 /*

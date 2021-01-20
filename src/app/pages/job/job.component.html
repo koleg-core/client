@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<ion-content class="ion-justify-content-center">
+
+	<ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-button (click)="onClickBackButton()">
+				<ion-icon name="chevron-back-outline"></ion-icon>
+				{{ 'COMMON.BACK' | translate }}
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+
+	<ion-row *ngIf="!isLoading && !isJob()" class="ion-justify-content-center">
+		<h1>{{ 'JOB_PAGE.NO_JOBS' | translate }}</h1>
+	</ion-row>
+
+  <ion-row *ngIf="!isLoading && isJob()" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-card-title class="ion-text-center ion-padding-top">
+            {{ job?.name }}
+          </ion-card-title>
+          <ion-buttons class="floating-button">
+            <ion-button  [disabled]="isLoading" (click)="onClickEditJob()">
+              <ion-icon size="small" slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button [disabled]="isLoading" (click)="onClickDeleteJob()">
+              <ion-icon size="small" slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && isJob() && job?.description" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.JOB.DESCRIPTION' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+					<ion-textarea [value]="job?.description" autoGrow="true" readonly="true"></ion-textarea>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && isJob() && number" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+			<ion-card color="warning">
+				<ion-card-content>
+					{{ 'JOB_PAGE.USERS_NUMBER' | translate: { number: number } }}
+				</ion-card-content>
+			</ion-card>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

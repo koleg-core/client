@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+
+.validation-errors {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  color: var(--ion-color-danger);
+
+  ion-icon {
+    --color: var(--ion-color-danger);
+    padding-right: 4px;
+  }
+}
+
+ion-item.invalid-form-field {
+  --border-color: var(--ion-color-danger);
+}
+
+ion-item.valid-form-field {
+  --border-color: var(--ion-color-primary);
+}

@@ -1,6 +1,203 @@
 {
   "COMMON": {
     "OK": "Ok",
-    "CANCEL": "Annuler"
+    "CANCEL": "Annuler",
+    "APP_VERSION": "V{{appVersion}}",
+    "YES": "Oui",
+    "NO": "Non",
+    "CREATE": "Créer",
+    "CREATED_DATE": "Créé le",
+    "UPDATE": "Mettre à jour",
+    "BACK": "Retour",
+    "RESET": "Réinitisaliser",
+    "EXPIRED": "Expiré",
+    "DISABLED": "Désactivé",
+    "LOADING_MESSAGE": "Patientez s'il vous plait ...",
+    "NO_MORE_DATA": "Pas de données supplémentaires",
+    "LOAD_MORE_DATA": "Chargement de plus de données ...",
+    "ACCEPTATION_ALERT": "Etes-vous sûr ?",
+    "FORMS": {
+      "ERRORS": {
+        "FIELDS_REQUIRED": "Tous les champs sont requis.",
+        "FIELD_REQUIRED": "Ce champ est requis.",
+        "BAD_FORMAT": "Le champ n'est pas valide.",
+        "MAX_LENGTH": "La longueur maximale est de {{ arg }} caractère.",
+        "BAD_PASSWORD_CONFIRM": "Le mot de passe de confirmation ne correspond pas au mot de passe saisi.",
+        "FILE_TOO_LARGE": "Le fichier selectionné doit être inférieur à 4Mo."
+      }
+    },
+    "ERRORS": {
+      "AUTH": {
+        "INVALID_ARGS": "Identifiant et/ou mot de passe invalide(s)."
+      },
+      "FALLBACK": "Une erreur inconnue est survenue.",
+      "JOB_CONFLICT": "Une profession avec ce nom existe déjà.",
+      "GROUP_CONFLICT": "Un groupe avec ce nom existe déjà."
+    }
+  },
+  "PHONE_TYPE": {
+    "PHONE_HOME": "Domicile",
+    "PHONE_WORK": "Travail",
+    "PHONE_CELL_HOME": "Mobile",
+    "PHONE_CELL_WORK": "Mobile travail"
+  },
+  "MODELS": {
+    "JOB": {
+      "NAME": "Libellé",
+      "DESCRIPTION": "Description",
+      "ICON_URL": "Icône"
+    },
+    "USER": {
+      "FIRST_NAME": "Prénom",
+      "LAST_NAME": "Nom",
+      "USERNAME": "Identifiant",
+      "EMAIL": "Email",
+      "password": "Mot de passe",
+      "SSH_KEYS": "Clés SSH",
+      "JOB": "Profession",
+      "PHONE_NUMBERS": "Numéros de téléphone",
+      "EXPIRATION_DATE": "Date d'expiration",
+      "BIRTHDATE": "Date de naissance",
+      "CREATION_DATE": "Date de création",
+      "IS_DISABLED": "Désactivé",
+      "UPDATE_DATE": "Date de mise à jour",
+      "VCARD": "vCard",
+      "PASSWORD": "Mot de passe",
+      "GROUPS": "Groupes"
+    },
+    "SSH_KEY": {
+      "PUBLIC": "Clé publique",
+      "PRIVATE": "Clé privée"
+    },
+    "GROUP": {
+      "NAME": "Nom",
+      "DESCRIPTION": "Description",
+      "PARENT": "Groupe parent",
+      "CHILDREN": "Groupes enfants"
+    }
+  },
+  "FILTERS": {
+    "TITLE": "Filtres",
+    "NONE": "Aucun filtre",
+    "FIRST_NAME": "Prénom",
+    "LAST_NAME": "Nom",
+    "PHONE": "Numéro de téléphone",
+    "NAME": "Nom",
+    "DESCRIPTION": "Description"
+  },
+  "MAIN_PAGE": {
+    "TITLE": "Bonjour {{firstName}} !",
+    "MY_INFORMATION": {
+      "TITLE": "Mes informations",
+      "PROFILE": "Mon profil",
+      "GROUPS": "Mes groupes"
+    },
+    "EXPLORE": {
+      "TITLE": "Explorer"
+    },
+    "PARAMETERS": {
+      "TITLE": "Paramètres",
+      "DARK_MODE": "Mode sombre",
+      "LANGUAGE": "Langue",
+      "LANGUAGE_PLACEHOLDER": "Langue"
+    },
+    "CONTACT": {
+      "TITLE": "Contact"
+    }
+  },
+  "LOGIN_PAGE": {
+    "AUTHENTICATE_TITLE": "S'authentifier",
+    "USERNAME_PLACEHOLDER": "Nom d'utilisateur",
+    "PASSWORD_PLACEHOLDER": "Mot de passe",
+    "AUTHENTICATE_BUTTON_LABEL": "S'authentifier",
+    "FORGOTTEN_PASSWORD_BUTTON_LABEL": "Mot de passe oublié ?"
+  },
+  "RESET_PASSWORD_PAGE": {
+    "RESET_PASSWORD_TITLE": "Réinitialiser son mot de passe",
+    "EMAIL_PLACEHOLDER": "Email",
+    "RESET_PASSWORD_BUTTON_LABEL": "Réinitialiser"
+  },
+  "USERS_PAGE": {
+    "TITLE": "Utilisateurs",
+    "NO_USERS": "Aucun utilisateur trouvé"
+  },
+  "USER_PAGE": {
+    "USER_EXPIRED": "Cet utilisateur a expiré le {{ date }}",
+    "VCARD_NOT_EXIST": "Cet utilisateur n'a pas de vCard.",
+    "VCARD_UNKNOWN_ERROR": "Une erreur est survenue lors de la récupération de la vCard.",
+    "NO_PHONE_NUMBERS": "Cet utilisateur n'a pas de numéros de téléphones."
+  },
+  "USER_EDIT_PAGE": {
+    "TITLE": "Ajouter un utilisateur",
+    "TITLE_UPDATE": "Mettre à jour un utilisateur",
+    "UPDATE_SUCCESS": "L'utilisateur a été mis à jour avec succès.",
+    "ADD_SUCCESS": "L'utilisateur a été ajouté avec succès.",
+    "FORM": {
+      "SSH_PUBLIC_KEY_PLACEHOLDER": "Copier la clé publique ici ...",
+      "SSH_PRIVATE_KEY_PLACEHOLDER": "Copier la clé publique ici ...",
+      "PHONE_NUMBER_PLACEHOLDER": "ex : +33 1 02 03 04 05",
+      "JOB_PLACEHOLDER": "Choisir une profession ...",
+      "PHONE_TYPE_PLACEHOLDER": "Choisir un type ...",
+      "SELECT_GROUP_PLACEHOLDER": "Sélectionner un groupe ..."
+    },
+    "PERSONAL_DATA": "Informations personnelles",
+    "CONTACT_INFORMATION": "Informations de contact",
+    "ADMINISTRATION": "Administration",
+    "NEW_PASSWORD": "Nouveau mot de passe",
+    "NEW_PASSWORD_CONFIRM": "Confirmer le mot de passe"
+  },
+  "JOBS_PAGE": {
+    "TITLE": "Professions",
+    "NO_JOBS": "Aucun métier trouvé"
+  },
+  "JOB_PAGE": {
+    "TITLE": "Détails de la profession",
+    "NO_JOBS": "Aucune profession trouvée",
+    "DELETE_JOB": {
+      "SUCCESS": "La profession {{jobName}} a été supprimée avec succès."
+    },
+    "USERS_NUMBER": "{{ number }} utilisateur(s) sont concerné(s) pas cette profession."
+  },
+  "JOB_EDIT_PAGE": {
+    "TITLE": "Ajouter une profession",
+    "TITLE_UPDATE": "Mettre à jour une profession",
+    "UPDATE_SUCCESS": "La profession a été mise à jour avec succès.",
+    "ADD_SUCCESS": "La profession a été ajouté avec succès.",
+    "FORM": {
+      "DESCRIPTION_PLACEHOLDER": "Insérer une description ici ..."
+    }
+  },
+  "GROUPS_PAGE": {
+    "TITLE": "Groupes",
+    "NO_GROUPS": "Aucun groupe trouvé"
+  },
+  "GROUP_PAGE": {
+    "TITLE": "Détails du groupe",
+    "NO_GROUPS": "Aucun groupe trouvé",
+    "DELETE_GROUP": {
+      "SUCCESS": "Le groupe {{groupName}} a été supprimé avec succès."
+    },
+    "USERS_NUMBER": "{{ number }} utilisateur(s) appartenant à ce groupe."
+  },
+  "GROUP_EDIT_PAGE": {
+    "TITLE": "Ajouter un groupe",
+    "TITLE_UPDATE": "Mettre à jour un groupe",
+    "INFORMATION": "Information du groupe",
+    "UPDATE_SUCCESS": "Le groupe a été mis à jour avec succès.",
+    "ADD_SUCCESS": "La groupe a été ajouté avec succès.",
+    "FORM": {
+      "SELECT_GROUP_PLACEHOLDER": "Sélectionner un groupe ...",
+      "DESCRIPTION_PLACEHOLDER": "Insérer une description ici ..."
+    }
+  },
+  "ABOUT_PAGE": {
+    "TITLE": "À propos"
+  },
+  "SEARCHBAR_COMPONENT": {
+    "SEARCHBAR_PLACEHOLDER": "Rechercher",
+    "SEARCH_BUTTON_LABEL": "Rechercher"
+  },
+  "HEADER_COMPONENT": {
+    "LOGOUT_ALERT_MESSAGE": "Êtes-vous sûr de vouloir vous déconnecter ?"
   }
 }

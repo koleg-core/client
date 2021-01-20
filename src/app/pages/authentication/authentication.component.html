@@ -1,0 +1,69 @@
+<ion-content>
+  <ion-grid>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" (keyup.enter)="onKeyUp($event)">
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <ion-img [src]="isDarkMode ? 'assets/drawable/koleg-var-white.svg' : 'assets/drawable/koleg.svg'"></ion-img>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <h1> {{ 'LOGIN_PAGE.AUTHENTICATE_TITLE' | translate }} </h1>
+
+          <!-- username field -->
+          <ng-container *ngIf="'username'; let fieldName">
+            <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
+              <ion-label position="floating">{{ 'LOGIN_PAGE.USERNAME_PLACEHOLDER' | translate }}</ion-label>
+              <ion-input autofocus="true" type="text" inputmode="text" formControlName="username" required></ion-input>
+            </ion-item>
+
+            <ng-container *ngFor="let validation of validationMessages[fieldName]">
+              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                {{ validation.message | translate: {arg: ('LOGIN_PAGE.USERNAME_PLACEHOLDER' | translate | lowercase) } }}
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <!-- password field -->
+          <ng-container *ngIf="'password'; let fieldName">
+            <ion-item [ngClass]="getValidationClasses(formGroup.get(fieldName))">
+              <ion-label position="floating">{{ 'LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate }}</ion-label>
+              <ion-input type="password" formControlName="password" required></ion-input>
+            </ion-item>
+
+            <ng-container *ngFor="let validation of validationMessages[fieldName]">
+              <div class="validation-errors" *ngIf="shouldDisplayErrorMessage(formGroup.get(fieldName), validation.type)">
+                <ion-icon name="information-circle-outline"></ion-icon>
+                {{ validation.message | translate: {arg: ('LOGIN_PAGE.PASSWORD_PLACEHOLDER' | translate | lowercase) } }}
+              </div>
+            </ng-container>
+          </ng-container>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col class="ion-text-end" size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+          <ion-button type="submit">{{ 'LOGIN_PAGE.AUTHENTICATE_BUTTON_LABEL' | translate }}</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center" size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">
+        <ion-button (click)="onClickResetPasswordButton()" fill="clear">
+          {{ 'LOGIN_PAGE.FORGOTTEN_PASSWORD_BUTTON_LABEL' | translate }}</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <div class="app-version">
+      <p>{{ 'COMMON.APP_VERSION' | translate: { appVersion: getAppVersion()} }}</p>
+    </div>
+
+  </ion-grid>
+</ion-content>
