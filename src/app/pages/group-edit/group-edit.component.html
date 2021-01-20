@@ -1,0 +1,180 @@
+<app-header></app-header>
+
+<ion-content class="ion-justify-content-center">
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]="isLoading" (click)="onSubmit()">
+      <ion-icon name="save"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        {{ 'COMMON.BACK' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <h1 class="ion-text-center">{{ (isUpdate ? 'GROUP_EDIT_PAGE.TITLE_UPDATE' : 'GROUP_EDIT_PAGE.TITLE') | translate }}
+  </h1>
+
+  <ion-grid>
+
+    <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header class="ion-text-center">
+              <div class="picture-container">
+                <ion-avatar class="avatar" (click)="onClickUploadGroupImageAvatar()">
+                  <ion-img *ngIf="groupImage" [src]="groupImage"></ion-img>
+                </ion-avatar>
+                <ion-icon *ngIf="!groupImage" class="no-picture-icon" name="camera">
+                </ion-icon>
+              </div>
+
+              <ion-button *ngIf="formGroup.get(groupFormKey.IMAGE).touched" class="ion-margin-top"
+                (click)="onClickResetProfileButton()" color="danger" size="small">
+                {{ 'COMMON.RESET' | translate }}
+              </ion-button>
+
+              <ng-container *ngFor="let validation of validationMessages[groupFormKey.IMAGE]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(groupFormKey.IMAGE), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.SSH_KEY.PUBLIC' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'GROUP_EDIT_PAGE.INFORMATION' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- name field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(groupFormKey.NAME))">
+                <ion-label position="floating">{{ 'MODELS.GROUP.NAME' | translate }}</ion-label>
+                <ion-input type="text" inputmode="text" [formControlName]="groupFormKey.NAME" required>
+                </ion-input>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[groupFormKey.NAME]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(groupFormKey.NAME), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.GROUP.NAME' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+
+              <!-- description field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(groupFormKey.DESCRIPTION))">
+                <ion-label position="floating">{{ 'MODELS.GROUP.DESCRIPTION' | translate }}</ion-label>
+                <ion-textarea type="text" inputmode="text"
+                  [placeholder]="'GROUP_EDIT_PAGE.FORM.DESCRIPTION_PLACEHOLDER' | translate"
+                  [formControlName]="groupFormKey.DESCRIPTION" autoGrow="true" [maxlength]="descriptionMaxLength">
+                </ion-textarea>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[groupFormKey.DESCRIPTION]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(groupFormKey.DESCRIPTION), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: descriptionMaxLength }
+                  }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center parent-form">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.GROUP.PARENT' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- parent field -->
+              <ion-item [ngClass]="getValidationClasses(formGroup.get(groupFormKey.PARENT))">
+                <ion-select [formControlName]="groupFormKey.PARENT" [doneText]="'COMMON.OK' | translate"
+                  [cancelText]="'COMMON.CANCEL' | translate"
+                  [placeholder]="'GROUP_EDIT_PAGE.FORM.SELECT_GROUP_PLACEHOLDER' | translate">
+                  <ion-select-option *ngFor="let group of parentGroups" [value]="group?.id">
+                    {{ group.name }}
+                  </ion-select-option>
+                </ion-select>
+                <ion-buttons slot="end">
+                  <ion-button (click)="onClickResetParentGroupButton()">
+                    <ion-icon name="close"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[groupFormKey.PARENT]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(formGroup.get(groupFormKey.PARENT), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.GROUP.PARENT' | translate | lowercase) } }}
+                </div>
+              </ng-container>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center contact-form">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.GROUP.CHILDREN' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- children field -->
+              <ion-item [ngClass]="getValidationClasses(groupFormKey.CHILDREN)">
+
+                <ion-select multiple="true" [placeholder]="'GROUP_EDIT_PAGE.FORM.SELECT_GROUP_PLACEHOLDER' | translate"
+                  [doneText]="'COMMON.OK' | translate" [cancelText]="'COMMON.CANCEL' | translate"
+                  [formControlName]="groupFormKey.CHILDREN">
+                  <ion-select-option *ngFor="let group of childrenGroups" [value]="group?.id">
+                    {{ group?.name }}
+                  </ion-select-option>
+                </ion-select>
+
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[groupFormKey.CHILDREN]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(childrenForm.controls[i].get(groupFormKey.CHILDREN), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.GROUP.CHILDREN' | translate | lowercase)
+                  }
+                  }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+  </ion-grid>
+
+</ion-content>

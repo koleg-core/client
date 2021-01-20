@@ -113,6 +113,7 @@ export class UsersComponent {
         this.users = this.users.concat(users);
         if (this.users.length === oldLength) {
           this.areAllDataLoaded = true;
+          this._pageNumber --;
         }
       })
       .catch(error => {

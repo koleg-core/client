@@ -15,6 +15,7 @@
     "LOADING_MESSAGE": "Please wait...",
     "NO_MORE_DATA": "No more data",
     "LOAD_MORE_DATA": "Load more data...",
+    "ACCEPTATION_ALERT": "Are you sure ?",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "All fields are required.",
@@ -29,7 +30,9 @@
       "AUTH": {
         "INVALID_ARGS": "Invalid identifier and/or password."
       },
-      "FALLBACK": "An unexpected error has occured."
+      "FALLBACK": "An unexpected error has occured.",
+      "JOB_CONFLICT": "Job with this name already exists.",
+      "GROUP_CONFLICT": "Group with this name already exists."
     }
   },
   "PHONE_TYPE": {
@@ -59,11 +62,18 @@
       "IS_DISABLED": "Disable",
       "UPDATE_DATE": "Update date",
       "VCARD": "vCard",
-      "PASSWORD": "Password"
+      "PASSWORD": "Password",
+      "GROUPS": "Groups"
     },
     "SSH_KEY": {
       "PUBLIC": "Public key",
       "PRIVATE": "Private key"
+    },
+    "GROUP": {
+      "NAME": "Name",
+      "DESCRIPTION": "Description",
+      "PARENT": "Parent group",
+      "CHILDREN": "Children groups"
     }
   },
   "FILTERS": {
@@ -114,7 +124,8 @@
   "USER_PAGE": {
     "USER_EXPIRED": "This user expired on {{ date }}",
     "VCARD_NOT_EXIST": "This user does not have vCard.",
-    "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard."
+    "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard.",
+    "NO_PHONE_NUMBERS": "This user does not have phone numbers."
   },
   "USER_EDIT_PAGE": {
     "TITLE": "Add a user",
@@ -125,7 +136,9 @@
       "SSH_PUBLIC_KEY_PLACEHOLDER": "Paste public key here...",
       "SSH_PRIVATE_KEY_PLACEHOLDER": "Paste private key here...",
       "PHONE_NUMBER_PLACEHOLDER": "eg: +33 1 02 03 04 05",
-      "JOB_PLACEHOLDER": "Choose a job..."
+      "JOB_PLACEHOLDER": "Select a job...",
+      "PHONE_TYPE_PLACEHOLDER": "Select a type...",
+      "SELECT_GROUP_PLACEHOLDER": "Select a group..."
     },
     "PERSONAL_DATA": "Personal data",
     "CONTACT_INFORMATION": "Contact information",
@@ -143,7 +156,7 @@
     "DELETE_JOB": {
       "SUCCESS": "Job {{jobName}} has been successfully deleted."
     },
-    "USERS_NUMBER": "{{ number }} users are concerned by this job."
+    "USERS_NUMBER": "{{ number }} user(s) are concerned by this job."
   },
   "JOB_EDIT_PAGE": {
     "TITLE_ADD": "Add a job",
@@ -160,7 +173,22 @@
   },
   "GROUP_PAGE": {
     "TITLE": "Group details",
-    "NO_GROUPS": "No group found"
+    "NO_GROUPS": "No group found",
+    "DELETE_GROUP": {
+      "SUCCESS": "Group {{groupName}} has been successfully deleted."
+    },
+    "USERS_NUMBER": "{{ number }} user(s) belong to this group."
+  },
+  "GROUP_EDIT_PAGE": {
+    "TITLE": "Add a group",
+    "TITLE_UPDATE": "Update a group",
+    "INFORMATION": "Group information",
+    "UPDATE_SUCCESS": "Group was successfully updated.",
+    "ADD_SUCCESS": "Group was successfully added.",
+    "FORM": {
+      "SELECT_GROUP_PLACEHOLDER": "Select a group...",
+      "DESCRIPTION_PLACEHOLDER": "Insert description here..."
+    }
   },
   "ABOUT_PAGE": {
     "TITLE": "About"

@@ -5,12 +5,12 @@
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="onClickAddGroupsFabButton()">
-      <ion-icon name="add"></ion-icon>
+      <ion-icon name="create-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <app-searchbar [filters]="filters" (searchEmitter)="onClickSearchButton($event)"
-    (filterEmitter)="onChangeFilter($event)" (clearEmitter)="onClearSearchEvent()"></app-searchbar>
+    (clearEmitter)="onClearSearchEvent()"></app-searchbar>
 
   <ion-row>
     <h1 class="ion-padding-start">{{ 'GROUPS_PAGE.TITLE' | translate }}</h1>

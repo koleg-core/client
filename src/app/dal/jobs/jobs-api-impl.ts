@@ -35,7 +35,7 @@ export class JobsApiImpl extends HttpApiClient implements JobsApiProtocol {
       .then(jsonJobs => {
         const jobs: Job[] = [];
         if (Array.isArray(jsonJobs) && jsonJobs.length > 0) {
-          jsonJobs.forEach(jsonJob => jobs.push(Job.fromJSON(jsonJob)));
+          jsonJobs.forEach(jsonJob => jobs.push(Job.create(Job.fromJSON(jsonJob))));
         }
         console.log(jobs);
         return jobs;
@@ -54,7 +54,7 @@ export class JobsApiImpl extends HttpApiClient implements JobsApiProtocol {
       .then(jsonJob => {
         let job: Job = null;
         if (jsonJob) {
-          job = Job.fromJSON(jsonJob);
+          job = Job.create(Job.fromJSON(jsonJob));
         }
         console.log(job);
         return job;

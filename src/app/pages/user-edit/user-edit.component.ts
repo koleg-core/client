@@ -5,8 +5,10 @@ import { NavController } from '@ionic/angular';
 import { PhoneType } from 'src/app/enums/phone-type.enum';
 import { UserFormKey } from 'src/app/enums/user-form-key.enum';
 import { ValidationType } from 'src/app/enums/validation-type.enum';
+import { Group } from 'src/app/models/group';
 import { Job } from 'src/app/models/job';
 import { User, UserProps } from 'src/app/models/user';
+import { GroupsService } from 'src/app/services/groups.service';
 import { JobsService } from 'src/app/services/jobs.service';
 import { ToastService } from 'src/app/services/toast-service.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -23,7 +25,6 @@ export class UserEditComponent extends AbstractFormPage {
   public isUpdate = false;
   public isLoading = false;
   public user: User = null;
-  public groupIdsForm = new FormArray([]);
   public phoneNumbersForm = new FormArray([]);
   public phoneTypes: string[] = Object.values(PhoneType);
   public jobs: Job[] = [];
@@ -33,6 +34,7 @@ export class UserEditComponent extends AbstractFormPage {
   public expirationMaxDate = this._getExpirationDate();
   public userFormKey = UserFormKey;
   public profilePicture: string;
+  public groups: Group[] = [];
 
   private _userId: string;
   private _newProfileData: string = null;
@@ -46,7 +48,8 @@ export class UserEditComponent extends AbstractFormPage {
     private navController: NavController,
     private route: ActivatedRoute,
     private jobsService: JobsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private groupsService: GroupsService
   ) {
     super();
 
@@ -88,19 +91,19 @@ export class UserEditComponent extends AbstractFormPage {
 
       const userProps: UserProps = {
         id: this._userId,
-        firstName: value.firstName,
-        lastName: value.lastName,
-        birthdate: value.birthdate,
-        email: value.email,
-        jobId: value.jobId,
-        profilePictureUrl: value.profilePictureUrl,
-        expirationDate: value.expirationDate,
-        groupsIds: value.groupIds,
-        password: { value: value.password },
-        isDisabled: value.isDisabled,
-        sshKey: { publicKey: value.sshPublicKey, privateKey: value.sshPrivateKey },
+        firstName: value[UserFormKey.FIRST_NAME],
+        lastName: value[UserFormKey.LAST_NAME],
+        birthdate: value[UserFormKey.BIRTHDATE],
+        email: value[UserFormKey.EMAIL],
+        jobId: value[UserFormKey.JOB_ID],
+        profilePictureUrl: value[UserFormKey.PROFILE_PICTURE],
+        expirationDate: value[UserFormKey.EXPIRATION_DATE],
+        groupsIds: value[UserFormKey.GROUPS_IDS],
+        password: { value: value[UserFormKey.PASSWORD] },
+        isDisabled: value[UserFormKey.IS_DISABLED],
+        sshKey: { publicKey: value[UserFormKey.SSH_PUBLIC], privateKey: value[UserFormKey.SSH_PRIVATE] },
         username: null,
-        phoneNumbers: value.phoneNumbers.filter(phone => phone.value && phone.type)
+        phoneNumbers: value[UserFormKey.PHONE_NUMBERS].filter(phone => phone[UserFormKey.PHONE_NUMBER] && phone[UserFormKey.PHONE_TYPE])
       };
 
       if (this.isUpdate) {
@@ -145,7 +148,7 @@ export class UserEditComponent extends AbstractFormPage {
   }
 
   onClickResetProfileButton() {
-    this.profilePicture = this.user.profilePictureUrl ? this.user.profilePictureUrl.toString() : null;
+    this.profilePicture = (this.user && this.user.profilePictureUrl) ? this.user.profilePictureUrl.toString() : null;
     this.formGroup.get(UserFormKey.PROFILE_PICTURE).markAsUntouched();
     this.formGroup.get(UserFormKey.PROFILE_PICTURE).patchValue(null);
     this.formGroup.get(UserFormKey.PROFILE_PICTURE).updateValueAndValidity();
@@ -156,12 +159,6 @@ export class UserEditComponent extends AbstractFormPage {
   }
 
   private _initializeUserForm(user: User): void {
-
-    if (user && Array.isArray(user.groupsIds) && user.groupsIds.length > 0) {
-      user.groupsIds.forEach(groupId => {
-        this.groupIdsForm.push(new FormControl(groupId, [Validators.pattern(this.UUID_VALIDATOR)]));
-      });
-    }
 
     if (user && Array.isArray(user.phoneNumbers) && user.phoneNumbers.length > 0) {
       user.phoneNumbers.forEach(phoneNumber => {
@@ -206,6 +203,19 @@ export class UserEditComponent extends AbstractFormPage {
     this.jobsService.getJobs()
       .then(jobs => {
         this.jobs = jobs;
+        this._getGroups();
+      })
+      .catch(error => {
+        console.error(error);
+        this.toastService.presentToastDanger();
+      })
+      .finally(() => this.isLoading = false);
+  }
+
+  private _getGroups() {
+    this.groupsService.getGroups()
+      .then(groups => {
+        this.groups = groups;
         this._initializeUserForm(this.user);
       })
       .catch(error => {
@@ -240,13 +250,13 @@ export class UserEditComponent extends AbstractFormPage {
 
   private _addUser(userProps: UserProps) {
     this.usersService.addUser(userProps)
-      .then(async () => {
+      .then(async (userId) => {
         if (userProps.password && userProps.password.value) {
-          await this.usersService.updatePassword(this._userId, userProps.password.value);
+          await this.usersService.updatePassword(userId, userProps.password.value);
         }
 
         if (this._newProfileData) {
-          await this.usersService.uploadProfile(this._userId, this._newProfileData);
+          await this.usersService.uploadProfile(userId, this._newProfileData);
         }
 
         this.toastService.presentToast('USER_EDIT_PAGE.ADD_SUCCESS');
@@ -381,7 +391,7 @@ export class UserEditComponent extends AbstractFormPage {
     controls[UserFormKey.IS_DISABLED] = new FormControl(user ? user.isDisabled : false);
     controls[UserFormKey.PASSWORD] = new FormControl('', !this.isUpdate ? [Validators.required] : []);
     controls[UserFormKey.CONFIRM_PASSWORD] = new FormControl('', [], (c: AbstractControl) => UserValidator.checkPasswordAndConfirmPasswordValue(c, UserFormKey.PASSWORD));
-    controls[UserFormKey.GROUPS_IDS] = this.groupIdsForm;
+    controls[UserFormKey.GROUPS_IDS] = new FormControl(user && Array.isArray(user.groupsIds) ? user.groupsIds : [], [Validators.pattern(this.UUID_VALIDATOR)]);
     controls[UserFormKey.PHONE_NUMBERS] = this.phoneNumbersForm;
 
     return controls;

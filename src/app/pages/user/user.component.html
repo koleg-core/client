@@ -45,7 +45,7 @@
               {{ 'COMMON.CREATED_DATE' | translate }} {{ user?.creationDate | date: 'dd/MM/yyyy' }}
             </ion-col>
           </ion-row>
-          <ion-buttons *ngIf="!user?.isExpired()" id="floating-edit-button">
+          <ion-buttons id="floating-edit-button">
             <ion-button (click)="onClickEditUserButton()">
               <ion-icon name="create-outline"></ion-icon>
             </ion-button>
@@ -58,11 +58,11 @@
   <ion-row class="ion-justify-content-center">
     <ion-col size="12" size-md="6" class="ion-justify-content-center">
       <ion-row class="ion-justify-content-around">
-        <ion-button fill="outline" (click)="onClickDownloadSshPublicKey()" [disabled]="user?.isExpired() || !user?.sshKey?.publicKey">
+        <ion-button fill="outline" (click)="onClickDownloadSshPublicKey()" [disabled]="!user?.sshKey?.publicKey">
           <ion-icon name="cloud-download" class="ion-padding-end"></ion-icon>
           {{ 'MODELS.SSH_KEY.PUBLIC' | translate }}
         </ion-button>
-        <ion-button fill="outline" (click)="onClickDownloadVcard()" [disabled]="user?.isExpired()">
+        <ion-button fill="outline" (click)="onClickDownloadVcard()">
           <ion-icon name="cloud-download" class="ion-padding-end"></ion-icon>
           {{ 'MODELS.USER.VCARD' | translate }}
         </ion-button>
@@ -101,6 +101,9 @@
         <ion-card-content>
           <ion-list id="phones-list">
             <ion-item *ngFor="let phone of user?.phoneNumbers">
+              <ion-label slot="start">
+                {{ 'PHONE_TYPE.' + phone?.type | translate }}
+              </ion-label>
               {{ phone?.value }}
               <ion-buttons slot="end">
                 <ion-button (click)="onClickCallToButton(phone?.value)">
@@ -108,7 +111,28 @@
                 </ion-button>
               </ion-buttons>
             </ion-item>
+            <div *ngIf="user?.phoneNumbers && !user?.phoneNumbers.length">
+              {{ 'USER_PAGE.NO_PHONE_NUMBERS' | translate }}
+            </div>
           </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && user && hasGroups()" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.USER.GROUPS' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-row class="carousel-wrapper ion-align-items-center ion-nowrap">
+            <ion-col class="ion-no-padding" size="8" *ngFor="let group of groups">
+              <app-group-card (click)="onClickGroupCard(group.id)" [group]="group"></app-group-card>
+            </ion-col>
+          </ion-row>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -121,7 +145,7 @@
           <ion-card-title>{{ job?.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{ job?.description }}
+          <ion-textarea [value]="job?.description" autoGrow="true" readonly="true"></ion-textarea>
         </ion-card-content>
       </ion-card>
     </ion-col>

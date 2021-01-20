@@ -37,6 +37,12 @@ export class AuthenticationComponent extends AbstractFormPage implements OnInit 
     this.navController.navigateRoot(['auth', 'reset-password']);
   }
 
+  onKeyUp(e: any) {
+    if (e.keyCode === 13) {
+      this.onSubmit();
+    }
+  }
+
   async onSubmit() {
     this.isSubmitted = true;
 
@@ -55,7 +61,7 @@ export class AuthenticationComponent extends AbstractFormPage implements OnInit 
           this.navController.navigateRoot(['main']);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           this.toastService.presentToastDanger();
         })
         .finally(() => {

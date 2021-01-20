@@ -65,8 +65,7 @@
               <!-- firstName field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.FIRST_NAME))">
                 <ion-label position="floating">{{ 'MODELS.USER.FIRST_NAME' | translate }}</ion-label>
-                <ion-input autofocus="true" type="text" inputmode="text" [formControlName]="userFormKey.FIRST_NAME"
-                  required>
+                <ion-input type="text" inputmode="text" [formControlName]="userFormKey.FIRST_NAME" required>
                 </ion-input>
               </ion-item>
 
@@ -145,7 +144,9 @@
                     <ion-item
                       [ngClass]="getValidationClasses(phoneNumbersForm.controls[i].get(userFormKey.PHONE_NUMBER))">
 
-                      <ion-select slot="start" placeholder="Select One" [formControlName]="userFormKey.PHONE_TYPE">
+                      <ion-select slot="start" [placeholder]="'USER_EDIT_PAGE.FORM.PHONE_TYPE_PLACEHOLDER' | translate"
+                        [formControlName]="userFormKey.PHONE_TYPE" [cancelText]="'COMMON.CANCEL' | translate"
+                        [formControlName]="userFormKey.PHONE_TYPE">
                         <ion-select-option *ngFor="let type of phoneTypes" [value]="type">
                           {{ 'PHONE_TYPE.' + type | translate }}
                         </ion-select-option>
@@ -224,7 +225,7 @@
               <!-- sshPrivateKey field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PRIVATE))">
                 <ion-label position="floating">{{ 'MODELS.SSH_KEY.PRIVATE' | translate }}</ion-label>
-                <ion-textarea [formControlName]="userFormKey.SSH_PRIVATE" autoGrow="true"
+                <ion-textarea [formControlName]="userFormKey.SSH_PRIVATE"
                   [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PRIVATE_KEY_PLACEHOLDER' | translate">
                 </ion-textarea>
               </ion-item>
@@ -240,7 +241,7 @@
               <!-- sshPublicKey field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PUBLIC))">
                 <ion-label position="floating">{{ 'MODELS.SSH_KEY.PUBLIC' | translate }}</ion-label>
-                <ion-textarea [formControlName]="userFormKey.SSH_PUBLIC" autoGrow="true"
+                <ion-textarea [formControlName]="userFormKey.SSH_PUBLIC"
                   [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PUBLIC_KEY_PLACEHOLDER' | translate">
                 </ion-textarea>
               </ion-item>
@@ -258,6 +259,43 @@
 
         </ion-col>
       </ion-row>
+
+      <ion-row class="ion-justify-content-center groups-form">
+        <ion-col size="12" size-sm="8" size-xl="7">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ 'MODELS.USER.GROUPS' | translate }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+
+              <!-- groups field -->
+              <ion-item [ngClass]="getValidationClasses(userFormKey.GROUPS_IDS)">
+
+                <ion-select multiple="true" [placeholder]="'GROUP_EDIT_PAGE.FORM.SELECT_GROUP_PLACEHOLDER' | translate"
+                  [doneText]="'COMMON.OK' | translate" [cancelText]="'COMMON.CANCEL' | translate"
+                  [formControlName]="userFormKey.GROUPS_IDS">
+                  <ion-select-option *ngFor="let group of groups" [value]="group?.id">
+                    {{ group?.name }}
+                  </ion-select-option>
+                </ion-select>
+
+              </ion-item>
+
+              <ng-container *ngFor="let validation of validationMessages[userFormKey.GROUPS_IDS]">
+                <div class="validation-errors"
+                  *ngIf="shouldDisplayErrorMessage(childrenForm.controls[i].get(userFormKey.GROUPS_IDS), validation.type)">
+                  <ion-icon name="information-circle-outline"></ion-icon>
+                  {{ validation.message | translate: {arg: ('MODELS.GROUP.CHILDREN' | translate | lowercase)
+                  }
+                  }}
+                </div>
+              </ng-container>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-sm="8" size-xl="7">
           <ion-card>

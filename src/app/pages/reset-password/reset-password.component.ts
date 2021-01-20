@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,20 +14,21 @@ export class ResetPasswordComponent implements OnInit {
     return this.resetPasswordForm.controls;
   }
 
+  public isDarkMode = false;
   public resetPasswordForm: FormGroup;
   public isSubmitted = false;
 
   constructor(
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit(): void {
     this._initializeAuthForm();
+    this.isDarkMode = this.localStorageService.isDarkMode.value;
   }
 
   public onSubmit(): void {
     this.isSubmitted = true;
-
-    console.log(this.resetPasswordForm);
   }
 
   public hasEmailValue(): boolean {

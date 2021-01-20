@@ -62,9 +62,9 @@ export class AuthenticationService {
         if (decodedToken && decodedToken.data && decodedToken.data.userId) {
           const userId = decodedToken.data.userId;
 
+          AuthenticationService.TOKEN = token;
           await this.usersService.getUser(userId)
             .then(user => {
-              AuthenticationService.TOKEN = token;
               this.user.next(user);
               return resolve();
             });

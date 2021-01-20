@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -16,6 +16,7 @@ import { JobsApiMock } from './dal/jobs/jobs-api-mock';
 import { AuthApiMock } from './dal/auth/auth-api-mock';
 import { AuthApiImpl } from './dal/auth/auth-api-impl';
 import { JobsApiImpl } from './dal/jobs/jobs-api-impl';
+import { RouteReuseStrategy } from '@angular/router';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -59,6 +60,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: 'AuthApiProtocol',
       useClass: environment.mock ? AuthApiMock : AuthApiImpl,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: IonicRouteStrategy
     }
   ],
   bootstrap: [AppComponent]

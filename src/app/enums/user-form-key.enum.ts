@@ -13,6 +13,6 @@ export enum UserFormKey {
   CONFIRM_PASSWORD = 'confirmPassword',
   GROUPS_IDS = 'groupIds',
   PHONE_NUMBERS = 'phoneNumbers',
-  PHONE_NUMBER = 'phoneNumberValue',
-  PHONE_TYPE = 'phoneNumberType'
+  PHONE_NUMBER = 'value',
+  PHONE_TYPE = 'type'
 }

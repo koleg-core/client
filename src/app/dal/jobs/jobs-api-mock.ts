@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 
 export class JobsApiMock extends HttpApiClient implements JobsApiProtocol {
 
-  private _jobs: Job[] = jsonJobs.map(job => Job.fromJSON(job));
+  private _jobs: Job[] = jsonJobs.map(job => Job.create(Job.fromJSON(job)));
 
   getJobs(parameters?: JobsParameters): Promise<Job[]> {
     return new Promise((resolve, reject) => {

@@ -3,7 +3,8 @@
   <ion-menu side="start" menu-id="main-menu" contentId="main">
     <ion-header>
       <ion-toolbar color="primary" class="ion-text-center">
-        <ion-title class="ion-no-padding"> {{ 'MAIN_PAGE.TITLE' | translate: {firstName: firstName} | titlecase }} </ion-title>
+        <ion-title class="ion-no-padding"> {{ 'MAIN_PAGE.TITLE' | translate: {firstName: firstName} | titlecase }}
+        </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -13,7 +14,9 @@
       </ion-list-header>
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of myInformation">
-          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link" routerDirection="root">
+          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link"
+            [routerLinkActiveOptions]="{exact:
+            true}" [routerDirection]="page.direction ? page.direction : 'root'">
             {{ page.name | translate }}
           </ion-item>
         </ion-menu-toggle>
@@ -24,7 +27,9 @@
       </ion-list-header>
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of explorePages">
-          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link" routerDirection="root">
+          <ion-item [routerLink]="page.path" [disabled]="page.disabled" routerLinkActive="activated-link"
+            [routerLinkActiveOptions]="{exact:
+            true}" routerDirection="root">
             {{ page.name | translate }}
           </ion-item>
         </ion-menu-toggle>
@@ -54,7 +59,7 @@
         </ion-item>
       </ion-list>
 
-      <ion-list-header>
+      <!-- <ion-list-header>
         <ion-label>{{ 'MAIN_PAGE.CONTACT.TITLE' | translate }}</ion-label>
       </ion-list-header>
       <ion-list>
@@ -63,7 +68,7 @@
             {{ page.name | translate }}
           </ion-item>
         </ion-menu-toggle>
-      </ion-list>
+      </ion-list> -->
     </ion-content>
   </ion-menu>
 
