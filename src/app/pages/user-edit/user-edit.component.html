@@ -146,7 +146,7 @@
 
                       <ion-select slot="start" [placeholder]="'USER_EDIT_PAGE.FORM.PHONE_TYPE_PLACEHOLDER' | translate"
                         [formControlName]="userFormKey.PHONE_TYPE" [cancelText]="'COMMON.CANCEL' | translate"
-                        [formControlName]="userFormKey.PHONE_TYPE">
+                        [doneText]="'COMMON.OK' | translate">
                         <ion-select-option *ngFor="let type of phoneTypes" [value]="type">
                           {{ 'PHONE_TYPE.' + type | translate }}
                         </ion-select-option>
@@ -194,7 +194,8 @@
 
               <!-- jobId field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.JOB_ID))">
-                <ion-select [formControlName]="userFormKey.JOB_ID"
+                <ion-select [formControlName]="userFormKey.JOB_ID" [doneText]="'COMMON.OK' | translate"
+                  [cancelText]="'COMMON.CANCEL' | translate"
                   [placeholder]="'USER_EDIT_PAGE.FORM.JOB_PLACEHOLDER' | translate">
                   <ion-select-option *ngFor="let job of jobs" [value]="job.id">
                     {{ job.name }}
