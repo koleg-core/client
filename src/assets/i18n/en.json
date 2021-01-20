@@ -122,7 +122,8 @@
     "NO_USERS": "No users found"
   },
   "USER_PAGE": {
-    "USER_EXPIRED": "This user expired on {{ date }}",
+    "USER_EXPIRED": "This user expired on {{ date }}.",
+    "USER_DISABLED": "This user is disabled.",
     "VCARD_NOT_EXIST": "This user does not have vCard.",
     "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard.",
     "NO_PHONE_NUMBERS": "This user does not have phone numbers."
@@ -159,7 +160,7 @@
     "USERS_NUMBER": "{{ number }} user(s) are concerned by this job."
   },
   "JOB_EDIT_PAGE": {
-    "TITLE_ADD": "Add a job",
+    "TITLE": "Add a job",
     "TITLE_UPDATE": "Update a job",
     "UPDATE_SUCCESS": "Job was successfully updated.",
     "ADD_SUCCESS": "Job was successfully added.",
