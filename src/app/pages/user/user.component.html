@@ -12,11 +12,21 @@
     </ion-buttons>
   </ion-toolbar>
 
-  <ion-row *ngIf="user?.isExpired()" class="ion-justify-content-center">
+  <ion-row *ngIf="!user?.isDisabled && user?.isExpired()" class="ion-justify-content-center">
     <ion-col size="12" size-md="7">
       <ion-card color="warning">
         <ion-card-content>
           {{ 'USER_PAGE.USER_EXPIRED' | translate: { date: (user?.expirationDate | date: 'dd/MM/yyyy') } }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="user?.isDisabled" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card color="danger">
+        <ion-card-content>
+          {{ 'USER_PAGE.USER_DISABLED' | translate }}
         </ion-card-content>
       </ion-card>
     </ion-col>
