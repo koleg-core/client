@@ -6,6 +6,7 @@
     <ion-card-title class="ion-padding-top">{{ group?.name}}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    {{ group?.description }}
+    <ion-textarea autoGrow="true" [value]="group?.description" [readonly]="true">
+    </ion-textarea>
   </ion-card-content>
 </ion-card>

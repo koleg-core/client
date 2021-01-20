@@ -58,8 +58,7 @@
   <ion-row class="ion-justify-content-center">
     <ion-col size="12" size-md="6" class="ion-justify-content-center">
       <ion-row class="ion-justify-content-around">
-        <ion-button fill="outline" (click)="onClickDownloadSshPublicKey()"
-          [disabled]="!user?.sshKey?.publicKey">
+        <ion-button fill="outline" (click)="onClickDownloadSshPublicKey()" [disabled]="!user?.sshKey?.publicKey">
           <ion-icon name="cloud-download" class="ion-padding-end"></ion-icon>
           {{ 'MODELS.SSH_KEY.PUBLIC' | translate }}
         </ion-button>
@@ -102,6 +101,9 @@
         <ion-card-content>
           <ion-list id="phones-list">
             <ion-item *ngFor="let phone of user?.phoneNumbers">
+              <ion-label slot="start">
+                {{ 'PHONE_TYPE.' + phone?.type | translate }}
+              </ion-label>
               {{ phone?.value }}
               <ion-buttons slot="end">
                 <ion-button (click)="onClickCallToButton(phone?.value)">
@@ -109,6 +111,9 @@
                 </ion-button>
               </ion-buttons>
             </ion-item>
+            <div *ngIf="user?.phoneNumbers && !user?.phoneNumbers.length">
+              {{ 'USER_PAGE.NO_PHONE_NUMBERS' | translate }}
+            </div>
           </ion-list>
         </ion-card-content>
       </ion-card>
@@ -140,7 +145,7 @@
           <ion-card-title>{{ job?.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{ job?.description }}
+          <ion-textarea [value]="job?.description" autoGrow="true" readonly="true"></ion-textarea>
         </ion-card-content>
       </ion-card>
     </ion-col>

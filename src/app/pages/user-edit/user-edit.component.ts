@@ -103,7 +103,7 @@ export class UserEditComponent extends AbstractFormPage {
         isDisabled: value[UserFormKey.IS_DISABLED],
         sshKey: { publicKey: value[UserFormKey.SSH_PUBLIC], privateKey: value[UserFormKey.SSH_PRIVATE] },
         username: null,
-        phoneNumbers: value[UserFormKey.PHONE_NUMBERS].filter(phone => phone.value && phone.type)
+        phoneNumbers: value[UserFormKey.PHONE_NUMBERS].filter(phone => phone[UserFormKey.PHONE_NUMBER] && phone[UserFormKey.PHONE_TYPE])
       };
 
       if (this.isUpdate) {
@@ -250,13 +250,13 @@ export class UserEditComponent extends AbstractFormPage {
 
   private _addUser(userProps: UserProps) {
     this.usersService.addUser(userProps)
-      .then(async () => {
+      .then(async (userId) => {
         if (userProps.password && userProps.password.value) {
-          await this.usersService.updatePassword(this._userId, userProps.password.value);
+          await this.usersService.updatePassword(userId, userProps.password.value);
         }
 
         if (this._newProfileData) {
-          await this.usersService.uploadProfile(this._userId, this._newProfileData);
+          await this.usersService.uploadProfile(userId, this._newProfileData);
         }
 
         this.toastService.presentToast('USER_EDIT_PAGE.ADD_SUCCESS');

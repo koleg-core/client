@@ -67,7 +67,7 @@ export class GroupsApiImpl extends HttpApiClient implements GroupsApiProtocol {
     )
       .pipe(map((res: any) => res.response))
       .toPromise<string>()
-      .then((res: any) => res.groupId);
+      .then((res: any) => res);
   }
 
   updateGroup(group: Group): Promise<Group> {

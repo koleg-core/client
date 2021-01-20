@@ -124,7 +124,8 @@
   "USER_PAGE": {
     "USER_EXPIRED": "This user expired on {{ date }}",
     "VCARD_NOT_EXIST": "This user does not have vCard.",
-    "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard."
+    "VCARD_UNKNOWN_ERROR": "An error occured while retrieving the vCard.",
+    "NO_PHONE_NUMBERS": "This user does not have phone numbers."
   },
   "USER_EDIT_PAGE": {
     "TITLE": "Add a user",

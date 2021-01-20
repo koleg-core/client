@@ -29,8 +29,6 @@ export class ResetPasswordComponent implements OnInit {
 
   public onSubmit(): void {
     this.isSubmitted = true;
-
-    console.log(this.resetPasswordForm);
   }
 
   public hasEmailValue(): boolean {

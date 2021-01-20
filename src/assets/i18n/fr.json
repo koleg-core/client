@@ -124,12 +124,13 @@
   "USER_PAGE": {
     "USER_EXPIRED": "Cet utilisateur a expiré le {{ date }}",
     "VCARD_NOT_EXIST": "Cet utilisateur n'a pas de vCard.",
-    "VCARD_UNKNOWN_ERROR": "Une erreur est survenue lors de la récupération de la vCard."
+    "VCARD_UNKNOWN_ERROR": "Une erreur est survenue lors de la récupération de la vCard.",
+    "NO_PHONE_NUMBERS": "Cet utilisateur n'a pas de numéros de téléphones."
   },
   "USER_EDIT_PAGE": {
     "TITLE": "Ajouter un utilisateur",
     "TITLE_UPDATE": "Mettre à jour un utilisateur",
-    "UPDATE_SUCCESS": "L'utilisateur a été mise à jour avec succès.",
+    "UPDATE_SUCCESS": "L'utilisateur a été mis à jour avec succès.",
     "ADD_SUCCESS": "L'utilisateur a été ajouté avec succès.",
     "FORM": {
       "SSH_PUBLIC_KEY_PLACEHOLDER": "Copier la clé publique ici ...",

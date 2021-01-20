@@ -53,7 +53,7 @@
         </ion-card-header>
 
         <ion-card-content>
-          {{ group?.description }}
+          <ion-textarea [value]="group?.description" autoGrow="true" [readonly]="true"></ion-textarea>
         </ion-card-content>
       </ion-card>
     </ion-col>

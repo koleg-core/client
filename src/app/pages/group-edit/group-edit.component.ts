@@ -29,7 +29,6 @@ export class GroupEditComponent extends AbstractFormPage {
   private _groupId: string;
   private _newGroupImage: string = null;
   private _groups: Group[] = [];
-  private _chosenGroups: string[] = [];
 
   private readonly UUID_VALIDATOR = /[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}/;
   private readonly MAX_FILE_SIZE = 4000000;
@@ -62,7 +61,6 @@ export class GroupEditComponent extends AbstractFormPage {
 
   onSubmit() {
     this.isSubmitted = true;
-    console.log(this.formGroup);
 
     if (this.formGroup.valid) {
 
@@ -151,10 +149,10 @@ export class GroupEditComponent extends AbstractFormPage {
 
   private _addGroup(groupProps: GroupProps) {
     this.groupsService.addGroup(groupProps)
-      .then(async () => {
+      .then(async (groupId: string) => {
 
         if (this._newGroupImage) {
-          await this.groupsService.uploadGroupImage(this._groupId, this._newGroupImage);
+          await this.groupsService.uploadGroupImage(groupId, this._newGroupImage);
         }
 
         this.toastService.presentToast('GROUP_EDIT_PAGE.ADD_SUCCESS');

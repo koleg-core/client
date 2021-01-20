@@ -65,8 +65,7 @@
               <!-- firstName field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.FIRST_NAME))">
                 <ion-label position="floating">{{ 'MODELS.USER.FIRST_NAME' | translate }}</ion-label>
-                <ion-input type="text" inputmode="text" [formControlName]="userFormKey.FIRST_NAME"
-                  required>
+                <ion-input type="text" inputmode="text" [formControlName]="userFormKey.FIRST_NAME" required>
                 </ion-input>
               </ion-item>
 
@@ -226,7 +225,7 @@
               <!-- sshPrivateKey field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PRIVATE))">
                 <ion-label position="floating">{{ 'MODELS.SSH_KEY.PRIVATE' | translate }}</ion-label>
-                <ion-textarea [formControlName]="userFormKey.SSH_PRIVATE" autoGrow="true"
+                <ion-textarea [formControlName]="userFormKey.SSH_PRIVATE"
                   [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PRIVATE_KEY_PLACEHOLDER' | translate">
                 </ion-textarea>
               </ion-item>
@@ -242,7 +241,7 @@
               <!-- sshPublicKey field -->
               <ion-item [ngClass]="getValidationClasses(formGroup.get(userFormKey.SSH_PUBLIC))">
                 <ion-label position="floating">{{ 'MODELS.SSH_KEY.PUBLIC' | translate }}</ion-label>
-                <ion-textarea [formControlName]="userFormKey.SSH_PUBLIC" autoGrow="true"
+                <ion-textarea [formControlName]="userFormKey.SSH_PUBLIC"
                   [placeholder]="'USER_EDIT_PAGE.FORM.SSH_PUBLIC_KEY_PLACEHOLDER' | translate">
                 </ion-textarea>
               </ion-item>

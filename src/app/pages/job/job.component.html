@@ -45,7 +45,7 @@
         </ion-card-header>
 
         <ion-card-content>
-          {{ job?.description }}
+					<ion-textarea [value]="job?.description" autoGrow="true" readonly="true"></ion-textarea>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -60,37 +60,5 @@
 			</ion-card>
     </ion-col>
   </ion-row>
-
-	<!-- <ion-row *ngIf="!isLoading && isJob()" class="ion-justify-content-center">
-		<ion-col size="12" size-md="7">
-			<ion-card>
-				<ion-card-header>
-					<ion-card-title>{{ job?.name }}</ion-card-title>
-				</ion-card-header>
-				<ion-card-content>
-					{{ job?.description }}
-					<ion-row class="ion-justify-content-end ion-padding-vertical">
-						<ion-button (click)="onClickEditJob()" size="small" [disabled]="isLoading" fill="clear">
-							<ion-icon slot="icon-only" name="create-outline"></ion-icon>
-						</ion-button>
-						<ion-button (click)="onClickDeleteJob()" size="small" [disabled]="isLoading" fill="clear">
-							<ion-icon slot="icon-only" color="danger" name="trash-outline"></ion-icon>
-						</ion-button>
-					</ion-row>
-				</ion-card-content>
-			</ion-card>
-
-		</ion-col>
-	</ion-row>
-
-	<ion-row *ngIf="!isLoading && isJob() && number" class="ion-justify-content-center">
-		<ion-col size="12" size-md="7">
-			<ion-card color="warning">
-				<ion-card-content>
-					{{ 'JOB_PAGE.USERS_NUMBER' | translate: { number: number } }}
-				</ion-card-content>
-			</ion-card>
-		</ion-col>
-	</ion-row> -->
 
 </ion-content>

@@ -28,7 +28,7 @@
           <ion-card-title>{{ job?.name }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          {{ job?.description }}
+          <ion-textarea [value]="job?.description" autoGrow="true" readonly="true"></ion-textarea>
         </ion-card-content>
       </ion-card>
     </ion-col>

@@ -88,7 +88,7 @@ export class UsersApiImpl extends HttpApiClient implements UsersApiProtocol {
     )
       .pipe(map((res: any) => res.response))
       .toPromise<string>()
-      .then((res: any) => res.userId);
+      .then((res: any) => res);
   }
 
   updateUser(user: User): Promise<User> {
