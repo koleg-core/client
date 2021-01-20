@@ -1,7 +1,7 @@
 <ion-content>
   <ion-grid>
 
-    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" (keyup.enter)="onKeyUp($event)">
 
       <ion-row class="ion-justify-content-center">
         <ion-col size="12" size-sm="8" size-md="6" size-lg="4" size-xl="4">

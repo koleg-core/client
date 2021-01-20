@@ -9,7 +9,7 @@ import { SearchFilter } from 'src/app/enums/search-filter.enum';
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
-export class SearchbarComponent implements OnInit {
+export class SearchbarComponent {
   @Input() filters: SearchFilter[] = [];
 
   @Output() searchEmitter: EventEmitter<string> = new EventEmitter<string>();
@@ -26,7 +26,10 @@ export class SearchbarComponent implements OnInit {
     private translate: TranslateService
   ) { }
 
-  ngOnInit(): void {
+  onKeyUp(e: any) {
+    if (e.keyCode === 13) {
+      this.onClickSearchButton();
+    }
   }
 
   onClickSearchButton() {

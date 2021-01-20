@@ -1,28 +1,108 @@
 <app-header></app-header>
 
-<ion-content  class="ion-justify-content-center">
+<ion-content class="ion-justify-content-center">
 
   <ion-progress-bar *ngIf="isLoading" type="indeterminate"></ion-progress-bar>
 
-  <ion-row *ngIf="!isLoading && isGroup()" class="ion-justify-content-center">
-    <h1>{{ 'GROUP_PAGE.TITLE' | translate }}</h1>
-  </ion-row>
-  <ion-row *ngIf="!isLoading && !isGroup()" class="ion-justify-content-center">
-    <h1>{{ 'GROUP_PAGE.NO_GROUPS' | translate }}</h1>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onClickBackButton()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        {{ 'COMMON.BACK' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-row *ngIf="!isLoading && !group" class="ion-justify-content-center">
+    <h1>{{ 'GROUP_PAGE.NO_GROUP' | translate }}</h1>
   </ion-row>
 
-  <ion-row *ngIf="!isLoading && isGroup()" class="ion-justify-content-center">
-    <ion-card class="groupCard">
-      <ion-card-header>
-        <ion-avatar class="avatar">
-          <img [src]="group?.imageURL">
-        </ion-avatar>
-        <ion-card-title>{{ group?.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        {{ group?.description}}
-      </ion-card-content>
-    </ion-card>
+  <ion-row *ngIf="!isLoading && group" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header color="primary">
+          <ion-avatar class="avatar">
+            <ion-img [src]="group?.imageURL"></ion-img>
+          </ion-avatar>
+          <ion-card-title class="ion-text-center ion-padding-top">
+            {{ group?.name }}
+          </ion-card-title>
+          <ion-row class="ion-justify-content-end">
+            <ion-col size="auto">
+              {{ 'COMMON.CREATED_DATE' | translate }} {{ group?.creationDate | date: 'dd/MM/yyyy' }}
+            </ion-col>
+          </ion-row>
+          <ion-buttons class="floating-button">
+            <ion-button [disabled]="isLoading" (click)="onClickEditGroupButton()">
+              <ion-icon size="small" slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button [disabled]="isLoading" (click)="onClickDeleteGroupButton()">
+              <ion-icon size="small" slot="icon-only" color="danger" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && group && group?.description" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.GROUP.DESCRIPTION' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{ group?.description }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && group && parent" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.GROUP.PARENT' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-row class="ion-justify-content-center">
+            <ion-col size="8">
+              <app-group-card (click)="onClickGroupCard(parent.id)" [group]="parent"></app-group-card>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && group && hasChildren()" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{ 'MODELS.GROUP.CHILDREN' | translate }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-row class="carousel-wrapper ion-align-items-center ion-nowrap">
+            <ion-col class="ion-no-padding" size="8" *ngFor="let child of children">
+              <app-group-card (click)="onClickGroupCard(child.id)" [group]="child"></app-group-card>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isLoading && group && number" class="ion-justify-content-center">
+    <ion-col size="12" size-md="7">
+      <ion-card color="warning">
+        <ion-card-content>
+          {{ 'GROUP_PAGE.USERS_NUMBER' | translate: { number: number } }}
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
   </ion-row>
 
 </ion-content>

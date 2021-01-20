@@ -1,0 +1,14 @@
+export enum ApiErrorCode {
+  UPDATED = 0,
+  REMOVED = 1,
+  CREATED = 2,
+  NOTHING_CHANGED = 3,
+  DUPLICATED = 4,
+  NOT_FOUND = -1,
+  NOT_EDITABLE = -2,
+  NOT_CREATED = -2,
+  WAS_ALREADY_USED = -3,
+  CONFLICTING = -4,
+  SERVER_ERROR = -5,
+  NOT_UPDATED = -6,
+}

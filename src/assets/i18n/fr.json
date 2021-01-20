@@ -15,6 +15,7 @@
     "LOADING_MESSAGE": "Patientez s'il vous plait ...",
     "NO_MORE_DATA": "Pas de données supplémentaires",
     "LOAD_MORE_DATA": "Chargement de plus de données ...",
+    "ACCEPTATION_ALERT": "Etes-vous sûr ?",
     "FORMS": {
       "ERRORS": {
         "FIELDS_REQUIRED": "Tous les champs sont requis.",
@@ -29,7 +30,9 @@
       "AUTH": {
         "INVALID_ARGS": "Identifiant et/ou mot de passe invalide(s)."
       },
-      "FALLBACK": "Une erreur inconnue est survenue."
+      "FALLBACK": "Une erreur inconnue est survenue.",
+      "JOB_CONFLICT": "Une profession avec ce nom existe déjà.",
+      "GROUP_CONFLICT": "Un groupe avec ce nom existe déjà."
     }
   },
   "PHONE_TYPE": {
@@ -41,7 +44,7 @@
   "MODELS": {
     "JOB": {
       "NAME": "Libellé",
-      "DESCRIPTION": "Déscription",
+      "DESCRIPTION": "Description",
       "ICON_URL": "Icône"
     },
     "USER": {
@@ -59,11 +62,18 @@
       "IS_DISABLED": "Désactivé",
       "UPDATE_DATE": "Date de mise à jour",
       "VCARD": "vCard",
-      "PASSWORD": "Mot de passe"
+      "PASSWORD": "Mot de passe",
+      "GROUPS": "Groupes"
     },
     "SSH_KEY": {
       "PUBLIC": "Clé publique",
       "PRIVATE": "Clé privée"
+    },
+    "GROUP": {
+      "NAME": "Nom",
+      "DESCRIPTION": "Description",
+      "PARENT": "Groupe parent",
+      "CHILDREN": "Groupes enfants"
     }
   },
   "FILTERS": {
@@ -125,7 +135,9 @@
       "SSH_PUBLIC_KEY_PLACEHOLDER": "Copier la clé publique ici ...",
       "SSH_PRIVATE_KEY_PLACEHOLDER": "Copier la clé publique ici ...",
       "PHONE_NUMBER_PLACEHOLDER": "ex : +33 1 02 03 04 05",
-      "JOB_PLACEHOLDER": "Choisir une profession ..."
+      "JOB_PLACEHOLDER": "Choisir une profession ...",
+      "PHONE_TYPE_PLACEHOLDER": "Choisir un type ...",
+      "SELECT_GROUP_PLACEHOLDER": "Sélectionner un groupe ..."
     },
     "PERSONAL_DATA": "Informations personnelles",
     "CONTACT_INFORMATION": "Informations de contact",
@@ -143,7 +155,7 @@
     "DELETE_JOB": {
       "SUCCESS": "La profession {{jobName}} a été supprimée avec succès."
     },
-    "USERS_NUMBER": "{{ number }} utilisateurs sont concernés pas cette profession."
+    "USERS_NUMBER": "{{ number }} utilisateur(s) sont concerné(s) pas cette profession."
   },
   "JOB_EDIT_PAGE": {
     "TITLE": "Ajouter une profession",
@@ -160,7 +172,22 @@
   },
   "GROUP_PAGE": {
     "TITLE": "Détails du groupe",
-    "NO_GROUPS": "Aucun groupe trouvé"
+    "NO_GROUPS": "Aucun groupe trouvé",
+    "DELETE_GROUP": {
+      "SUCCESS": "Le groupe {{groupName}} a été supprimé avec succès."
+    },
+    "USERS_NUMBER": "{{ number }} utilisateur(s) appartenant à ce groupe."
+  },
+  "GROUP_EDIT_PAGE": {
+    "TITLE": "Ajouter un groupe",
+    "TITLE_UPDATE": "Mettre à jour un groupe",
+    "INFORMATION": "Information du groupe",
+    "UPDATE_SUCCESS": "Le groupe a été mis à jour avec succès.",
+    "ADD_SUCCESS": "La groupe a été ajouté avec succès.",
+    "FORM": {
+      "SELECT_GROUP_PLACEHOLDER": "Sélectionner un groupe ...",
+      "DESCRIPTION_PLACEHOLDER": "Insérer une description ici ..."
+    }
   },
   "ABOUT_PAGE": {
     "TITLE": "À propos"

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { JobsService } from 'src/app/services/jobs.service';
 import { ToastService } from 'src/app/services/toast-service.service';
-import { environment } from 'src/environments/environment';
 import { Job } from '../../models/job';
 
 @Component({
@@ -46,7 +45,7 @@ export class JobComponent {
 
   async onClickDeleteJob() {
     const alert = await this.alertController.create({
-      message: this.translate.instant('HEADER_COMPONENT.LOGOUT_ALERT_MESSAGE'),
+      message: this.translate.instant('COMMON.ACCEPTATION_ALERT'),
       buttons: [
         {
           text: this.translate.instant('COMMON.NO'),

@@ -37,11 +37,11 @@ export class JobsComponent {
     private toastService: ToastService
   ) { }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     this.areAllDataLoaded = false;
     this.isLoading = true;
 
-    // update the users list when we go back from the user details page
+    // update the users list when we go back from the job details page
     // with the correct pageNumber and automatically scroll to the clicked list item
     const initParameters = { ...this._parameters };
     initParameters.itemsNumber = this._parameters.page * this._parameters.itemsNumber;
@@ -106,6 +106,7 @@ export class JobsComponent {
         this.jobs = this.jobs.concat(jobs);
         if (this.jobs.length === oldLength) {
           this.areAllDataLoaded = true;
+          this._pageNumber --;
         }
       })
       .catch(error => {

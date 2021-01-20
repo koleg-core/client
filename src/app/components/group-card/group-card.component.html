@@ -1,11 +1,11 @@
-<ion-card button>  
+<ion-card button>
   <ion-card-header>
     <ion-avatar class="avatar">
-      <img [src]="group?.imageURL">
+      <ion-img [src]="group?.imageURL"></ion-img>
     </ion-avatar>
-    <ion-card-title>{{ group?.name }}</ion-card-title>
+    <ion-card-title class="ion-padding-top">{{ group?.name}}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    {{ group?.description}}
+    {{ group?.description }}
   </ion-card-content>
 </ion-card>

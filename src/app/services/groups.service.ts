@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { GroupsApiProtocol, GroupsParameters } from '../dal/groups/groups-api-protocol';
-import { Group } from '../models/group';
+import { Group, GroupProps } from '../models/group';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ export class GroupsService {
 
   constructor(
     @Inject('GroupsApiProtocol') private groupsApiService: GroupsApiProtocol
-  ) {}
+  ) { }
 
   public getGroups(parameters?: GroupsParameters): Promise<Group[]> {
     return this.groupsApiService.getGroups(parameters);
@@ -19,15 +19,25 @@ export class GroupsService {
     return this.groupsApiService.getGroup(groupId);
   }
 
-  public addGroup(group: Group): Promise<any> {
+  public addGroup(groupProps: GroupProps): Promise<any> {
+    const group = Group.create(groupProps);
     return this.groupsApiService.addGroup(group);
   }
 
-  public updateGroup(group: Group): Promise<Group> {
+  public updateGroup(groupProps: GroupProps): Promise<Group> {
+    const group = Group.create(groupProps);
     return this.groupsApiService.updateGroup(group);
   }
 
   public deleteGroup(groupId: string): Promise<any> {
     return this.groupsApiService.deleteGroup(groupId);
+  }
+
+  public uploadGroupImage(groupId: string, fileDate: string): Promise<void> {
+    return this.groupsApiService.uploadGroupImage(groupId, fileDate);
+  }
+
+  public getUsersNumberByGroup(groupId: string): Promise<number> {
+    return this.groupsApiService.getUsersNumberByGroup(groupId);
   }
 }

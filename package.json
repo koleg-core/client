@@ -7,7 +7,7 @@
     "start:develop": "ng serve --configuration=develop --ssl true",
     "start:master": "ng serve --configuration=master --ssl true",
     "build": "ng build",
-    "build:develop": "ng build --configuration=develop" ,
+    "build:develop": "ng build --configuration=develop",
     "build:master": "ng build --configuration=master",
     "test": "ng test",
     "lint": "ng lint",

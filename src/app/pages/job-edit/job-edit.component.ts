@@ -3,8 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiErrorCode } from 'src/app/enums/api-error-code.enum';
+import { JobFormKey } from 'src/app/enums/job-form-key.enum';
 import { ValidationType } from 'src/app/enums/validation-type.enum';
-import { Job } from 'src/app/models/job';
+import { Job, JobProps } from 'src/app/models/job';
 import { JobsService } from 'src/app/services/jobs.service';
 import { ToastService } from 'src/app/services/toast-service.service';
 import { AbstractFormPage } from '../abstract-form-page/abstract-form-page';
@@ -20,6 +22,7 @@ export class JobEditComponent extends AbstractFormPage {
   public job: Job = null;
   public isUpdate = false;
   public descriptionMaxLength = Job.DESCRIPTION_MAX_LENGTH;
+  public jobFormKey = JobFormKey;
 
   private _jobId: string;
 
@@ -54,35 +57,41 @@ export class JobEditComponent extends AbstractFormPage {
 
     if (this.formGroup.valid) {
 
-      const name: string = this.formGroup.get('name').value;
-      const description: string = this.formGroup.get('description').value;
-      const iconUrl: string = this.formGroup.get('iconUrl').value;
+      const value = this.formGroup.value;
+
+      const jobProps: JobProps = {
+        id: this._jobId,
+        name: value[JobFormKey.NAME],
+        description: value[JobFormKey.DESCRIPTION]
+      };
 
       this.isLoading = true;
 
       if (this.isUpdate) {
-        this._updateJob(name, description, iconUrl);
+        this._updateJob(jobProps);
       } else {
-        this._addJob(name, description, iconUrl);
+        this._addJob(jobProps);
       }
     }
   }
 
   private _initializeJobForm(job: Job): void {
-    this.formGroup = new FormGroup({
-      name: new FormControl(job ? job.name : '', [Validators.required]),
-      description: new FormControl(job ? job.description : '', [Validators.maxLength(this.descriptionMaxLength)]),
-      iconUrl: new FormControl(job ? job.iconUrl : ''),
-    });
 
-    this.validationMessages = {
-      name: [
-        { type: ValidationType.REQUIRED, message: 'COMMON.FORMS.ERRORS.FIELD_REQUIRED' }
-      ],
-      description: [
-        { type: ValidationType.MAX_LENGTH, message: 'COMMON.FORMS.ERRORS.MAX_LENGTH' }
-      ]
-    };
+    const controls = {};
+
+    controls[JobFormKey.NAME] = new FormControl(job ? job.name : '', [Validators.required]);
+    controls[JobFormKey.DESCRIPTION] = new FormControl(job ? job.description : '', [Validators.maxLength(this.descriptionMaxLength)]);
+
+    this.formGroup = new FormGroup(controls);
+
+    this.validationMessages = {};
+    this.validationMessages[JobFormKey.NAME] = [
+      { type: ValidationType.REQUIRED, message: 'COMMON.FORMS.ERRORS.FIELD_REQUIRED' }
+    ];
+
+    this.validationMessages[JobFormKey.DESCRIPTION] = [
+      { type: ValidationType.MAX_LENGTH, message: 'COMMON.FORMS.ERRORS.MAX_LENGTH' }
+    ];
   }
 
   private _getJob() {
@@ -98,28 +107,36 @@ export class JobEditComponent extends AbstractFormPage {
       .finally(() => this.isLoading = false);
   }
 
-  private _updateJob(name: string, description: string, iconUrl: string) {
-    this.jobsService.updateJob(this._jobId, name, description, iconUrl)
+  private _updateJob(jobProps: JobProps) {
+    this.jobsService.updateJob(jobProps)
       .then(() => {
         this.toastService.presentToast(this.translate.instant('JOB_EDIT_PAGE.UPDATE_SUCCESS'));
         this.navController.pop();
       })
       .catch(error => {
         console.error(error);
-        this.toastService.presentToastDanger();
+        if (error?.error?.status === ApiErrorCode.CONFLICTING) {
+          this.toastService.presentToastDanger('COMMON.ERRORS.JOB_CONFLICT');
+        } else {
+          this.toastService.presentToastDanger();
+        }
       })
       .finally(() => this.isLoading = false);
   }
 
-  private _addJob(name: string, description: string, iconUrl: string) {
-    this.jobsService.addJob(this._jobId, name, description, iconUrl)
+  private _addJob(jobProps: JobProps) {
+    this.jobsService.addJob(jobProps)
       .then(() => {
         this.toastService.presentToast(this.translate.instant('JOB_EDIT_PAGE.ADD_SUCCESS'));
         this.navController.pop();
       })
       .catch(error => {
-        console.error(error);
-        this.toastService.presentToastDanger();
+        console.error(error.error);
+        if (error?.error?.status === ApiErrorCode.CONFLICTING) {
+          this.toastService.presentToastDanger('COMMON.ERRORS.JOB_CONFLICT');
+        } else {
+          this.toastService.presentToastDanger();
+        }
       })
       .finally(() => this.isLoading = false);
   }

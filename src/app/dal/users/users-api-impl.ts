@@ -71,7 +71,7 @@ export class UsersApiImpl extends HttpApiClient implements UsersApiProtocol {
       .then(jsonJob => {
         let job: Job = null;
         if (jsonJob) {
-          job = Job.fromJSON(jsonJob);
+          job = Job.create(Job.fromJSON(jsonJob));
         }
         console.log(job);
         return job;

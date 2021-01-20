@@ -8,7 +8,7 @@ export const environment = {
   mock: false,
   timeout: 2000,
   insecure: true,
-  toastDuration: 2000,
+  toastDuration: 3000,
   defaultPageSize: 20,
   defaultPageNumber: 1,
   langs: [

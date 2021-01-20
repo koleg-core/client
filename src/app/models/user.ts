@@ -107,7 +107,7 @@ export class User implements UserProps {
       email: userJson.email,
       password: null,
       jobId: userJson.jobId,
-      groupsIds,
+      groupsIds: userJson.groupIds,
       profilePictureUrl: userJson.profilePictureUrl,
       sshKey: { publicKey: userJson.sshPublicKey, privateKey: null },
       phoneNumbers: userJson.phones,

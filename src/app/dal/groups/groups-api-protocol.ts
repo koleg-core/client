@@ -1,12 +1,10 @@
-import { Group } from 'src/app/models/group';
+import { Group, GroupProps } from 'src/app/models/group';
 import { Right } from 'src/app/models/right';
 
 export interface GroupsParameters {
   itemsNumber?: number;
   page?: number;
-  name?: string;
-  description?: string;
-  imageURL?: string;
+  filter?: string;
 }
 
 export interface GroupsApiProtocol {
@@ -24,4 +22,8 @@ export interface GroupsApiProtocol {
   getGroupRights(groupId: string): Promise<Right[]>;
 
   updateGroupRights(groupId: string, rights: Right[]): Promise<Right[]>;
+
+  uploadGroupImage(groupId: string, fileData: string): Promise<void>;
+
+  getUsersNumberByGroup(groupId: string): Promise<number>;
 }

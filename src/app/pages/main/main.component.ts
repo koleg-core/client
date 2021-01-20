@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -18,13 +19,9 @@ export class MainComponent implements OnInit {
   public myInformation = [
     {
       name: 'MAIN_PAGE.MY_INFORMATION.PROFILE',
-      path: '/main/users/details/' + (this.authService.user ? this.authService.user.value.id : ''),
-      disabled: (this.authService.user ? false : true)
-    },
-    {
-      name: 'MAIN_PAGE.MY_INFORMATION.GROUPS',
-      path: '/main/groups',
-      disabled: false
+      path: '/main/users/details/' + (this.authService.user ? this.authService.user?.value?.id : ''),
+      disabled: (this.authService.user ? false : true),
+      direction: 'forward'
     }
   ];
 
@@ -46,19 +43,15 @@ export class MainComponent implements OnInit {
     }
   ];
 
-  public contactPages = [
-    {
-      name: 'ABOUT_PAGE.TITLE',
-      path: '/about'
-    }
-  ];
+  public contactPages = [];
 
   public langs = environment.langs;
 
   constructor(
     private localStorageService: LocalStorageService,
     private translate: TranslateService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private navController: NavController
   ) { }
 
   ngOnInit() {
@@ -79,6 +72,10 @@ export class MainComponent implements OnInit {
         this.firstName = user.firstName;
       }
     });
+  }
+
+  onClickMyInformationItem(path: string) {
+    this.navController.navigateRoot(path);
   }
 
   onChangeDarkModeToggle() {
